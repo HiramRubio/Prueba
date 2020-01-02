@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import pyproj as proj
 import numpy as np; np.random.seed(1)
 from scipy.spatial import ConvexHull
+from scipy.spatial import distance
 
 #Agregar los valores fijos de intensidad
 
@@ -25,6 +26,7 @@ cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format
 
 #Leemos  el archivo
 df = pandas.read_csv('intensidad.csv')
+#print(df)
 #Nuestro array para almacenar puntos
 P = []
 
@@ -43,12 +45,20 @@ Dy = (yo,yf)
 C1 = []
 C2 = []
 C3 = []
+C4 = []
 for i in range(0,len(P)):
     C1.append(P[i][1])
     C2.append(P[i][2])
     C3.append(P[i][3])
+    C4.append((P[i][1],P[i][2]))
 
 plt.plot(C1,C2, 'ro', P[len(P)-1][1], P[len(P)-1][2],'go')
+
+#Calculamos la distancia de todos los puntos hacía el epicentro
+dists = distance.cdist(C4,C4,'euclidean')
+
+rmax = np.max(dists)
+print('Distancia maxima: ',str(rmax))
 #------------------------------------------
 
 #Encerrando la data con poligonos irregulares
@@ -107,3 +117,5 @@ encircle2(R5x, R5y, ec="red", fc="gold", alpha=0.2)
 plt.gca().relim()
 plt.gca().autoscale_view()
 plt.show()
+
+#Ahora debemos crear otro grip y llenarlo

@@ -25,7 +25,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('intensidad.csv')
+df = pandas.read_csv('intensidad2.csv')
 #print(df)
 #Nuestro array para almacenar puntos
 P = []
@@ -50,15 +50,18 @@ for i in range(0,len(P)):
     C1.append(P[i][1])
     C2.append(P[i][2])
     C3.append(P[i][3])
-    C4.append((P[i][1],P[i][2]))
+    if(i!=(len(P)-1)):
+        C4.append((P[i][1],P[i][2]))
 
 plt.plot(C1,C2, 'ro', P[len(P)-1][1], P[len(P)-1][2],'go')
 
 #Calculamos la distancia de todos los puntos hacía el epicentro
-dists = distance.cdist(C4,C4,'euclidean')
-
+PO = []
+PO.append((P[len(P)-1][1],P[len(P)-1][2]))
+dists = distance.cdist(PO,C4,'euclidean')
 rmax = np.max(dists)
-print('Distancia maxima: ',str(rmax))
+IO = P[len(P)-1][3]
+#print('Distancia maxima: ',str(rmax))
 #------------------------------------------
 
 #Encerrando la data con poligonos irregulares
@@ -92,6 +95,7 @@ R4x = []
 R4y = []
 R5x = []
 R5y = []
+
 for i in range(0,len(P)):
     if C3[i]> (min(C3)):
         R1x.append(C1[i])
@@ -116,6 +120,39 @@ encircle2(R4x, R4y, ec="orange", fc="none", alpha=0.2)
 encircle2(R5x, R5y, ec="red", fc="gold", alpha=0.2)
 plt.gca().relim()
 plt.gca().autoscale_view()
-plt.show()
+#plt.show()
 
 #Ahora debemos crear otro grip y llenarlo
+#Lista de los puntos con su intensidad
+PFx = []
+PFy = []
+PFI = []
+for i in range(int(Dx[0]),int(Dx[1]),5000):
+    for j in range(int(Dy[0]),int(Dy[1]),5000):
+        #Preparamos el punto de prueba
+        PT = []
+        PT.append((i,j))
+        #Calculamos la distancia de este a todas las estaciones y al epicentro
+        Calc = distance.cdist(PT,C4,'euclidean')
+        #print(i,j)
+        #print(Calc)
+        #La suma de todas las distancias
+        Sum = 0
+        for a in range(len(Calc[0])-2):
+            Sum=+Calc[0][a]
+        #print(Sum)
+        #Calculamos la intensidad en estos puntos
+        I_Sum = 0
+        for a in range(len(Calc[0])-2):
+            I_Sum = float(Calc[0][a]/Sum)*C3[a]
+        #--Final
+        alpha = float(Calc[0][len(dists)-1]/rmax)
+        I_est = alpha*IO + (1-alpha)*I_Sum
+        #print(I_est)
+        PFx.append(i)
+        PFy.append(j)
+        PFI.append(I_est)
+
+fig,ax = plt.subplots()
+ax.scatter(PFx, PFy, c=PFI, s=50)
+plt.show()

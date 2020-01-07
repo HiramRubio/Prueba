@@ -25,7 +25,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('intensidad2.csv')
+df = pandas.read_csv('intensidad.csv')
 #print(df)
 #Nuestro array para almacenar puntos
 P = []
@@ -45,6 +45,7 @@ Dy = (yo,yf)
 C1 = []
 C2 = []
 C3 = []
+#Este almacena todos los puntos menos el epicentro
 C4 = []
 for i in range(0,len(P)):
     C1.append(P[i][1])
@@ -59,7 +60,9 @@ plt.plot(C1,C2, 'ro', P[len(P)-1][1], P[len(P)-1][2],'go')
 PO = []
 PO.append((P[len(P)-1][1],P[len(P)-1][2]))
 dists = distance.cdist(PO,C4,'euclidean')
-rmax = np.max(dists)
+#Buscamos la distancia máxima
+#rmax = np.max(dists)
+#Guardamos la intensidad en el epicentro
 IO = P[len(P)-1][3]
 #print('Distancia maxima: ',str(rmax))
 #------------------------------------------
@@ -123,12 +126,13 @@ plt.gca().autoscale_view()
 #plt.show()
 
 #Ahora debemos crear otro grip y llenarlo
-#Lista de los puntos con su intensidad
+#Lista de los puntos x,y e intensidad
 PFx = []
 PFy = []
 PFI = []
-for i in range(int(Dx[0]),int(Dx[1]),5000):
-    for j in range(int(Dy[0]),int(Dy[1]),5000):
+#Definimos el tamaño del grid
+for i in range(int(Dx[0]),int(Dx[1]),4000):
+    for j in range(int(Dy[0]),int(Dy[1]),4000):
         #Preparamos el punto de prueba
         PT = []
         PT.append((i,j))
@@ -138,16 +142,22 @@ for i in range(int(Dx[0]),int(Dx[1]),5000):
         #print(Calc)
         #La suma de todas las distancias
         Sum = 0
-        for a in range(len(Calc[0])-2):
-            Sum=+Calc[0][a]
-        #print(Sum)
+        for a in range(len(Calc[0])-1):
+            Sum = Sum + abs(Calc[0][a])
+            #print(Calc[0][a])
+            
+        #print("Suma: "+str(Sum))
         #Calculamos la intensidad en estos puntos
         I_Sum = 0
-        for a in range(len(Calc[0])-2):
-            I_Sum = float(Calc[0][a]/Sum)*C3[a]
+        for a in range(len(Calc[0])-1):
+            I_Sum= I_Sum +float((Calc[0][a]/Sum))*C3[a]
+            #print(Calc[0][a]/Sum)
         #--Final
-        alpha = float(Calc[0][len(dists)-1]/rmax)
+        rmax = np.max(Calc)
+        alpha = -float(Calc[0][len(dists)-1]/rmax)+1
         I_est = alpha*IO + (1-alpha)*I_Sum
+        #I_est = I_Sum
+        #print("Alpha: "+str(alpha)+" Iest: "+str(IO)+" Iprom: "+str(I_Sum))
         #print(I_est)
         PFx.append(i)
         PFy.append(j)

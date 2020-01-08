@@ -35,10 +35,8 @@ for i in range(0,len(df)):
     P.append( (df['Nombre'][i],x[0],x[1],df['Intensidad'][i]) )
     
 #Definimos nuestra region
-xo, yb1 = proj.transform(crs_wgs, cust, -93.311536, 15.011392)
-xf, yb2 = proj.transform(crs_wgs, cust, -87.982886, 14.723266)
-xb1, yo = proj.transform(crs_wgs, cust, -90.504369, 13.361663)
-xb2, yf = proj.transform(crs_wgs, cust, -90.305631, 16.219592)
+xo, yf = proj.transform(crs_wgs, cust, -94.0, 19.0)
+xf, yo = proj.transform(crs_wgs, cust, -87.0, 12.0)
 Dx = (xo,xf)
 Dy = (yo,yf)
 
@@ -54,14 +52,16 @@ for i in range(0,len(P)):
     if(i!=(len(P)-1)):
         C4.append((P[i][1],P[i][2]))
 
+print( "Epicentro: "+str(C1[len(C1)-1])+" "+str(C2[len(C2)-1]) )
+#Ploteamos las estaciones
 plt.plot(C1,C2, 'ro', P[len(P)-1][1], P[len(P)-1][2],'go')
-
 #Calculamos la distancia de todos los puntos hacía el epicentro
+"""
 PO = []
 PO.append((P[len(P)-1][1],P[len(P)-1][2]))
 dists = distance.cdist(PO,C4,'euclidean')
 #Buscamos la distancia máxima
-#rmax = np.max(dists)
+#rmax = np.max(dists)"""
 #Guardamos la intensidad en el epicentro
 IO = P[len(P)-1][3]
 #print('Distancia maxima: ',str(rmax))
@@ -124,15 +124,15 @@ encircle2(R5x, R5y, ec="red", fc="gold", alpha=0.2)
 plt.gca().relim()
 plt.gca().autoscale_view()
 #plt.show()
-
+#------------------------------------------------------
 #Ahora debemos crear otro grip y llenarlo
-#Lista de los puntos x,y e intensidad
+#Listas de los puntos x,y e intensidad
 PFx = []
 PFy = []
 PFI = []
 #Definimos el tamaño del grid
-for i in range(int(Dx[0]),int(Dx[1]),4000):
-    for j in range(int(Dy[0]),int(Dy[1]),4000):
+for i in range(int(Dx[0]),int(Dx[1]),5000):
+    for j in range(int(Dy[0]),int(Dy[1]),5000):
         #Preparamos el punto de prueba
         PT = []
         PT.append((i,j))
@@ -143,19 +143,26 @@ for i in range(int(Dx[0]),int(Dx[1]),4000):
         #La suma de todas las distancias
         Sum = 0
         for a in range(len(Calc[0])-1):
-            Sum = Sum + abs(Calc[0][a])
+            Sum = Sum + (Calc[0][a])
             #print(Calc[0][a])
             
         #print("Suma: "+str(Sum))
-        #Calculamos la intensidad en estos puntos
+        #Calculamos la intensidad en cada uno de estos puntos
         I_Sum = 0
+        alpha2 = 0
+        Sum_ap = 0
         for a in range(len(Calc[0])-1):
-            I_Sum= I_Sum +float((Calc[0][a]/Sum))*C3[a]
-            #print(Calc[0][a]/Sum)
+            alpha2 = float((Calc[0][a]/Sum))
+            I_Sum= I_Sum + alpha2*C3[a]
+            Sum_ap = Sum_ap + alpha2
+            #print(alpha2)
+            
+        #print("Suma: "+str(Sum_ap))
         #--Final
         rmax = np.max(Calc)
-        alpha = -float(Calc[0][len(dists)-1]/rmax)+1
-        I_est = alpha*IO + (1-alpha)*I_Sum
+        alpha = float(Calc[0][len(Calc[0])-1]/rmax)
+        #print(str(alpha)+" en pos: "+str(i)+" ,"+str(j))
+        I_est = alpha*IO + (1.0 - alpha)*I_Sum
         #I_est = I_Sum
         #print("Alpha: "+str(alpha)+" Iest: "+str(IO)+" Iprom: "+str(I_Sum))
         #print(I_est)

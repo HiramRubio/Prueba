@@ -57,7 +57,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('2019-05-30-0903.csv')
+df = pandas.read_csv('2019-11-30-0744.csv')
 #print(df)
 #Nuestro array para almacenar puntos
 P = []

@@ -13,6 +13,38 @@ import numpy as np; np.random.seed(1)
 from scipy.spatial import ConvexHull
 from scipy.spatial import distance
 
+
+
+def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
+    """
+    Ex, Ey = Puntos x,y del Epicentro
+    Px, Py = Puntos x,y del punto que se va a estimar
+    Esx, Esy = Puntos x,y de la Estacion
+    IE = Intensidad Epicentro
+    IP = Intensidad Punto
+    """
+    a = np.array([Ex,Ey])
+    b = np.array([Px,Py])
+    c = np.array([Esx,Esy])
+
+    ba = a - b
+    bc = c - b
+    #Distancia Epicentro
+    d_ba = np.linalg.norm(ba) 
+    #Distancia Punto
+    d_bc = np.linalg.norm(bc)
+
+    cosine_angle = np.dot(ba, bc) / (d_ba * d_bc)
+    angle = np.arccos(cosine_angle)
+    angle_d = np.degrees(angle)
+    DI = IE - IP
+    #print(angle_d)
+    if (angle_d>155.0 and angle_d<205.0):
+        I_est = IE - (d_ba/ (d_ba+d_bc) )*DI
+    else: I_est = 0
+    return(I_est,angle_d)
+
+
 #Agregar los valores fijos de intensidad
 
 crs_wgs = proj.Proj(init='epsg:4326')  # assuming you're using WGS84 geographic
@@ -25,7 +57,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('intensidad.csv')
+df = pandas.read_csv('2019-05-30-0903.csv')
 #print(df)
 #Nuestro array para almacenar puntos
 P = []
@@ -43,25 +75,18 @@ Dy = (yo,yf)
 C1 = []
 C2 = []
 C3 = []
-#Este almacena todos los puntos menos el epicentro
-C4 = []
+#Este almacena todos los puntos 
 for i in range(0,len(P)):
     C1.append(P[i][1])
     C2.append(P[i][2])
     C3.append(P[i][3])
-    if(i!=(len(P)-1)):
-        C4.append((P[i][1],P[i][2]))
 
-print( "Epicentro: "+str(C1[len(C1)-1])+" "+str(C2[len(C2)-1]) )
+
+x_Ep =C1[len(C1)-1]
+y_Ep =C2[len(C1)-1]
+print( "Epicentro: "+str(x_Ep)+" "+str(y_Ep) )
 #Ploteamos las estaciones
 plt.plot(C1,C2, 'ro', P[len(P)-1][1], P[len(P)-1][2],'go')
-#Calculamos la distancia de todos los puntos hacía el epicentro
-"""
-PO = []
-PO.append((P[len(P)-1][1],P[len(P)-1][2]))
-dists = distance.cdist(PO,C4,'euclidean')
-#Buscamos la distancia máxima
-#rmax = np.max(dists)"""
 #Guardamos la intensidad en el epicentro
 IO = P[len(P)-1][3]
 #print('Distancia maxima: ',str(rmax))
@@ -131,45 +156,27 @@ PFx = []
 PFy = []
 PFI = []
 #Definimos el tamaño del grid
-for i in range(int(Dx[0]),int(Dx[1]),5000):
-    for j in range(int(Dy[0]),int(Dy[1]),5000):
-        #Preparamos el punto de prueba
-        PT = []
-        PT.append((i,j))
-        #Calculamos la distancia de este a todas las estaciones y al epicentro
-        Calc = distance.cdist(PT,C4,'euclidean')
-        #print(i,j)
-        #print(Calc)
-        #La suma de todas las distancias
-        Sum = 0
-        for a in range(len(Calc[0])-1):
-            Sum = Sum + (Calc[0][a])
-            #print(Calc[0][a])
-            
-        #print("Suma: "+str(Sum))
-        #Calculamos la intensidad en cada uno de estos puntos
-        I_Sum = 0
-        alpha2 = 0
-        Sum_ap = 0
-        for a in range(len(Calc[0])-1):
-            alpha2 = float((Calc[0][a]/Sum))
-            I_Sum= I_Sum + alpha2*C3[a]
-            Sum_ap = Sum_ap + alpha2
-            #print(alpha2)
-            
-        #print("Suma: "+str(Sum_ap))
-        #--Final
-        rmax = np.max(Calc)
-        alpha = float(Calc[0][len(Calc[0])-1]/rmax)
-        #print(str(alpha)+" en pos: "+str(i)+" ,"+str(j))
-        I_est = alpha*IO + (1.0 - alpha)*I_Sum
-        #I_est = I_Sum
-        #print("Alpha: "+str(alpha)+" Iest: "+str(IO)+" Iprom: "+str(I_Sum))
-        #print(I_est)
-        PFx.append(i)
-        PFy.append(j)
-        PFI.append(I_est)
+for j in range(int(Dx[0]),int(Dx[1]),2500):
+    for i in range(int(Dy[0]),int(Dy[1]),2500):
+        I_est = 0
+        n_est = len(C1)-2
+        P = []
+        for io in range(n_est):
+            I_x,y = Intensidad_E(C1[n_est+1],C2[n_est+1],i,j,C1[io],C2[io],IO,C3[io])
+            if(I_x != 0): P.append(I_x)
+            #print(I_x)
+    
+        if(len(P)!=0):
+            I_est = sum(w for w in P)/len(P)   
+            PFx.append(i)
+            PFy.append(j)
+            PFI.append(I_est)
 
+#Agregando el epicentro solo como prueba
+PFx.append(x_Ep)
+PFy.append(y_Ep)
+PFI.append(IO)
+#--------------
 fig,ax = plt.subplots()
 ax.scatter(PFx, PFy, c=PFI, s=50)
 plt.show()

@@ -41,12 +41,14 @@ def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
     #print(angle_d)
     if (angle_d>155.0 and angle_d<205.0):
         I_est = IE - (d_ba/ (d_ba+d_bc) )*DI
+    elif(angle_d<25.0 or angle_d > 335.0):
+        d_ac = np.linalg.norm((a-c))
+        I_est = IE - d_ba*(DI/d_ac)
     else: I_est = 0
     return(I_est,angle_d)
 
 
-#Agregar los valores fijos de intensidad
-
+#Proyección 
 crs_wgs = proj.Proj(init='epsg:4326')  # assuming you're using WGS84 geographic
 
 #Erect own local flat cartesian coordinate system
@@ -57,9 +59,9 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('2019-11-30-0744.csv')
+df = pandas.read_csv('Intensidad3.csv')
 #print(df)
-#Nuestro array para almacenar puntos
+#Nuestro array para almacenar puntos ya convertidos
 P = []
 
 for i in range(0,len(df)):    

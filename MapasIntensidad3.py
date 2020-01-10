@@ -12,8 +12,7 @@ import pyproj as proj
 import numpy as np; np.random.seed(1)
 from scipy.spatial import ConvexHull
 from scipy.spatial import distance
-
-
+import math
 
 def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
     """
@@ -29,21 +28,36 @@ def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
 
     ba = a - b
     bc = c - b
-    #Distancia Epicentro
+    #Distancia Epicentro a Punto
     d_ba = np.linalg.norm(ba) 
-    #Distancia Punto
+    #Distancia Estacion a Punto
     d_bc = np.linalg.norm(bc)
-
+    #Distancia Epicentro a Estacion
+    d_ac = np.linalg.norm((a-c))
+    #----------#
     cosine_angle = np.dot(ba, bc) / (d_ba * d_bc)
     angle = np.arccos(cosine_angle)
     angle_d = np.degrees(angle)
+    #---------------#
     DI = IE - IP
-    #print(angle_d)
-    if (angle_d>155.0 and angle_d<205.0):
-        I_est = IE - (d_ba/ (d_ba+d_bc) )*DI
-    elif(angle_d<25.0 or angle_d > 335.0):
-        d_ac = np.linalg.norm((a-c))
-        I_est = IE - d_ba*(DI/d_ac)
+    LP = int(65)
+    LS = int(65)
+    if (angle_d>(180-LP) and angle_d<(180+LP)):
+       # I_est = IE - (d_ba/ (d_ba+d_bc) )*DI
+       d1 = np.linalg.norm(b - a)
+       d2 = np.linalg.norm(c - a)
+       cosine_angle2 = np.dot(d1, d2) / (d1 * d2)
+       angle2 = np.arccos(cosine_angle2)
+       angle_b = np.degrees(angle2)
+       I_est = IE - (math.cos(angle_b)*d_ba/d_ac)*DI
+    elif(angle_d<LS or angle_d > (360-LS)):
+        d1 = np.linalg.norm(a - c)
+        d2 = np.linalg.norm(b - c)
+        cosine_angle3 = np.dot(d1, d2) / (d1 * d2)
+        angle3 = np.arccos(cosine_angle3)
+        angle_c = np.degrees(angle3)               
+        angle_g = math.asin(math.sin(angle_c)*d1/d2)
+        I_est = IE - DI*(d_bc*math.cos(angle_g))/(d_ac*math.cos(angle_c))
     else: I_est = 0
     return(I_est,angle_d)
 
@@ -59,7 +73,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('eventos/Intensidad3.csv')
+df = pandas.read_csv('eventos/2019-11-20-0426.csv')
 #print(df)
 #Nuestro array para almacenar puntos ya convertidos
 P = []

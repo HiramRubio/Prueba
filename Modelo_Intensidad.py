@@ -21,7 +21,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('eventos/2019-11-20-0426.csv')
+df = pandas.read_csv('eventos/intensidad3.csv')
 #print(df)
 #Nuestro array para almacenar puntos ya convertidos
 P = []
@@ -85,7 +85,6 @@ for i in range(n_est-1):
     P_Angle[i] = angle_d
     P_DI[i] = DI
     P_Dist[i] = d_bc
-print("Done!")
 #print(str(P_Angle[2])+" "+str(P_DI[2])+" "+str(P_Dist[2]))
 
 data = {'Angle': P_Angle, 
@@ -94,6 +93,6 @@ data = {'Angle': P_Angle,
         }
 
 df = DataFrame(data, columns= ['Angle',"DI","Distance"])
-export_csv = df.to_csv ('Modelo/Data_Evento.csv', index = None, header=True) #Don't forget to add '.csv' at the end of the path
-
-print (df)
+export_csv = df.to_csv ('Modelo/Data_intensidad3.csv', index = None, header=True) #Don't forget to add '.csv' at the end of the path
+#print (df)
+print("Done!")

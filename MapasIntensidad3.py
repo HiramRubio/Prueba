@@ -73,7 +73,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('eventos/2019-11-20-0426.csv')
+df = pandas.read_csv('eventos/2019-03-27-2246.csv')
 #print(df)
 #Nuestro array para almacenar puntos ya convertidos
 P = []
@@ -83,8 +83,8 @@ for i in range(0,len(df)):
     P.append( (df['Nombre'][i],x[0],x[1],df['Intensidad'][i]) )
     
 #Definimos nuestra region
-xo, yf = proj.transform(crs_wgs, cust, -94.0, 19.0)
-xf, yo = proj.transform(crs_wgs, cust, -87.0, 12.0)
+xo, yo = proj.transform(crs_wgs, cust, -93.0, 12.955293)
+xf, yf = proj.transform(crs_wgs, cust, -87.994153, 17.924807)
 Dx = (xo,xf)
 Dy = (yo,yf)
 
@@ -172,8 +172,8 @@ PFx = []
 PFy = []
 PFI = []
 #Definimos el tamaño del grid
-for j in range(int(Dx[0]),int(Dx[1]),2500):
-    for i in range(int(Dy[0]),int(Dy[1]),2500):
+for j in range(int(Dx[0]),int(Dx[1]),4000):
+    for i in range(int(Dy[0]),int(Dy[1]),4000):
         I_est = 0
         n_est = len(C1)-2
         P = []

@@ -40,8 +40,8 @@ def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
     angle_d = np.degrees(angle)
     #---------------#
     DI = IE - IP
-    LP = int(65)
-    LS = int(65)
+    LP = int(5)
+    LS = int(20)
     if (angle_d>(180-LP) and angle_d<(180+LP)):
        # I_est = IE - (d_ba/ (d_ba+d_bc) )*DI
        d1 = np.linalg.norm(b - a)
@@ -73,7 +73,7 @@ gps_long_0 = -90.512975
 cust = proj.Proj("+proj=aeqd +lat_0={0} +lon_0={1} +datum=WGS84 +units=m".format(gps_lat_0, gps_long_0))
 
 #Leemos  el archivo
-df = pandas.read_csv('eventos/2019-03-27-2246.csv')
+df = pandas.read_csv('eventos/2019-12-19-1235.csv')
 #print(df)
 #Nuestro array para almacenar puntos ya convertidos
 P = []

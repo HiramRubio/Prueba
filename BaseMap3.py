@@ -12,7 +12,7 @@ from matplotlib.collections import PatchCollection
 from matplotlib.patches import PathPatch
 import numpy as np
 
-#Solo creamos plots que luego vamos a llenar
+#Solo creamos plots que luego vamos a llenar 
 fig     = plt.figure()
 ax      = fig.add_subplot(111)
 #Creamos nuestro mapa, entre los argumentos se encuentran: La calidad, proyeccion

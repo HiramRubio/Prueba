@@ -23,12 +23,13 @@ import  matplotlib.cm as cm
 
 fig, ax = plt.subplots(figsize=(8,8))
 m = Basemap(resolution='i', # c, l, i, h, f or None
-            projection='merc', 
             lat_0=14.6569, lon_0=-90.51,
-            llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42)
- 
-m.drawmapboundary(fill_color='#46bcec')
-m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+            llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
+
+# http://server.arcgisonline.com/arcgis/rest/services
+m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
+#m.drawmapboundary(fill_color='#46bcec')                  
+#m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 
 #Leemos la data de las estaciones
 dfs = pd.read_csv('eventos/2019-12-19-1235.csv')
@@ -46,8 +47,13 @@ for i in Pp:
     VColor.append(mcolors.to_hex(mc.to_rgba(-i)))
 
 #print(VColor)
+labels = str('Epicentro')
 for i in range(len(dfs)):
     xpt,ypt = m(dfs['lon'][i],dfs['lat'][i])
+    if(i==len(dfs)-1):
+        #Prueba agregando un texto en el mapa
+        plt.text(xpt+500, ypt+4500, labels) 
+        print("Just a lazy print")
     m.plot(xpt,ypt,marker='.',color=VColor[i])  # plot a dot    
                  
 #Leemos nuestra shapefile, no los activamos todos

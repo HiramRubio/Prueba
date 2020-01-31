@@ -75,7 +75,6 @@ fig, ax = plt.subplots(figsize=(8,8))
 m = Basemap(resolution='i', # c, l, i, h, f or None
             lat_0=14.6569, lon_0=-90.51,
             llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
-
 # http://server.arcgisonline.com/arcgis/rest/services
 #   World_Physical_Map
 #   World_Shaded_Relief
@@ -87,6 +86,8 @@ m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
 #m.drawcoastlines(zorder = 0)
 #m.drawcountries(zorder = 0)
 #m.drawmapboundary(zorder = 0)
+m.drawmapboundary(fill_color='#46bcec')                  
+m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 
 #Leemos la data de las estaciones
 dfs = pd.read_csv('eventos/2019-12-19-1235.csv')

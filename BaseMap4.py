@@ -28,15 +28,6 @@ m = Basemap(resolution='i', # c, l, i, h, f or None
             lat_0=14.6569, lon_0=-90.51,
             llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
 
-# http://server.arcgisonline.com/arcgis/rest/services
-#   World_Physical_Map
-#   World_Shaded_Relief
-#   World_Street_Map
-#   World_Topo_Map
-#   World_Terrain_Base
-
-#m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
-
 m.drawmapboundary(fill_color='#46bcec')                  
 m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 

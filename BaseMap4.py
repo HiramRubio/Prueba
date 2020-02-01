@@ -12,14 +12,8 @@ import matplotlib.pyplot as plt
 #import matplotlib.cm
  
 from mpl_toolkits.basemap import Basemap
-#from matplotlib.patches import Polygon
-#from matplotlib.collections import PatchCollection
-#from matplotlib.colors import Normalize
 import pandas as pd
 import numpy as np
-#import matplotlib as mpl
-#import matplotlib.colors as mcolors
-#import  matplotlib.cm as cm
 import math
 
 #----------------------------------------------------------#
@@ -86,8 +80,8 @@ m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
 #m.drawcoastlines(zorder = 0)
 #m.drawcountries(zorder = 0)
 #m.drawmapboundary(zorder = 0)
-m.drawmapboundary(fill_color='#46bcec')                  
-m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+#m.drawmapboundary(fill_color='#46bcec')                  
+#m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 
 #Leemos la data de las estaciones
 dfs = pd.read_csv('eventos/2019-12-19-1235.csv')
@@ -106,22 +100,40 @@ n_est = len(Lot)-1      #Numero de estaciones sin el epicentro
 ListI = []
 Pts_x = []
 Pts_y = []
-for i in np.arange(-92.9,-87.5,0.05):
-    for j in np.arange(13.2,18.3,0.05):
+h = 0.06
+#Realizamos dos ciclos con los puntos intercalados
+#Esto para llenar el mapa de una forma mas eficiente
+for i in np.arange(-92.9,-87.5,h):
+    for j in np.arange(13.1,18.4,h):
         #Recorremos todas las estaciones
         P = []
         for k in range(n_est-1):        
             xpt,ypt = m(Lot[k],Lat[k]) #Mapeo punto de la estacion
             #Estimacion de intensidad
             I_x,y = Intensidad_E(Lot[n_est],Lat[n_est],i,j,xpt,ypt,VI[n_est],VI[k])
-            if(I_x != 0): P.append(I_x)
+            if(I_x>1.0): P.append(I_x)
             #print(I_x)
         if(len(P)!=0):
             I_est = sum(w for w in P)/len(P)   
             ListI.append(I_est)
             Pts_x.append(i)
             Pts_y.append(j)
-          
+            
+for i in np.arange(-92.9+h/2,-87.5+h/2,h):
+    for j in np.arange(13.1+h/2,18.4+h/2,h):
+        #Recorremos todas las estaciones
+        P = []
+        for k in range(n_est-1):        
+            xpt,ypt = m(Lot[k],Lat[k]) #Mapeo punto de la estacion
+            #Estimacion de intensidad
+            I_x,y = Intensidad_E(Lot[n_est],Lat[n_est],i,j,xpt,ypt,VI[n_est],VI[k])
+            if(I_x>1.0): P.append(I_x)
+            #print(I_x)
+        if(len(P)!=0):
+            I_est = sum(w for w in P)/len(P)   
+            ListI.append(I_est)
+            Pts_x.append(i)
+            Pts_y.append(j)         
 #Definimos nuestro mapeo
 jet = plt.cm.get_cmap('viridis')
 Pts_x.append(Lot[n_est])
@@ -135,8 +147,10 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawboun
 m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
 #m.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
 #print(m.ej3_info)
-sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=min(ListI), vmax=max(ListI), cmap=jet, s=30, edgecolors='none',alpha = 0.4)           
-#cbar = plt.colorbar(sc, shrink = 0.8)
-#cbar.set_label("Intensidad")
+sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=min(ListI), vmax=max(ListI), cmap=jet, s=50, edgecolors='none',alpha = 0.4)           
+cbar = plt.colorbar(sc, shrink = 0.8)
+cbar.set_label("Intensidad")
 plt.savefig('Imagenes/ImagenPrueba.png', bbox_inches='tight')
-        
+plt.show()
+
+#print(ListI)

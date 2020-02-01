@@ -134,23 +134,21 @@ for i in np.arange(-92.9+h/2,-87.5+h/2,h):
             ListI.append(I_est)
             Pts_x.append(i)
             Pts_y.append(j)         
-#Definimos nuestro mapeo
+#Definimos nuestro mapeo para colores
 jet = plt.cm.get_cmap('viridis')
 Pts_x.append(Lot[n_est])
 Pts_y.append(Lat[n_est])
 ListI.append(VI[n_est])
-#print(ListI)
 
-#Leemos nuestra shapefile, no los activamos todos
-m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.0)
+#Leemos nuestra shapefile
+m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
-m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
-#m.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
+
 #print(m.ej3_info)
-sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=min(ListI), vmax=max(ListI), cmap=jet, s=50, edgecolors='none',alpha = 0.4)           
-cbar = plt.colorbar(sc, shrink = 0.8)
+#Colocamos todos los puntos que calculamos anteriormente
+sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=min(ListI), vmax=max(ListI), cmap=jet, s=40, edgecolors='none',alpha = 0.4)           
+cbar = plt.colorbar(sc, shrink = 0.8)   #Barra de color
 cbar.set_label("Intensidad")
 plt.savefig('Imagenes/ImagenPrueba.png', bbox_inches='tight')
 plt.show()
-
 #print(ListI)

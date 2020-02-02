@@ -68,7 +68,7 @@ def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
 fig, ax = plt.subplots(figsize=(8,8))
 m = Basemap(resolution='i', # c, l, i, h, f or None
             lat_0=14.6569, lon_0=-90.51,
-            llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
+            llcrnrlon=-93.5, llcrnrlat=13.0,urcrnrlon=-87.58, urcrnrlat=18.52, epsg=4326)
 # http://server.arcgisonline.com/arcgis/rest/services
 #   World_Physical_Map
 #   World_Shaded_Relief
@@ -84,7 +84,7 @@ m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
 #m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 
 #Leemos la data de las estaciones
-dfs = pd.read_csv('eventos/2019-12-19-1235.csv')
+dfs = pd.read_csv('eventos/intensidad.csv')
 
 #Guardamos los datos de cada estacion
 VI = []
@@ -103,8 +103,8 @@ Pts_y = []
 h = 0.06
 #Realizamos dos ciclos con los puntos intercalados
 #Esto para llenar el mapa de una forma mas eficiente
-for i in np.arange(-92.9,-87.5,h):
-    for j in np.arange(13.1,18.4,h):
+for i in np.arange(-93.5,-87.5,h):
+    for j in np.arange(13.0,18.5,h):
         #Recorremos todas las estaciones
         P = []
         for k in range(n_est-1):        
@@ -119,8 +119,8 @@ for i in np.arange(-92.9,-87.5,h):
             Pts_x.append(i)
             Pts_y.append(j)
             
-for i in np.arange(-92.9+h/2,-87.5+h/2,h):
-    for j in np.arange(13.1+h/2,18.4+h/2,h):
+for i in np.arange(-93.5+h/2,-87.5+h/2,h):
+    for j in np.arange(13.0+h/2,18.5+h/2,h):
         #Recorremos todas las estaciones
         P = []
         for k in range(n_est-1):        
@@ -135,7 +135,7 @@ for i in np.arange(-92.9+h/2,-87.5+h/2,h):
             Pts_x.append(i)
             Pts_y.append(j)         
 #Definimos nuestro mapeo para colores
-jet = plt.cm.get_cmap('viridis')
+jet = plt.cm.get_cmap('jet')
 Pts_x.append(Lot[n_est])
 Pts_y.append(Lat[n_est])
 ListI.append(VI[n_est])
@@ -146,7 +146,7 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawboun
 
 #print(m.ej3_info)
 #Colocamos todos los puntos que calculamos anteriormente
-sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=min(ListI), vmax=max(ListI), cmap=jet, s=40, edgecolors='none',alpha = 0.4)           
+sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=0.0, vmax=7.0, cmap=jet, s=40, edgecolors='none',alpha = 0.2)           
 cbar = plt.colorbar(sc, shrink = 0.8)   #Barra de color
 cbar.set_label("Intensidad")
 plt.savefig('Imagenes/ImagenPrueba.png', bbox_inches='tight')

@@ -39,6 +39,13 @@ m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
 
 #m.drawmapboundary(fill_color='#46bcec')                  
 #m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+# draw parallels and meridians.
+parallels = np.arange(-92.,87.,1.)
+# Label the meridians and parallels
+m.drawparallels(parallels,labels=[False,True,True,True])
+# Draw Meridians and Labels
+meridians = np.arange(-180.,181.,1.)
+m.drawmeridians(meridians,labels=[True,True,False,True])
 
 #Leemos la data de las estaciones
 dfs = pd.read_csv('eventos/2019-12-19-1235.csv')
@@ -68,23 +75,33 @@ for i in range(len(dfs)):
        """          
 #Leemos nuestra shapefile, no los activamos todos
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.0)
-m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
+m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False)
 m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
-#m.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
-#print(m.ej3_info)
+m.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
+print(m.ej3_info)
 
 #Resaltamos un area en especifico
 for info, shape in zip(m.ej3_info, m.ej3):
-    if info['ZONA'] == 'G3':
+    #Delimitar todas las zonas
+    for a in info['ZONA']:
         x, y = zip(*shape) 
         m.plot(x, y, marker=None,color='k')
+    #Delimitar una zona es especifico
+#    if info['ZONA'] == 'G3':
+#        x, y = zip(*shape) 
+#        m.plot(x, y, marker=None,color='k')
         
 patches   = []
 #Pintamos un area en especifico
 for info, shape in zip(m.ej3_info, m.ej3):
-    if info['ZONA'] == 'G3':
-        patches.append( Polygon(np.array(shape), True) )
+    #Pintar todas las zonas
+    for a in info['ZONA']:
+        patches.append( Polygon(np.array(shape), True))
+    #Pintar una zona en especifico
+#    if info['ZONA'] == 'G3':
+#        patches.append( Polygon(np.array(shape), True))
         
-ax.add_collection(PatchCollection(patches, facecolor= 'm', edgecolor='k', linewidths=1., zorder=2, alpha=0.1))
-
+colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']      
+ax.add_collection(PatchCollection(patches, facecolor= colors, edgecolor='k', linewidths=1., zorder=2, alpha=0.1))
+plt.title("Mapas Zonas Sismogenicas de Guatemala")
 plt.show()

@@ -112,6 +112,6 @@ m.readshapefile('Qgis/Zonas', 'zonas',linewidth=2.0)
 #c = plt.scatter(Lot,Lat,c=VI, vmin=0.0, vmax=7.0, cmap=jet, s=40, edgecolors='none',alpha = 0.2)           
 #cbar = plt.colorbar(sc, shrink = 0.8)   #Barra de color
 #cbar.set_label("Amplificacion")
-plt.savefig('ddp_I/2019-04-16-0404_02.png', bbox_inches='tight')
-#plt.show()
+#plt.savefig('ddp_I/2019-04-16-0404_02.png', bbox_inches='tight')
+plt.show()
 #print(ListI)

@@ -70,8 +70,8 @@ for i in range(len(dfs)):
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.0)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
 m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
-m.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
-print(m.ej3_info)
+#m.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
+#print(m.ej3_info)
 
 #Resaltamos un area en especifico
 for info, shape in zip(m.ej3_info, m.ej3):

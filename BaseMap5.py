@@ -16,6 +16,9 @@ from mpl_toolkits.basemap import Basemap
 import pandas as pd
 import numpy as np
 import math
+import matplotlib as mpl
+import matplotlib.colors as mcolors
+import  matplotlib.cm as cm
 
 #----------------------------------------------------------#
 def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
@@ -69,98 +72,46 @@ def Intensidad_E(Ex,Ey,Px,Py,Esx,Esy,IE,IP):
 fig, ax = plt.subplots(figsize=(8,8))
 m = Basemap(resolution='i', # c, l, i, h, f or None
             lat_0=14.6569, lon_0=-90.51,
-            llcrnrlon=-90.76, llcrnrlat=14.4,urcrnrlon=-90.2, urcrnrlat=14.9, epsg=4326)
+            llcrnrlon=-90.59, llcrnrlat=14.53,urcrnrlon=-90.346, urcrnrlat=14.73, epsg=4326)
 # http://server.arcgisonline.com/arcgis/rest/services
 #   World_Physical_Map
 #   World_Shaded_Relief
 #   World_Street_Map
 #   World_Topo_Map
 #   World_Terrain_Base
+#m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
+m.drawcoastlines(zorder = 0)
+m.drawmapboundary(zorder = 0)
+m.drawmapboundary(fill_color='#46bcec')                  
+m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 
-m.arcgisimage(service='World_Physical_Map', xpixels = 2500, verbose= True)
-#m.drawcoastlines(zorder = 0)
-#m.drawcountries(zorder = 0)
-#m.drawmapboundary(zorder = 0)
-#m.drawmapboundary(fill_color='#46bcec')                  
-#m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
-
-"""
 #Leemos la data de las estaciones
-dfs = pd.read_csv('eventos/intensidad.csv')
-
+dfs = pd.read_csv('ddp/2019-04-16-0404_02.csv')
 #Guardamos los datos de cada estacion
-VI = []
-Lot = []
-Lat = []
+Pp = []
 for i in range(len(dfs)):
-    VI.append(dfs['Intensidad'][i])
-    Lot.append(dfs['lon'][i])
-    Lat.append(dfs['lat'][i])
+    Pp.append(dfs['amp'][i])
+
+norm = mpl.colors.Normalize(vmin=min(Pp), vmax=max(Pp))
+
+cmap = cm.jet
+mc = cm.ScalarMappable(norm = norm, cmap = cmap)
+VColor = []
+
+for i in Pp:
+    VColor.append(mcolors.to_hex(mc.to_rgba(i)))
+labels = str('Epicentro')
+for i in range(len(dfs)):
+    xpt,ypt = m(dfs['lon'][i],dfs['lat'][i])   
+    m.plot(xpt,ypt,marker='.',color=VColor[i],alpha=0.027,markersize=24)  # plot a dot 
 #-----------------------------------#
-n_est = len(Lot)-1      #Numero de estaciones sin el epicentro
-
-ListI = []
-Pts_x = []
-Pts_y = []
-h = 0.06
-#Realizamos dos ciclos con los puntos intercalados
-#Esto para llenar el mapa de una forma mas eficiente
-
-for i in np.arange(-93.5,-87.5,h):
-    for j in np.arange(13.0,18.5,h):
-        #Recorremos todas las estaciones
-        P = []
-        for k in range(n_est-1):        
-            xpt,ypt = m(Lot[k],Lat[k]) #Mapeo punto de la estacion
-            #Estimacion de intensidad
-            I_x,y = Intensidad_E(Lot[n_est],Lat[n_est],i,j,xpt,ypt,VI[n_est],VI[k])
-            if(I_x>1.0): P.append(I_x)
-            #print(I_x)
-        if(len(P)!=0):
-            I_est = sum(w for w in P)/len(P)   
-            ListI.append(I_est)
-            Pts_x.append(i)
-            Pts_y.append(j)
-            
-for i in np.arange(-93.5+h/2,-87.5+h/2,h):
-    for j in np.arange(13.0+h/2,18.5+h/2,h):
-        #Recorremos todas las estaciones
-        P = []
-        for k in range(n_est-1):        
-            xpt,ypt = m(Lot[k],Lat[k]) #Mapeo punto de la estacion
-            #Estimacion de intensidad
-            I_x,y = Intensidad_E(Lot[n_est],Lat[n_est],i,j,xpt,ypt,VI[n_est],VI[k])
-            if(I_x>1.0): P.append(I_x)
-            #print(I_x)
-        if(len(P)!=0):
-            I_est = sum(w for w in P)/len(P)   
-            ListI.append(I_est)
-            Pts_x.append(i)
-            Pts_y.append(j)         
-#Definimos nuestro mapeo para colores
-jet = plt.cm.get_cmap('jet')
-Pts_x.append(Lot[n_est])
-Pts_y.append(Lat[n_est])
-ListI.append(VI[n_est])
-"""
-
 #Leemos nuestra shapefile
-m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
-m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False)
-print(m.ej1_info)
-
-for info, shape in zip(m.ej1_info, m.ej1):
-    if info['ADM1_ES'] == 'Guatemala':
-        x, y = zip(*shape) 
-        m.plot(x, y, marker=None,color='k')
-        
-m.readshapefile('Qgis/Zonas', 'zonas')
-
-#print(m.ej3_info)
+       
+m.readshapefile('Qgis/Zonas', 'zonas',linewidth=2.0)
 #Colocamos todos los puntos que calculamos anteriormente
-#sc = plt.scatter(Pts_x,Pts_y,c=ListI, vmin=0.0, vmax=7.0, cmap=jet, s=40, edgecolors='none',alpha = 0.2)           
+#c = plt.scatter(Lot,Lat,c=VI, vmin=0.0, vmax=7.0, cmap=jet, s=40, edgecolors='none',alpha = 0.2)           
 #cbar = plt.colorbar(sc, shrink = 0.8)   #Barra de color
-#cbar.set_label("Intensidad")
-plt.savefig('Imagenes/ImagenPrueba.png', bbox_inches='tight')
-plt.show()
+#cbar.set_label("Amplificacion")
+plt.savefig('ddp_I/2019-04-16-0404_02.png', bbox_inches='tight')
+#plt.show()
 #print(ListI)

@@ -23,6 +23,10 @@ from geophysics import estacion
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 
+
+#   Pruebas para hacer mascaras de regiones
+
+
 # Leer un archivo
 #---------------------**----------------------
 
@@ -58,25 +62,29 @@ grid_lon = np.arange(np.amin(lons), np.amax(lons), grid_space) #grid_space is th
 grid_lat = np.arange(np.amin(lats), np.amax(lats), grid_space)
 #grid_lat = np.arange(14.53, 14.73, grid_space)
 
-#Instancia Kriging
+#Instancia Kriging Ordinario
 OK = OrdinaryKriging(lons, lats, data, variogram_model='gaussian', verbose=True, enable_plotting=False,nlags=20)
 z1, ss1 = OK.execute('grid', grid_lon, grid_lat)
 
 xintrp, yintrp = np.meshgrid(grid_lon, grid_lat)
 fig, ax = plt.subplots(figsize=(10,10))
 
-#Creamos el baseMap en base a datos 
-m = Basemap(llcrnrlon=lons.min()-0.1,llcrnrlat=lats.min()-0.1,urcrnrlon=lons.max()+0.1,urcrnrlat=lats.max()+0.1, projection='merc', resolution='h',area_thresh=1000.,ax=ax)
+#Creamos el baseMap en base a datos. Se puede ajustar esa resta.  
+#m = Basemap(llcrnrlon=lons.min()-0.01,llcrnrlat=lats.min()-0.01,urcrnrlon=lons.max()+0.01,urcrnrlat=lats.max()+0.01, projection='merc', resolution='h',area_thresh=1000.,ax=ax,epsg=4326)
+m = Basemap(resolution='i', # c, l, i, h, f or None
+            lat_0=14.6569, lon_0=-90.51,
+            llcrnrlon=-90.81, llcrnrlat=14.19,urcrnrlon=-90.09, urcrnrlat=14.97, epsg=4326)
 #m = Basemap(resolution='i', # c, l, i, h, f or None
 #            lat_0=14.6569, lon_0=-90.51,
-#            llcrnrlon=-90.81, llcrnrlat=14.19,urcrnrlon=-90.09, urcrnrlat=14.97, epsg=4326)
+#            llcrnrlon=-93.5, llcrnrlat=13.0,urcrnrlon=-87.58, urcrnrlat=18.52, epsg=4326)
 
 
+#Dibujamos las costas y leemos Shape Files
 m.drawcoastlines() #draw coastlines on the map
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',linewidth=1.5,drawbounds=False)
 #m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',linewidth=0.5)
-
+"""
 patches   = []
 #Pintamos solamente la capital
 for info, shape in zip(m.ej1_info, m.ej1):
@@ -84,21 +92,22 @@ for info, shape in zip(m.ej1_info, m.ej1):
         patches.append( Polygon(np.array(shape), True) )
         
 ax.add_collection(PatchCollection(patches, facecolor= 'm', edgecolor='k', linewidths=1., zorder=2))
-
-#Colocamos solo los municipios de la capital
+"""
+#Colocamos solo la capital
 for info, shape in zip(m.ej1_info, m.ej1):
     if info['ADM1_REF'] == 'Guatemala':
         x, y = zip(*shape) 
         m.plot(x, y, marker=None,color='k')
-        
+#"""        
 x,y=m(xintrp, yintrp) # convert the coordinates into the map scales
 ln,lt=m(lons,lats)
 
 #Normalizamos la data para colorear
 norm = mpl.colors.Normalize(vmin=min(data), vmax=max(data))
 cmap1 = cm.jet
-cs=ax.contourf(x, y, z1, np.linspace(0,5,6),extend='both',cmap=cmap1) #plot the data on the map.
+cs=ax.contourf(x, y, z1, np.linspace(0,5,51),extend='both',cmap=cmap1) #plot the data on the map.
 cbar=m.colorbar(cs,location='right',pad="7%") #plot the colorbar on the map
+
 # draw parallels.
 parallels = np.arange(-92.,87.,1.)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=14, linewidth=0.0) #Draw the latitude labels on the map
@@ -115,11 +124,30 @@ y0,y1 = ax.get_ylim()
 #y0,y1 = 14.19,14.97
 map_edges = np.array([[x0,y0],[x1,y0],[x1,y1],[x0,y1]])
 ##getting all polygons used to draw the coastlines of the map
-print(m.landpolygons)
 polys = [p.boundary for p in m.landpolygons]
- 
+print("Polys 1:")
+print(polys)
 ##combining with map edges
-polys = [map_edges]+polys[:]
+#polys = [map_edges]+polys[:]
+#print("Polys 2:")
+#print(polys)
+
+patches   = []
+patches2   = []
+#Pintamos solamente la capital
+for info, shape in zip(m.ej1_info, m.ej1):
+    if info['ADM1_REF'] == 'Guatemala':
+        patches.append(np.array(shape))
+print("Patches: ")        
+print(patches)
+#print(m.ej0_info)
+for info, shape in zip(m.ej0_info, m.ej0):
+    if info['ADM0_ES'] == 'Guatemala':
+        patches2.append(np.array(shape))
+print("Patches: ")        
+print(patches2)
+
+polys = [map_edges]+patches
 ##creating a PathPatch
 codes = [
         [Path.MOVETO]+[Path.LINETO for p in p[1:]] 
@@ -131,7 +159,7 @@ polys_lin = [v for p in polys for v in p]
 codes_lin = [xx for cs in codes for xx in cs]
  
 path = Path(polys_lin, codes_lin)
-patch = PathPatch(path,facecolor='white', lw=0)
+patch = PathPatch(path,facecolor='white', lw=0,alpha=1.0)
 
 ##masking the data outside the inland of taiwan
 ax.add_patch(patch)

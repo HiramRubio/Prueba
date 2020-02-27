@@ -46,19 +46,22 @@ map.drawcoastlines()
 map.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.0)
 map.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False)
 map.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
+map.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
+print(map.ej3_info)
+
 
 patches   = []
 patches2 = []
 #Pintamos solamente la capital
-for info, shape in zip(map.ej1_info, map.ej1):
-    if info['ADM1_REF'] == 'Guatemala':
+for info, shape in zip(map.ej3_info, map.ej3):
+    if info['SHAPENUM'] == 3:
         patches.append( Polygon(np.array(shape), True))
         patches2.append(np.array(shape))
         #patches2.append(*shape)
 #ax.add_collection(PatchCollection(patches, facecolor= 'm', edgecolor='k', linewidths=1., zorder=2))
 
-for info, shape in zip(map.ej1_info, map.ej1):
-    if info['ADM1_REF'] == 'Guatemala':
+for info, shape in zip(map.ej3_info, map.ej3):
+    if info['SHAPENUM'] == 3:
         x, y = zip(*shape) 
         #map.plot(x, y, marker=None,color='k')
 ax.plot(x, y)    

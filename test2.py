@@ -60,21 +60,45 @@ for info, shape in zip(map.ej3_info, map.ej3):
         #patches2.append(*shape)
 #ax.add_collection(PatchCollection(patches, facecolor= 'm', edgecolor='k', linewidths=1., zorder=2))
 
-for info, shape in zip(map.ej3_info, map.ej3):
-    if info['SHAPENUM'] == 3:
-        x, y = zip(*shape) 
+#for info, shape in zip(map.ej3_info, map.ej3):
+#    if info['SHAPENUM'] == 3:
+#        x, y = zip(*shape) 
         #map.plot(x, y, marker=None,color='k')
-ax.plot(x, y)    
+#ax.plot(x, y)    
+
+
+Zonas = ['G1','S1','G2-S2','S3','G3','G4','G5-S4-H1','G6','G8']
+Colors = ['b','g','r','c','m','y','k','w','#cc66ff']
+patches3 = []
+dfs = pd.read_csv('Data/estaciones.csv')
+
+for info, shape in zip(map.ej3_info, map.ej3):
+    for j in range(len(Zonas)):
+        if info['ZONA'] == Zonas[j]:
+            x, y = zip(*shape)
+        ax.plot(x, y, color='k') 
+        for i in range(len(x)):
+            patches3.append((x[i],y[i]))
+            
+        for i in range(len(dfs)):
+            xpt,ypt = map(dfs['lon'][i],dfs['lat'][i])
+            testP = (xpt,ypt)
+            if (is_inside_sm(patches3,testP)):
+                ax.plot(xpt,ypt,'o',color =Colors[j])
+                print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",Zonas[j])
+        patches3 = []
+        
+        
 #print(x)    
 #Para ver la info del archivo shapefile
 #print(map.ej2_info)
 #plt.show()
 #--------------------------------------------------------------
-patches3 = []
-for i in range(len(x)):
-    patches3.append((x[i],y[i]))
-    
-poly = Polygon(patches3)
+#patches3 = []
+#for i in range(len(x)):
+#    patches3.append((x[i],y[i]))
+#    
+#poly = Polygon(patches3)
 #print("Algo raro:" ,patches2[0][0][0],patches2[0][0][1])
 #patches2 = map(patches2[])
 
@@ -83,11 +107,11 @@ poly = Polygon(patches3)
 dfs = pd.read_csv('Data/estaciones.csv')
 #Creamos los colores para cada estacion
  
-for i in range(len(dfs)):
-    xpt,ypt = map(dfs['lon'][i],dfs['lat'][i])
-    testP = (xpt,ypt)
-    ax.plot(xpt,ypt, 'or')
-    print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",is_inside_sm(patches3,testP))
+#for i in range(len(dfs)):
+#    xpt,ypt = map(dfs['lon'][i],dfs['lat'][i])
+#    testP = (xpt,ypt)
+#    ax.plot(xpt,ypt, 'or')
+#    print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",is_inside_sm(patches3,testP))
    # print(is_inside_postgis(test_polygon2, testP))
     #print(isPointInPath(testP,test_polygon2))
     #print(cn_PnPoly(testP,test_polygon2))

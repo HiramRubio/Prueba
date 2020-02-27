@@ -25,6 +25,7 @@ from matplotlib.collections import PatchCollection
 from matplotlib.patches import PathPatch
 import numpy as np
 import pandas as pd
+import time
 #-------------------------------------------------
 #Solo creamos plots que luego vamos a llenar 
 fig     = plt.figure()
@@ -47,8 +48,7 @@ map.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewi
 map.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False)
 map.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
 map.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
-print(map.ej3_info)
-
+#print(map.ej3_info)
 
 patches   = []
 patches2 = []
@@ -68,9 +68,17 @@ for info, shape in zip(map.ej3_info, map.ej3):
 
 
 Zonas = ['G1','S1','G2-S2','S3','G3','G4','G5-S4-H1','G6','G8']
-Colors = ['b','g','r','c','m','y','k','w','#cc66ff']
+Colors = ['b','w','r','c','m','y','k','g','#cc66ff']
 patches3 = []
-dfs = pd.read_csv('Data/estaciones.csv')
+dfs = pd.read_csv('Data/estaciones.csv',index_col=0)
+
+t = time.perf_counter() 
+
+#print(dfs)
+#print(dfs.index)
+#print("Longitud: ",len(dfs))
+#dfs.drop(index=str(dfs.index[1]),inplace = True)
+#print("Longitud: ",len(dfs))
 
 for info, shape in zip(map.ej3_info, map.ej3):
     for j in range(len(Zonas)):
@@ -79,16 +87,23 @@ for info, shape in zip(map.ej3_info, map.ej3):
         ax.plot(x, y, color='k') 
         for i in range(len(x)):
             patches3.append((x[i],y[i]))
-            
-        for i in range(len(dfs)):
-            xpt,ypt = map(dfs['lon'][i],dfs['lat'][i])
-            testP = (xpt,ypt)
-            if (is_inside_sm(patches3,testP)):
-                ax.plot(xpt,ypt,'o',color =Colors[j])
-                print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",Zonas[j])
+        
+        rm = []
+        if(len(dfs)!=0):
+            for i in range(len(dfs)):
+                #print("Longitud: ",len(dfs))
+                xpt,ypt = map(dfs['lon'][i],dfs['lat'][i])
+                testP = (xpt,ypt)
+                if (is_inside_sm(patches3,testP)):
+                    ax.plot(xpt,ypt,'o',color =Colors[j])
+                    #print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",Zonas[j])
+                    #print(dfs.index[i-1])
+                    rm.append(dfs.index[i])
+            dfs.drop(rm,inplace =True)       
         patches3 = []
         
-        
+print("Longitud: ",len(dfs))
+print("Execution time: " + str(time.perf_counter() - t)) 
 #print(x)    
 #Para ver la info del archivo shapefile
 #print(map.ej2_info)

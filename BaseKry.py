@@ -41,8 +41,10 @@ from matplotlib.collections import PatchCollection
 X0 = []
 X1 = []
 y = []
-fac02 =  [('ACRIS', 1206.1448),('CAUST', 1182.828208), ('CDBOS',1179.0282), ('EXCEL', 1180.7432), ('ITC', 1184.6142), ('LSECB', 1190.994),  ('SJPIN',1180.5178),('CCONS',1178.7244)]
-#fac02 = [('ACRIS', 3.686681571),('CAUST', 5.928297668), ('CDBOS',1.487064836), ('CSTER', 2.996806132), ('ITC', 3.461992973),('KINAL', 1.954327691), ('LSECB', 3.970137336), ('RGIL', 2.407856915), ('TADEO',1.840146918), ('SJPIN',4.68141169),('CCONS',1)]
+#fac02 = [('ACRIS', 501.6424),('CAUST', 438.844), ('CDBOS',583.1686), ('ITC', 586.8142), ('LSECB', 586.4908), ('CCONS',559.7564)]
+#fac02 =  [('CCONS', 0.3899), ('ACRIS', 1.7729),('CDBOS',1.4602), ('CSTER', 1.4641), ('EXCEL', 0.7708), ('ITC', 1.6426),('JUAMA',0.9426 ), ('LSECB', 1.4146), ('RGIL', 0.7797), ('SEUNI',1.7677), ('SJPIN',0.6688)]
+fac02 = [('ACRIS', 3.382968404),('CAUST', 3.615230044), ('CDBOS',1.378325942), ('CSTER', 2.060144124), ('EXCEL', 1.749653548),('ITC', 1.769262749), ('JUAMA',2.919761641), ('LSECB', 2.582940687), ('RGIL', 1.6264551), ('SEUNI',2.027508315), ('SJPIN',1.71722561),('CCONS',1)]
+#fac02 = [('ACRIS', 5.23487983),('CAUST', 4.5061185), ('CDBOS',1.99498195), ('CSTER', 3.2735276), ('EXCEL', 3.83000264),('ITC', 1.054168501), ('JUAMA',3.74953781), ('LSECB', 6.60771195), ('RGIL', 1.99568624), ('SEUNI',2.8355489), ('SJPIN',4.43542565),('CCONS',1)]
 for i in fac02:
     a = estacion(i[0])
     y.append(i[1])
@@ -85,7 +87,7 @@ m.drawcoastlines() #draw coastlines on the map
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',linewidth=1.5,drawbounds=False)
 m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',linewidth=0.5,drawbounds=False)
-#m.readshapefile('Qgis/Zonas', 'ej3',linewidth=2)
+m.readshapefile('Qgis/Zonas', 'ej3',linewidth=2)
 #print(m.ej2_info)
 """
 patches   = []
@@ -98,10 +100,10 @@ ax.add_collection(PatchCollection(patches, facecolor= 'm', edgecolor='k', linewi
 #"""  
 #Colocamos solo la capital
 #"""
-for info, shape in zip(m.ej2_info, m.ej2):
-    if info['ADM2_REF'] == 'Guatemala':
-        x, y = zip(*shape) 
-        m.plot(x, y, marker=None,color='k')
+#for info, shape in zip(m.ej2_info, m.ej2):
+#    if info['ADM2_REF'] == 'Guatemala':
+#        x, y = zip(*shape) 
+#        m.plot(x, y, marker=None,color='k')
 #"""   
 x,y=m(xintrp, yintrp) # convert the coordinates into the map scales
 ln,lt=m(lons,lats)
@@ -110,7 +112,7 @@ ln,lt=m(lons,lats)
 norm = mpl.colors.Normalize(vmin=min(data), vmax=max(data))
 cmap1 = cm.jet
 mc = cm.ScalarMappable(norm = norm, cmap = cmap1)
-cs=ax.contourf(x, y, z1, np.linspace(min(data),max(data)+0.1,100),extend='both',cmap=cmap1, alpha = 1) #plot the data on the map.18
+cs=ax.contourf(x, y, z1, np.linspace(min(data),max(data)-0.5,18),extend='both',cmap=cmap1, alpha = 1) #plot the data on the map.18
 cbar=m.colorbar(cs,location='right',pad="7%") #plot the colorbar on the map
 
 # draw parallels.
@@ -158,7 +160,7 @@ for info, shape in zip(m.ej2_info, m.ej2):
 print("Patches: ")        
 #print(patches2)
 
-polys = [map_edges]+patches3
+polys = [map_edges]+patches2
 ##creating a PathPatch
 codes = [
         [Path.MOVETO]+[Path.LINETO for p in p[1:]] 
@@ -176,7 +178,7 @@ patch = PathPatch(path,facecolor='white', lw=0,alpha=1.0)
 ax.add_patch(patch)
 #"""
 #Titulo
-plt.title("Mapa de Espectro de aceleraciones en PGA")
+plt.title("Mapa de espectro de aceleración para T = 1s")
 #Guardar Imagen
 #plt.savefig('Imagenes/EstacionesNacional.png', bbox_inches='tight')
 plt.show()

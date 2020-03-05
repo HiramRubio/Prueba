@@ -72,6 +72,8 @@ Colors = ['b','w','r','c','m','y','k','g','#cc66ff']
 patches3 = []
 dfs = pd.read_csv('Data/estaciones.csv',index_col=0)
 
+#print(dfs)
+#print(dfs_n)
 t = time.perf_counter() 
 
 #print(dfs)
@@ -79,7 +81,7 @@ t = time.perf_counter()
 #print("Longitud: ",len(dfs))
 #dfs.drop(index=str(dfs.index[1]),inplace = True)
 #print("Longitud: ",len(dfs))
-
+n_dat = []
 for info, shape in zip(map.ej3_info, map.ej3):
     for j in range(len(Zonas)):
         if info['ZONA'] == Zonas[j]:
@@ -89,6 +91,7 @@ for info, shape in zip(map.ej3_info, map.ej3):
             patches3.append((x[i],y[i]))
         
         rm = []
+        
         if(len(dfs)!=0):
             for i in range(len(dfs)):
                 #print("Longitud: ",len(dfs))
@@ -96,7 +99,9 @@ for info, shape in zip(map.ej3_info, map.ej3):
                 testP = (xpt,ypt)
                 if (is_inside_sm(patches3,testP)):
                     ax.plot(xpt,ypt,'o',color =Colors[j])
-                    #print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",Zonas[j])
+                    var = dfs.index[i]
+                    n_dat.append((xpt,ypt,var,j))
+                    #print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",Zonas[j]) 
                     #print(dfs.index[i-1])
                     rm.append(dfs.index[i])
             dfs.drop(rm,inplace =True)       
@@ -104,6 +109,12 @@ for info, shape in zip(map.ej3_info, map.ej3):
         
 print("Longitud: ",len(dfs))
 print("Execution time: " + str(time.perf_counter() - t)) 
+
+print(n_dat)
+dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat', 'Name','Zona'])
+print(dfs_n)
+dfs_n.to_csv('Data/estaciones_M.csv',index=True)
+
 #print(x)    
 #Para ver la info del archivo shapefile
 #print(map.ej2_info)
@@ -119,7 +130,7 @@ print("Execution time: " + str(time.perf_counter() - t))
 
 
 #-------------------------------------------------------------------------------
-dfs = pd.read_csv('Data/estaciones.csv')
+#dfs = pd.read_csv('Data/estaciones.csv')
 #Creamos los colores para cada estacion
  
 #for i in range(len(dfs)):

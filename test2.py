@@ -100,7 +100,7 @@ for info, shape in zip(map.ej3_info, map.ej3):
                 if (is_inside_sm(patches3,testP)):
                     ax.plot(xpt,ypt,'o',color =Colors[j])
                     var = dfs.index[i]
-                    n_dat.append((xpt,ypt,var,j))
+                    n_dat.append((dfs['lon'][i],dfs['lat'][i],var,j))
                     #print("La estacion", dfs['Name'][i], "Esta dentro de la region: ",Zonas[j]) 
                     #print(dfs.index[i-1])
                     rm.append(dfs.index[i])

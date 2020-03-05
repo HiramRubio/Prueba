@@ -46,7 +46,7 @@ map.readshapefile('Data/ale/ZONASSISMOMOD', 'ej3',drawbounds=True)
 
 #Definimos los nombres de las zonas y el color que le queremos asignar a cada una
 Zonas = ['G1','S1','G2-S2','S3','G3','G4','G5-S4-H1','G6','G8']
-Colors = ['b','w','r','c','m','y','k','g','#cc66ff']
+Colors = ['b','w','r','g','m','y','#996633','#ff9933','#cc66ff']
 patches3 = []
 
 #Tiempo 0 de ejecucion del programa
@@ -94,7 +94,7 @@ if(len(dfs)>0):
         xpo = dfs[' lon'][i]
         ypo = dfs[' lat'][i]
         xpt,ypt = map(xpo,ypo)
-        ax.plot(xpt,ypt,'o',color ='k')
+        ax.plot(xpt,ypt,'o',color ='#666666')
         var = dfs[' folder'][i]
         #print(xpo,ypo,var,j)
         n_dat.append((xpo,ypo,var,'SC'))

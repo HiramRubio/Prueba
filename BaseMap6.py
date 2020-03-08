@@ -4,6 +4,9 @@
 Created on Thu Feb 13 03:07:45 2020
 
 @author: Steven
+
+Este código es utilizado para generar un mapa con las estaciones de la red
+Nacional y Metropolitana
 """
 #https://boundingbox.klokantech.com/
 #westlimit=-92.93; southlimit=13.15; eastlimit=-87.58; northlimit=18.42
@@ -19,12 +22,15 @@ Opc = True
 if(Opc):
     m = Basemap(resolution='i', # c, l, i, h, f or None
         lat_0=14.6569, lon_0=-90.51,
-        llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
+        llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42,
+        projection='tmerc')
+    
 #Metropolitana
 if(Opc==False):
     m = Basemap(resolution='i', # c, l, i, h, f or None
         lat_0=14.6569, lon_0=-90.51,
-        llcrnrlon=-90.76, llcrnrlat=14.42,urcrnrlon=-90.384, urcrnrlat=14.71, epsg=4326)
+        llcrnrlon=-90.76, llcrnrlat=14.42,urcrnrlon=-90.384, urcrnrlat=14.71, epsg=4326,
+        projection='tmerc')
 
 # http://server.arcgisonline.com/arcgis/rest/services
 #   World_Physical_Map
@@ -39,6 +45,10 @@ if(Opc==False):
 else:
     m.drawmapboundary(fill_color='#46bcec')                  
     m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+
+#Estala del mapa
+m.drawmapscale(-92.3, 14.0, -90.51, 14.6569, 100 , barstyle='fancy')
+#map.drawmapscale(-7., 35.8, -3.25, 39.5, 500, barstyle='fancy')
 
 # draw parallels and meridians.
 parallels = np.arange(-92.,87.,1.)

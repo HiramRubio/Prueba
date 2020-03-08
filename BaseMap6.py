@@ -9,29 +9,22 @@ Created on Thu Feb 13 03:07:45 2020
 #westlimit=-92.93; southlimit=13.15; eastlimit=-87.58; northlimit=18.42
 
 import matplotlib.pyplot as plt
-import matplotlib.cm
- 
 from mpl_toolkits.basemap import Basemap
-from matplotlib.patches import Polygon
-from matplotlib.collections import PatchCollection
-from matplotlib.colors import Normalize
 import pandas as pd
 import numpy as np
-import matplotlib as mpl
-import matplotlib.colors as mcolors
-import  matplotlib.cm as cm
-
-
 
 fig, ax = plt.subplots(figsize=(8,8))
+Opc = True
 #Nacional
-#m = Basemap(resolution='i', # c, l, i, h, f or None
- #           lat_0=14.6569, lon_0=-90.51,
-  #          llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
+if(Opc):
+    m = Basemap(resolution='i', # c, l, i, h, f or None
+        lat_0=14.6569, lon_0=-90.51,
+        llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42, epsg=4326)
 #Metropolitana
-m = Basemap(resolution='i', # c, l, i, h, f or None
-            lat_0=14.6569, lon_0=-90.51,
-            llcrnrlon=-90.76, llcrnrlat=14.42,urcrnrlon=-90.384, urcrnrlat=14.71, epsg=4326)
+if(Opc==False):
+    m = Basemap(resolution='i', # c, l, i, h, f or None
+        lat_0=14.6569, lon_0=-90.51,
+        llcrnrlon=-90.76, llcrnrlat=14.42,urcrnrlon=-90.384, urcrnrlat=14.71, epsg=4326)
 
 # http://server.arcgisonline.com/arcgis/rest/services
 #   World_Physical_Map
@@ -40,11 +33,13 @@ m = Basemap(resolution='i', # c, l, i, h, f or None
 #   World_Topo_Map
 #   World_Terrain_Base
 
-m.arcgisimage(service='World_Topo_Map', xpixels = 2500, verbose= True)
+if(Opc==False):
+    m.arcgisimage(service='World_Topo_Map', xpixels = 2500, verbose= True)
 #m.arcgisimage(service='World_Terrain_Base', xpixels = 2500, verbose= True)
+else:
+    m.drawmapboundary(fill_color='#46bcec')                  
+    m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 
-#m.drawmapboundary(fill_color='#46bcec')                  
-#m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 # draw parallels and meridians.
 parallels = np.arange(-92.,87.,1.)
 # Label the meridians and parallels
@@ -55,26 +50,28 @@ m.drawmeridians(meridians,labels=[True,True,False,True])
 
 #Leemos la data de las estaciones
 #Nacional
-#dfs = pd.read_csv('Data/Nacional.csv')
+if(Opc):
+    dfs = pd.read_csv('Data/Nacional.csv')
 #Metropolitana
-dfs = pd.read_csv('Data/Metropolitana.csv')
-#Creamos los colores para cada estacion
- 
+if(Opc==False):
+    dfs = pd.read_csv('Data/Metropolitana.csv')
+
+#Creamos los colores para cada estacion 
 for i in range(len(dfs)):
     xpt,ypt = m(dfs['lon'][i],dfs['lat'][i])
     #Agregando un texto en el mapa
     if(dfs['Name'][i]=='SMARC'):
         ypt = ypt+0.1 
     #Ajuste Nacional
-    h = 0.1
+    if(Opc):h = 0.01
     #Ajuste Metropolitano
-    h2 = 0.001
+    else: h = 0.001
     #Size = 8 Nacional
-    #plt.text(xpt+h2, ypt+h2,dfs['Name'][i],bbox=dict(boxstyle="round",
-     #              ec=(1., 0.5, 0.5),
-      #             fc=(1., 0.8, 0.8),
-       #            ),size=7,rotation=30.)
-    plt.text(xpt+h2, ypt+h2,dfs['Name'][i],size=6,rotation=30.)
+    if(Opc): plt.text(xpt+h, ypt+h,dfs['Name'][i],bbox=dict(boxstyle="round",
+                   ec=(1., 0.5, 0.5),
+                   fc=(1., 0.8, 0.8),
+                   ),size=7,rotation=30.)
+    else: plt.text(xpt+h, ypt+h,dfs['Name'][i],size=6,rotation=30.)
     m.plot(xpt,ypt,marker='o',color='m')  # plot a dot   
                 
 #Leemos nuestra shapefile, no los activamos todos

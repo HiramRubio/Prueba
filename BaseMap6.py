@@ -24,7 +24,9 @@ if(Opc):
         lat_0=14.6569, lon_0=-90.51,
         llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42,
         projection='tmerc')
-    
+
+    #Escala del mapa
+    m.drawmapscale(-92.3, 13.5, -90.51, 14.6569, 100 , barstyle='fancy')
 #Metropolitana
 if(Opc==False):
     m = Basemap(resolution='i', # c, l, i, h, f or None
@@ -45,10 +47,6 @@ if(Opc==False):
 else:
     m.drawmapboundary(fill_color='#46bcec')                  
     m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
-
-#Estala del mapa
-m.drawmapscale(-92.3, 14.0, -90.51, 14.6569, 100 , barstyle='fancy')
-#map.drawmapscale(-7., 35.8, -3.25, 39.5, 500, barstyle='fancy')
 
 # draw parallels and meridians.
 parallels = np.arange(-92.,87.,1.)

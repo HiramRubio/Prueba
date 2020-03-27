@@ -77,8 +77,20 @@ for info, shape in zip(map.ej3_info, map.ej3):
                 if (is_inside_sm(patches3,testP)):
                     ax.plot(xpt,ypt,'o',color =Colors[j])
                     var = dfs[' folder'][i]
+                    prof = dfs[' prof'][i]
+                    if(prof<15 and prof >0):
+                        z2 = 'Superficial'
+                    elif(prof<65 and prof >=15):
+                        z2 = 'Intra 1'
+                    elif(prof<150 and prof >=65):
+                        z2 = 'Intra 2'
+                    elif(prof>150 and prof <500):
+                        z2 = 'Profundo'
+                    else:
+                        z2 = 'NA'
+                    mag = dfs[' ml'][i]
                     #Adjuntamos la data de interes y el indice que vamos a eliminar
-                    n_dat.append((xpo,ypo,var,j))
+                    n_dat.append((xpo,ypo,var,j,prof,z2,mag))
                     rm.append(dfs.index[i])
             #Eliminamos los sismos ya clasificados y reiniciamos el index de nuestro archivo
             dfs.drop(rm,inplace =True)   
@@ -107,7 +119,7 @@ print("Longitud: ",len(dfs))
 print("Execution time: " + str(time.perf_counter() - t)) 
 
 #Creamos un nuevo csv con la informacion que necesitamos
-dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat', 'folder','Zona'])
+dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat', 'folder','Zona','prof','Zona2','ml'])
 dfs_n.to_csv('Data/Anual2019_M.csv',index=True)
 #Mostramos la data y las regiones
 plt.show()

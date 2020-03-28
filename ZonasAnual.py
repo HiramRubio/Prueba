@@ -9,11 +9,28 @@ Created on Thu Mar  5 05:00:15 2020
 
 import time
 from pointInside import *
+from datetime import datetime, date, timedelta
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 import numpy as np
 import pandas as pd
+
+
+def dia(fecha):
+    '''
+    Argumento de la funcion AAAA-MM-DD
+    
+    Calcula el numero del dia en el year
+    '''
+    year = int(fecha[:4]) #Cambia la variable de str a int
+    mes = int(fecha[5:7])
+    dia = int(fecha[8:10])
+    fecha_inicial = datetime(year,1,1) #define fecha de inicio de la cuenta
+    fecha = datetime(year,mes,dia) #convierte clase datetime la fecha
+    a = date.toordinal(fecha) - date.toordinal(fecha_inicial) #hace la restay lo convierte a numero ordinal
+    return str(a+1).zfill(3)
+
 #-------------------------------------------------
 #Solo creamos plots que luego vamos a llenar 
 fig     = plt.figure()
@@ -70,6 +87,10 @@ for info, shape in zip(map.ej3_info, map.ej3):
             for i in range(len(dfs)):
                 xpo = dfs[' lon'][i]
                 ypo = dfs[' lat'][i]
+                utf = dfs['fyh_utc'][i]
+                utf_0 = dia(utf)
+                if(utf_0[0]=='0'):
+                    utf_0=utf_0[1:]
                 xpt,ypt = map(xpo,ypo)
                 testP = (xpt,ypt)
                 #Si las coordenadas del punto están dentro de la Zona a prueba
@@ -90,7 +111,7 @@ for info, shape in zip(map.ej3_info, map.ej3):
                         z2 = 'NA'
                     mag = dfs[' ml'][i]
                     #Adjuntamos la data de interes y el indice que vamos a eliminar
-                    n_dat.append((xpo,ypo,var,j,prof,z2,mag))
+                    n_dat.append((xpo,ypo,utf_0,var,j,prof,z2,mag))
                     rm.append(dfs.index[i])
             #Eliminamos los sismos ya clasificados y reiniciamos el index de nuestro archivo
             dfs.drop(rm,inplace =True)   
@@ -119,7 +140,7 @@ print("Longitud: ",len(dfs))
 print("Execution time: " + str(time.perf_counter() - t)) 
 
 #Creamos un nuevo csv con la informacion que necesitamos
-dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat', 'folder','Zona','prof','Zona2','ml'])
+dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml'])
 dfs_n.to_csv('Data/Anual2019_M.csv',index=True)
 #Mostramos la data y las regiones
 plt.show()

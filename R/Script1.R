@@ -19,7 +19,7 @@ dev.off()
 #-----------------------------
 jpeg('HZ0_P.jpg')
 hist(Zona0$prof,main="Histograma profundidad sismos Zona SMG 0", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 col="gold",
 seq(0,150, 25))
@@ -42,7 +42,7 @@ dev.off()
 #-----------------------------
 jpeg('HZ1_P.jpg')
 hist(Zona1$prof,main="Histograma profundidad sismos Zona SMG 1", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 col="gold",
 seq(0,150, 25))
@@ -65,7 +65,7 @@ dev.off()
 #-----------------------------
 jpeg('HZ2_P.jpg')
 hist(Zona2$prof,main="Histograma profundidad sismos Zona SMG 2", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 col="gold",
 seq(0,150, 25))
@@ -84,12 +84,12 @@ hist(Zona3$ml,main="Histograma magnitud sismos Zona SMG 3",
 xlab = "Magnitud (ml)",
 ylab = "Frecuencia",
 col="darkgreen",
-seq(2,5,0.5))
+seq(2,5,0.25))
 dev.off()
 #-----------------------------
 jpeg('HZ3_P.jpg')
 hist(Zona3$prof,main="Histograma profundidad sismos Zona SMG 3", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 col="gold",
 seq(0,200, 25))
@@ -113,7 +113,7 @@ dev.off()
 #-----------------------------
 jpeg('HZ4_P.jpg')
 hist(Zona4$prof,main="Histograma profundidad sismos Zona SMG 4", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 col="gold",
 seq(0,200, 25))
@@ -137,7 +137,7 @@ dev.off()
 #-----------------------------
 jpeg('HZ5_P.jpg')
 hist(Zona5$prof,main="Histograma profundidad sismos Zona SMG 5", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 seq(0,250, 25),
 col="gold")
@@ -209,7 +209,7 @@ dev.off()
 #-----------------------------
 jpeg('HZ8_P.jpg')
 hist(Zona8$prof,main="Histograma profundidad sismos Zona SMG 8", 
-xlab = "Profunidad (km)",
+xlab = "Profundidad (km)",
 ylab = "Frecuencia",
 seq(0,60, 5),
 col="gold")

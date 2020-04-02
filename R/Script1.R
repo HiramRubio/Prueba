@@ -222,3 +222,7 @@ ylab = "Frecuencia",
 col="blue",
 seq(0,380,15))
 dev.off()
+
+
+
+

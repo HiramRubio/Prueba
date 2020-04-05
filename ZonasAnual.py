@@ -4,6 +4,7 @@
 Created on Thu Mar  5 05:00:15 2020
 
 @author: Steven Rubio
+Leer sismos de nuestra base de datos y determinar su region Sismogenetica
 """
 
 
@@ -79,7 +80,11 @@ for info, shape in zip(map.ej3_info, map.ej3):
         ax.plot(x, y, color='k') 
         for i in range(len(x)):
             patches3.append((x[i],y[i]))
-            
+            print("----------------------------")
+            print(x)
+            print("******************************")
+            print(y)
+            print("----------------------------")
         #Esta lista nos servira para eliminar los sismos  ya clasificados
         rm = []
         if(len(dfs)>0):

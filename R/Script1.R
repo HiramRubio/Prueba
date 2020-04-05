@@ -224,5 +224,7 @@ seq(0,380,15))
 dev.off()
 
 
-
+#Relacion profundidad-Magnitud
+plot( (Zona3$prof), (Zona3$ml))
+plot( (Zona7$prof), (Zona7$ml))
 

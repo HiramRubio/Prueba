@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 import numpy as np
 import pandas as pd
+from DetMun import Det_Mun
 
 
 def dia(fecha):
@@ -80,11 +81,6 @@ for info, shape in zip(map.ej3_info, map.ej3):
         ax.plot(x, y, color='k') 
         for i in range(len(x)):
             patches3.append((x[i],y[i]))
-            print("----------------------------")
-            print(x)
-            print("******************************")
-            print(y)
-            print("----------------------------")
         #Esta lista nos servira para eliminar los sismos  ya clasificados
         rm = []
         if(len(dfs)>0):
@@ -115,8 +111,9 @@ for info, shape in zip(map.ej3_info, map.ej3):
                     else:
                         z2 = 'NA'
                     mag = dfs[' ml'][i]
+                    mun = Det_Mun(xpo,ypo)
                     #Adjuntamos la data de interes y el indice que vamos a eliminar
-                    n_dat.append((xpo,ypo,utf_0,var,j,prof,z2,mag))
+                    n_dat.append((xpo,ypo,utf_0,var,j,prof,z2,mag,mun))
                     rm.append(dfs.index[i])
             #Eliminamos los sismos ya clasificados y reiniciamos el index de nuestro archivo
             dfs.drop(rm,inplace =True)   
@@ -145,7 +142,7 @@ print("Longitud: ",len(dfs))
 print("Execution time: " + str(time.perf_counter() - t)) 
 
 #Creamos un nuevo csv con la informacion que necesitamos
-dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml'])
+dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml','mun'])
 dfs_n.to_csv('Data/Anual2019_M.csv',index=True)
 #Mostramos la data y las regiones
 plt.show()

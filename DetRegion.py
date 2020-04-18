@@ -7,7 +7,7 @@ Determinar la region SMG (GT) de un sismo.
 """
 
 
-def Det_Region(xpo,ypo):
+def Det_Region(ypo,xpo):
     
     """
     Variables de entrada:

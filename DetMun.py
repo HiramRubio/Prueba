@@ -21,8 +21,10 @@ def Det_Mun(ypo,xpo):
     from pointInside import is_inside_sm
     import time
     
+    #Variable de Control 
+    Mostrar=False
     #Tiempo de ejecucion 0
-    t = time.perf_counter() 
+    if(Mostrar):t = time.perf_counter() 
     
     #Definimos la región de nuestro mapa
     x1,x2 = -86.4616, -95.0688
@@ -51,7 +53,7 @@ def Det_Mun(ypo,xpo):
             testP = (xpt,ypt)
             #Determinamos si se encuentra dentro de la region Valuada
             if (is_inside_sm(patches3,testP)):
-                print("Execution time: " + str(time.perf_counter() - t)) 
+                if(Mostrar): print("Execution time: " + str(time.perf_counter() - t)) 
                 return info['ADM2_REF']
             #Si no, retornamos un SC
             else:
@@ -60,15 +62,15 @@ def Det_Mun(ypo,xpo):
                
                 
 
-    print("Execution time: " + str(time.perf_counter() - t)) 
+    if(Mostrar): print("Execution time: " + str(time.perf_counter() - t)) 
     return Region
 
-#Prueba
-"""
-import pandas as pd
-dfs = pd.read_csv('Data/Anual2019.csv')
-for i in range(len(dfs)):
-    xpo = dfs[' lon'][i]
-    ypo = dfs[' lat'][i]
-    Mun = Det_Mun(xpo,ypo)
-    print("Sismo ",i,". Lon: ", xpo, "Lat: ",ypo, "Mun: ",Mun)"""
+#Prueba de datos
+if(False):
+    import pandas as pd
+    dfs = pd.read_csv('Data/Anual2019.csv')
+    for i in range(740,840):
+        xpo = dfs[' lon'][i]
+        ypo = dfs[' lat'][i]
+        Mun = Det_Mun(ypo,xpo)
+        print("Sismo ",i,"Lat: ",ypo,". Lon: ", xpo, "Mun: ",Mun)

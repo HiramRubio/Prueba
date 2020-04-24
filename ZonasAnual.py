@@ -40,11 +40,12 @@ ax      = fig.add_subplot(111)
 #Creamos nuestro mapa, entre los argumentos se encuentran: La calidad, proyeccion
 #Resolucion, centro y limites
 #Leemos los datos y delimitamos los limites de nuestro mapa
-dfs = pd.read_csv('Data/Anual2019.csv')
+dfs = pd.read_csv('Data/DatosInforme.csv')
 #print(max(dfs[' lon']),min(dfs[' lon']))
 x1,x2 = max(dfs[' lon']),min(dfs[' lon'])
 #print(max(dfs[' lat']),min(dfs[' lat']))
 y1,y2 = max(dfs[' lat']),min(dfs[' lat'])
+
 map = Basemap(resolution='i', # c, l, i, h, f or None
             projection='merc', 
             lat_0=14.6569, lon_0=-90.51,
@@ -86,20 +87,21 @@ for info, shape in zip(map.ej3_info, map.ej3):
         if(len(dfs)>0):
             #Recorremos todo el listado de sismos
             for i in range(len(dfs)):
-                xpo = dfs[' lon'][i]
-                ypo = dfs[' lat'][i]
+                xpo = dfs['lon'][i]
+                ypo = dfs['lat'][i]
                 utf = dfs['fyh_utc'][i]
-                utf_0 = dia(utf)
-                if(utf_0[0]=='0'):
-                    utf_0=utf_0[1:]
+                #utf_0 = dia(utf)
+                utf_0 = utf
+                #if(utf_0[0]=='0'):
+                #    utf_0=utf_0[1:]
                 xpt,ypt = map(xpo,ypo)
                 testP = (xpt,ypt)
                 #Si las coordenadas del punto están dentro de la Zona a prueba
                 #Se entra a este if
                 if (is_inside_sm(patches3,testP)):
                     ax.plot(xpt,ypt,'o',color =Colors[j])
-                    var = dfs[' folder'][i]
-                    prof = dfs[' prof'][i]
+                    var = dfs['folder'][i]
+                    prof = dfs['prof'][i]
                     if(prof<15 and prof >0):
                         z2 = 'Superficial'
                     elif(prof<65 and prof >=15):
@@ -110,10 +112,10 @@ for info, shape in zip(map.ej3_info, map.ej3):
                         z2 = 'Profundo'
                     else:
                         z2 = 'NA'
-                    mag = dfs[' ml'][i]
-                    mun = Det_Mun(xpo,ypo)
+                    mag = dfs['ml'][i]
+                    #mun = Det_Mun(xpo,ypo)
                     #Adjuntamos la data de interes y el indice que vamos a eliminar
-                    n_dat.append((xpo,ypo,utf_0,var,j,prof,z2,mag,mun))
+                    n_dat.append((xpo,ypo,utf_0,var,j,prof,z2,mag))
                     rm.append(dfs.index[i])
             #Eliminamos los sismos ya clasificados y reiniciamos el index de nuestro archivo
             dfs.drop(rm,inplace =True)   
@@ -126,11 +128,11 @@ for info, shape in zip(map.ej3_info, map.ej3):
 if(len(dfs)>0):
     rm = []
     for i in range(len(dfs)):
-        xpo = dfs[' lon'][i]
-        ypo = dfs[' lat'][i]
+        xpo = dfs['lon'][i]
+        ypo = dfs[' at'][i]
         xpt,ypt = map(xpo,ypo)
         ax.plot(xpt,ypt,'o',color ='#666666')
-        var = dfs[' folder'][i]
+        var = dfs['folder'][i]
         #print(xpo,ypo,var,j)
         n_dat.append((xpo,ypo,var,'SC'))
         rm.append(dfs.index[i])      
@@ -142,7 +144,7 @@ print("Longitud: ",len(dfs))
 print("Execution time: " + str(time.perf_counter() - t)) 
 
 #Creamos un nuevo csv con la informacion que necesitamos
-dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml','mun'])
-dfs_n.to_csv('Data/Anual2019_M.csv',index=True)
+dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml'])
+dfs_n.to_csv('Data/Informe.csv',index=True)
 #Mostramos la data y las regiones
 plt.show()

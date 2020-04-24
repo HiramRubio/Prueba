@@ -1,4 +1,5 @@
 data <- read.csv("C:/Users/HRV/Desktop/Post-U/Scripts/Prueba/Data/Anual2019_M.csv")
+data <- read.csv("C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Informe.csv")
 Zona0 <- data[ which (data$Zona==0),]
 Zona1 <- data[ which (data$Zona==1),]
 Zona2 <- data[ which (data$Zona==2),]

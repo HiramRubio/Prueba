@@ -25,10 +25,10 @@ dfs = pd.read_csv('Data/Informe.csv')
 Opc = False
 x1,x2 = max(dfs['lon']),min(dfs['lon'])
 y1,y2 = max(dfs['lat']),min(dfs['lat'])
-y2=y2-0.02
-y1=y1+0.02
-x1=x1+0.01
-x2=x2-0.01
+y2=y2-0.03
+y1=y1+0.03
+x1=x1+0.02
+x2=x2-0.02
 
 #m.drawmapscale(-90.5, 14.31, -90.4, 14.4, 5 , barstyle='fancy')
 # http://server.arcgisonline.com/arcgis/rest/services
@@ -46,9 +46,9 @@ if(Opc==False):
             lat_0=14.6569, lon_0=-90.51,
             llcrnrlon=x2, llcrnrlat=y2,urcrnrlon=x1, urcrnrlat=y1, epsg=4326)
     
-    m.arcgisimage(service='World_Imagery', xpixels=2000, dpi=10,verbose= True)
+    m.arcgisimage(service='Elevation/World_Hillshade', xpixels=800, dpi=100,verbose= True)
     # m.drawmapboundary(fill_color='#46bcec')                  
-    # m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+    #m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
     # m.drawmapboundary(zorder = 0)
     # m.drawcoastlines()
 else:  
@@ -64,11 +64,11 @@ else:
     #m.arcgisimage(service='Elevation/World_Hillshade', xpixels=600, dpi=100,verbose= True)
 
 # draw parallels and meridians.
-parallels = np.arange(-92.,87.,1.)
+parallels = np.arange(-92.,87.,0.1)
 # Label the meridians and parallels
 m.drawparallels(parallels,labels=[False,True,True,True])
 # Draw Meridians and Labels
-meridians = np.arange(-180.,181.,1.)
+meridians = np.arange(-180.,181.,0.1)
 m.drawmeridians(meridians,labels=[True,True,False,True])
 
 #Creamos los colores para cada estacion 
@@ -125,10 +125,17 @@ if(Opc==True):
             patches.append( Polygon(np.array(shape), True) )      
     ax.add_collection(PatchCollection(patches, facecolor= '#527a7a', edgecolor='k', linewidths=1., zorder=2))
 
-m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)     
-if(Opc==False): m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=True)
+m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False) 
+m.readshapefile('Data/shp/gis_osm_water_a_free_1', 'ca',drawbounds=False)
+
+patches   = []
+for info, shape in zip(m.ca_info, m.ca):
+    patches.append( Polygon(np.array(shape), True) )      
+ax.add_collection(PatchCollection(patches, facecolor= '#85adad', edgecolor='w', linewidths=0.01, zorder=2))
+
+if(Opc==False): m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
 #Titulo
 plt.title("Enjambre Sismico 2020-04-19 > 2020-04-21")
 #Guardar Imagen
-#plt.savefig('Imagenes/Enjambre202004A.png', bbox_inches='tight')
+plt.savefig('Imagenes/Enjambre202004B.png', bbox_inches='tight')
 plt.show()

@@ -17,7 +17,7 @@ import pandas as pd
 import numpy as np
 
 fig, ax = plt.subplots(figsize=(8,8))
-Opc = True
+Opc = False
 #Nacional
 if(Opc):
     m = Basemap(resolution='i', # c, l, i, h, f or None
@@ -42,8 +42,8 @@ if(Opc==False):
 #   World_Terrain_Base
 
 if(Opc==False):
-    m.arcgisimage(service='World_Topo_Map', xpixels = 2500, verbose= True)
-#m.arcgisimage(service='World_Terrain_Base', xpixels = 2500, verbose= True)
+    #m.arcgisimage(service='World_Topo_Map', xpixels = 2500, verbose= True)
+    m.arcgisimage(service='Elevation/World_Hillshade', xpixels=800, dpi=100,verbose= True)
 else:
     m.drawmapboundary(fill_color='#46bcec')                  
     m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
@@ -88,5 +88,5 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawboun
 #Titulo
 plt.title("Mapas Estaciones SSG")
 #Guardar Imagen
-#plt.savefig('Imagenes/EstacionesNacional.png', bbox_inches='tight')
+plt.savefig('Imagenes/EstacionesMetropolitano.png', bbox_inches='tight')
 plt.show()

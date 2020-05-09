@@ -11,6 +11,7 @@ base a donde se encuentran las estaciones
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
+import random
 
 fig, ax = plt.subplots(figsize=(8,8))
 Opc = False
@@ -22,7 +23,10 @@ m = Basemap(resolution='i', # c, l, i, h, f or None
     
 m.drawmapboundary(fill_color='#46bcec')                  
 m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
-    
+#Leemos nuestra shapefile, no los activamos todos
+m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
+m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
+   
 #Creación del mapa y el Grid
 #Est = [(2,1,6),(1,6,4)]
 #x = np.linspace(0.0, 10.0)
@@ -110,10 +114,15 @@ with open("Data/2020-04-07-1102/20200981102.site", 'r') as f:
 #Ploteamos el origen
 plt.plot(xpt,ypt,marker='*',color='m')
 #Ploteamos las estaciones
-for i in range(len(Estx)):
-    plt.plot(Estx[i],Esty[i],marker='.',color='r')
 
-#Leemos nuestra shapefile, no los activamos todos
-m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
-m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
+n = random.sample(range(len(Estx)),3)
+print(n)
+for i in range(len(Estx)):
+    if(i in n):
+        CP = plt.Circle((Estx[i],Esty[i]),radius=text3[i][3],color='g',fill=False)
+        ax.add_artist(CP)
+        plt.plot(Estx[i],Esty[i],marker='^',color='g')
+    else:
+        plt.plot(Estx[i],Esty[i],marker='.',color='r')
+
 plt.show()

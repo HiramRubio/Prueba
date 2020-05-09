@@ -10,13 +10,23 @@ base a donde se encuentran las estaciones
 
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.basemap import Basemap
 
+fig, ax = plt.subplots(figsize=(8,8))
+Opc = False
+#Nacional
+m = Basemap(resolution='i', # c, l, i, h, f or None
+    lat_0=14.6569, lon_0=-90.51,
+    llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42,
+    projection='tmerc')
+    
+m.drawmapboundary(fill_color='#46bcec')                  
+m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+    
 #Creación del mapa y el Grid
-Est = [(2,1,6),(1,6,4)]
-
-x = np.linspace(0.0, 10.0)
-y = np.linspace(0.0, 10.0)
-
+#Est = [(2,1,6),(1,6,4)]
+#x = np.linspace(0.0, 10.0)
+#y = np.linspace(0.0, 10.0)
 
 # Abriendo el evento y extrañendo el origen y las Estaciones que se utilizaron para localizarlo
 text = []
@@ -33,8 +43,10 @@ data = text[0].split("  ",4)
 #El tiempo se encuentra en un formato conocido como Unix Epoch
 data = data[0:4]
 #print("Datos Origen: ")
-#print(data)
-        
+#Coordenadas locales del origen
+xpt,ypt = m(float(data[1]),float(data[0]))
+
+
 text2 = []
 #Abrimos un evento
 with open("Data/2020-04-07-1102/20200981102.arrival", 'r') as f: 
@@ -76,6 +88,8 @@ for i in range(len(ListP)):
 
 #Extramos la Lat y Lon de las estaciones con ondas P y S registradas
 text3 = []
+Estx = []
+Esty = []
 with open("Data/2020-04-07-1102/20200981102.site", 'r') as f:
     for i in f:
         #Filtramos los datos que nos interesan de origin
@@ -84,9 +98,22 @@ with open("Data/2020-04-07-1102/20200981102.site", 'r') as f:
         #Quitamos la U y todos los arrivos 'del'
         if(a[2]=='-1' and a[0] in ListPS):
             #Almacenamos: Nombre, Lat, lon, Dis (distancia al epicentro)
-            text3.append((a[0],a[3],a[4],0.0))
-            
-print(text3)
+            xEs,yEs = m(float(a[4]),float(a[3]))
+            #Calculamos distancia euclidiana
+            dist = np.linalg.norm(np.array((xpt,ypt))-np.array((xEs,yEs)))
+            text3.append((a[0],a[3],a[4],dist))
+            #Almacenamos las coordenadas para ploteo
+            Estx.append(xEs)
+            Esty.append(yEs)
+                    
+#print(text3)
+#Ploteamos el origen
+plt.plot(xpt,ypt,marker='*',color='m')
+#Ploteamos las estaciones
+for i in range(len(Estx)):
+    plt.plot(Estx[i],Esty[i],marker='.',color='r')
 
-plt.plot(Est[0],Est[1], 'o')
+#Leemos nuestra shapefile, no los activamos todos
+m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
+m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
 plt.show()

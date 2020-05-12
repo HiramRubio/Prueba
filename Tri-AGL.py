@@ -36,7 +36,10 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawboun
 
 # Abriendo el evento y extrañendo el origen y las Estaciones que se utilizaron para localizarlo
 text = []
-with open("Data/2020-05-07-0233/20201280233.origin", 'r') as f:
+
+str2 = "Data/2020-05-07-0233/20201280233"
+#str2 = "Data/2020-04-07-1102/20200981102"
+with open(str2+".origin", 'r') as f:
     for i in f:
         if (i[0:4]!='-999'):
             text.append(str(i[2:]))
@@ -55,7 +58,7 @@ xpt,ypt = m(float(data[1]),float(data[0]))
 
 text2 = []
 #Abrimos un evento
-with open("Data/2020-05-07-0233/20201280233.arrival", 'r') as f: 
+with open(str2+".arrival", 'r') as f: 
     for i in f:
         #Filtramos los datos que nos interesan de origin
         a = str(i[0:75])
@@ -96,7 +99,7 @@ for i in range(len(ListP)):
 text3 = []
 Estx = []
 Esty = []
-with open("Data/2020-05-07-0233/20201280233.site", 'r') as f:
+with open(str2+".site", 'r') as f:
     for i in f:
         #Filtramos los datos que nos interesan de origin
         a = str(i[0:45])
@@ -113,39 +116,52 @@ with open("Data/2020-05-07-0233/20201280233.site", 'r') as f:
             Esty.append(yEs)
                     
 #print(text3)
-#Ploteamos el origen
-plt.plot(xpt,ypt,marker='*',color='m')
-#Ploteamos las estaciones
-
-n = random.sample(range(len(Estx)),3)
-n = [7,8,0]    #Un vector random que ayuda bueno
-#n = [11,7,1]   #Un vector random debil
-print(n)
-#Calculamos distancia euclidiana entre las estaciones seleccionadas
-d_ab = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[1]],Esty[n[1]])))
-d_ac = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[2]],Esty[n[2]]))) 
-d_bc = np.linalg.norm(np.array((Estx[n[1]],Esty[n[1]]))-np.array((Estx[n[2]],Esty[n[2]])))    
-
-#Validamos si los circulos de las 3 estaciones se intersectan y que sus centros 
-#no se encuentren dentro de otro circulo
-xa = (text3[n[0]][3]+text3[n[1]][3])-d_ab
-xb = (text3[n[0]][3]+text3[n[2]][3])-d_ac
-xc = (text3[n[1]][3]+text3[n[2]][3])-d_bc
-xa2 = d_ab - text3[n[0]][3] 
-xb2 = d_ac - text3[n[0]][3] 
-xc2 = d_bc - text3[n[2]][3] 
+#Variable para ejecutar un ciclo de localizaciones
 val = True
-if(xa>0 and xb>0 and xc>0): 
-    if(xa2>0 and xb2>0 and xc2>0):  Mensaje = "Posible solucion correcta"
-    elif( (xa2>0 and xb2>0) or (xb2>0 and xc2>0) or (xc2>0 and xc2>0)): 
-            Mensaje = "Posible solucion (Estaciones ALineadas o muy cercanas)" 
-    else:   Mensaje = "Triangulación no suficientemente confiable"
-else:   
-    Mensaje = "Triangulación no confiable"
-    val = False
+lol = 0
+
+#[0, 3, 6]
+#[6, 11, 3]
+#[6, 2, 3]
+#[6, 1, 3]
+while(val):    
+    print(lol)
+    lol=lol+1
+    if(lol==1): val=False
+    n = random.sample(range(len(Estx)),3)
+    #n = [7,8,0]    #Un vector random que ayuda bueno
+    #n = [11,7,1]   #Un vector random debil
+    print(n)
+    #Calculamos distancia euclidiana entre las estaciones seleccionadas
+    d_ab = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[1]],Esty[n[1]])))
+    d_ac = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[2]],Esty[n[2]]))) 
+    d_bc = np.linalg.norm(np.array((Estx[n[1]],Esty[n[1]]))-np.array((Estx[n[2]],Esty[n[2]])))    
+    #Validamos si los circulos de las 3 estaciones se intersectan y que sus centros 
+    #no se encuentren dentro de otro circulo
+    xa = (text3[n[0]][3]+text3[n[1]][3])-d_ab
+    xb = (text3[n[0]][3]+text3[n[2]][3])-d_ac
+    xc = (text3[n[1]][3]+text3[n[2]][3])-d_bc
+    #Valor para ver cantidad de casos
+    Casos = 0
+    if( d_ab - text3[n[0]][3] >0): Casos=Casos+1
+    if( d_ac - text3[n[0]][3] >0): Casos=Casos+1
+    if( d_bc - text3[n[1]][3] >0): Casos=Casos+1
+    if( d_ab - text3[n[1]][3] >0): Casos=Casos+1
+    if( d_bc - text3[n[2]][3]>0): Casos=Casos+1
+    if( d_ac - text3[n[2]][3]>0): Casos=Casos+1
     
-
-
+    if(Casos==6):
+            Mensaje = "Posible solucion correcta (Mejor caso)"
+            val = False
+    elif(Casos==5 or Casos == 4): 
+        Mensaje = "Posible solucion (Estaciones ALineadas o muy cercanas)" 
+        #val = False
+    else:   
+        Mensaje = "Triangulación no confiable"
+ 
+#Ploteamos el origen
+plt.plot(xpt,ypt,marker='*',color='m')    
+#Ploteamos las estaciones
 print("Estaciones Utilizadas para triangulazión")
 for i in range(len(Estx)):
     if(i in n):
@@ -155,7 +171,6 @@ for i in range(len(Estx)):
         plt.plot(Estx[i],Esty[i],marker='^',color='g')
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
-
 
 #Vemos el area que intersecta las 3 partes
 

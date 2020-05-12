@@ -189,16 +189,37 @@ sol1 = sympy.solve([eq1, eq2])
 sol2 = sympy.solve([eq1, eq3])
 sol3 = sympy.solve([eq2, eq3])
 
-S1_X1, S1_Y1 = sol1[0][x],sol1[0][y]
-S1_X2, S1_Y2 = sol1[1][x],sol1[1][y]
+#Posibles soluciones
+S1 = []
+S1.append((sol1[0][x],sol1[0][y]))
+S1.append((sol1[1][x],sol1[1][y]))
+S2 = []
+S2.append((sol2[0][x],sol2[0][y]))
+S2.append((sol2[1][x],sol2[1][y]))
+S3 = []
+S3.append((sol3[0][x],sol3[0][y]))
+S3.append((sol3[1][x],sol3[1][y]))
 
-S2_X1, S2_Y1 = sol2[0][x],sol2[0][y]
-S2_X2, S2_Y2 = sol2[1][x],sol2[1][y]
-
-S3_X1, S3_Y1 = sol3[0][x],sol3[0][y]
-S3_X2, S3_Y2 = sol3[1][x],sol3[1][y]
-
-
+#Determinamos las soluciones que están cerca
+SF = []
+CV = 0.0
+for a in S1:
+    for b in S2:
+        for c in S3:
+            NV = abs(a[0]-b[0])+abs(a[0]-c[0])+abs(c[0]-b[0])
+            if(CV==0.0):
+                CV = NV
+                SF.append((a[0],a[1]))
+                SF.append((b[0],b[1]))
+                SF.append((c[0],c[1]))
+            if(NV<CV):
+                SF = [(a[0],a[1]),(b[0],b[1]),(c[0],c[1])]
+    
+#Ploteamos los puntos
+for a in SF:    
+    plt.plot(a[0],a[1],marker='.',color='y')
+    
+    
 #Vemos el area que intersecta las 3 partes
 # a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
 # b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])

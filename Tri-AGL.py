@@ -118,30 +118,59 @@ plt.plot(xpt,ypt,marker='*',color='m')
 #Ploteamos las estaciones
 
 n = random.sample(range(len(Estx)),3)
-#n = [7,8,0] #Un vector random que ayuda
+n = [7,8,0]    #Un vector random que ayuda bueno
+#n = [11,7,1]   #Un vector random debil
 print(n)
+#Calculamos distancia euclidiana entre las estaciones seleccionadas
+d_ab = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[1]],Esty[n[1]])))
+d_ac = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[2]],Esty[n[2]]))) 
+d_bc = np.linalg.norm(np.array((Estx[n[1]],Esty[n[1]]))-np.array((Estx[n[2]],Esty[n[2]])))    
+
+#Validamos si los circulos de las 3 estaciones se intersectan y que sus centros 
+#no se encuentren dentro de otro circulo
+xa = (text3[n[0]][3]+text3[n[1]][3])-d_ab
+xb = (text3[n[0]][3]+text3[n[2]][3])-d_ac
+xc = (text3[n[1]][3]+text3[n[2]][3])-d_bc
+xa2 = d_ab - text3[n[0]][3] 
+xb2 = d_ac - text3[n[0]][3] 
+xc2 = d_bc - text3[n[2]][3] 
+val = True
+if(xa>0 and xb>0 and xc>0): 
+    if(xa2>0 and xb2>0 and xc2>0):  Mensaje = "Posible solucion correcta"
+    elif( (xa2>0 and xb2>0) or (xb2>0 and xc2>0) or (xc2>0 and xc2>0)): 
+            Mensaje = "Posible solucion (Estaciones ALineadas o muy cercanas)" 
+    else:   Mensaje = "Triangulación no suficientemente confiable"
+else:   
+    Mensaje = "Triangulación no confiable"
+    val = False
+    
+
+
+print("Estaciones Utilizadas para triangulazión")
 for i in range(len(Estx)):
     if(i in n):
         CP = plt.Circle((Estx[i],Esty[i]),radius=text3[i][3],color='g',fill=False)
         ax.add_artist(CP)
+        print("Nombre: "+ str(text3[i][0])+" Coordenadas: ("+str(text3[i][1])+","+str(text3[i][2])+")")
         plt.plot(Estx[i],Esty[i],marker='^',color='g')
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
 
 
 #Vemos el area que intersecta las 3 partes
-#
-a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
-b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])
-c = sg.Point(Estx[n[2]],Esty[n[2]]).buffer(text3[n[2]][3])
-abc = a.intersection(b)
-abc = abc.intersection(c)
-ab = a.intersection(b)
-ac = a.intersection(c)
-bc = b.intersection(c)
-ax.add_patch(descartes.PolygonPatch(ab, fc='g', ec='k', alpha=0.2))
-ax.add_patch(descartes.PolygonPatch(ac, fc='b', ec='k', alpha=0.2))
-ax.add_patch(descartes.PolygonPatch(bc, fc='y', ec='k', alpha=0.2))
-ax.add_patch(descartes.PolygonPatch(abc, fc='r', ec='k', alpha=0.2))
-#
+
+# a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
+# b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])
+# c = sg.Point(Estx[n[2]],Esty[n[2]]).buffer(text3[n[2]][3])
+# abc = a.intersection(b)
+# abc = abc.intersection(c)
+# ab = a.intersection(b)
+# ac = a.intersection(c)
+# bc = b.intersection(c)
+# ax.add_patch(descartes.PolygonPatch(ab, fc='g', ec='k', alpha=0.2))
+# ax.add_patch(descartes.PolygonPatch(ac, fc='b', ec='k', alpha=0.2))
+# ax.add_patch(descartes.PolygonPatch(bc, fc='y', ec='k', alpha=0.2))
+# ax.add_patch(descartes.PolygonPatch(abc, fc='r', ec='k', alpha=0.2))
+#Titulo
+plt.title(Mensaje)
 plt.show()

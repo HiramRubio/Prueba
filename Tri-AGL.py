@@ -12,8 +12,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
 import random
-import shapely.geometry as sg
-import descartes
+#import shapely.geometry as sg
+#import descartes
+import sympy
 
 fig, ax = plt.subplots(figsize=(8,8))
 Opc = False
@@ -147,14 +148,14 @@ while(val):
     if( d_ac - text3[n[0]][3] >0): Casos=Casos+1
     if( d_bc - text3[n[1]][3] >0): Casos=Casos+1
     if( d_ab - text3[n[1]][3] >0): Casos=Casos+1
-    if( d_bc - text3[n[2]][3]>0): Casos=Casos+1
-    if( d_ac - text3[n[2]][3]>0): Casos=Casos+1
+    if( d_bc - text3[n[2]][3] >0): Casos=Casos+1
+    if( d_ac - text3[n[2]][3] >0): Casos=Casos+1
     
     if(Casos==6):
             Mensaje = "Posible solucion correcta (Mejor caso)"
             val = False
     elif(Casos==5 or Casos == 4): 
-        Mensaje = "Posible solucion (Estaciones ALineadas o muy cercanas)" 
+        Mensaje = "Posible solucion (Estaciones Alineadas o muy cercanas)" 
         #val = False
     else:   
         Mensaje = "Triangulación no confiable"
@@ -171,9 +172,34 @@ for i in range(len(Estx)):
         plt.plot(Estx[i],Esty[i],marker='^',color='g')
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
+        
+#Buscamos la solución numerica de donde se intersectan los circulos
+x, y = sympy.symbols("x y", real=True)
+
+
+h1,k1,r1 = Estx[n[0]],Esty[n[0]],text3[n[0]][3]
+h2,k2,r2 = Estx[n[1]],Esty[n[1]],text3[n[1]][3]
+h3,k3,r3 = Estx[n[2]],Esty[n[2]],text3[n[2]][3]
+
+#Resolvemos las ecuaciones para determinar donde se intersectan los circulos                         
+eq1 = sympy.Eq((x-h1)**2 + (y-k1)**2, r1**2)
+eq2 = sympy.Eq((x-h2)**2 + (y-k2)**2, r2**2)
+eq3 = sympy.Eq((x-h3)**2 + (y-k3)**2, r3**2)
+sol1 = sympy.solve([eq1, eq2])
+sol2 = sympy.solve([eq1, eq3])
+sol3 = sympy.solve([eq2, eq3])
+
+S1_X1, S1_Y1 = sol1[0][x],sol1[0][y]
+S1_X2, S1_Y2 = sol1[1][x],sol1[1][y]
+
+S2_X1, S2_Y1 = sol2[0][x],sol2[0][y]
+S2_X2, S2_Y2 = sol2[1][x],sol2[1][y]
+
+S3_X1, S3_Y1 = sol3[0][x],sol3[0][y]
+S3_X2, S3_Y2 = sol3[1][x],sol3[1][y]
+
 
 #Vemos el area que intersecta las 3 partes
-
 # a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
 # b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])
 # c = sg.Point(Estx[n[2]],Esty[n[2]]).buffer(text3[n[2]][3])

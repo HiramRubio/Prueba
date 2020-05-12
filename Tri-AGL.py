@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
 import random
+import shapely.geometry as sg
+import descartes
 
 fig, ax = plt.subplots(figsize=(8,8))
 Opc = False
@@ -34,7 +36,7 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawboun
 
 # Abriendo el evento y extrañendo el origen y las Estaciones que se utilizaron para localizarlo
 text = []
-with open("Data/2020-04-07-1102/20200981102.origin", 'r') as f:
+with open("Data/2020-05-07-0233/20201280233.origin", 'r') as f:
     for i in f:
         if (i[0:4]!='-999'):
             text.append(str(i[2:]))
@@ -53,7 +55,7 @@ xpt,ypt = m(float(data[1]),float(data[0]))
 
 text2 = []
 #Abrimos un evento
-with open("Data/2020-04-07-1102/20200981102.arrival", 'r') as f: 
+with open("Data/2020-05-07-0233/20201280233.arrival", 'r') as f: 
     for i in f:
         #Filtramos los datos que nos interesan de origin
         a = str(i[0:75])
@@ -94,7 +96,7 @@ for i in range(len(ListP)):
 text3 = []
 Estx = []
 Esty = []
-with open("Data/2020-04-07-1102/20200981102.site", 'r') as f:
+with open("Data/2020-05-07-0233/20201280233.site", 'r') as f:
     for i in f:
         #Filtramos los datos que nos interesan de origin
         a = str(i[0:45])
@@ -116,6 +118,7 @@ plt.plot(xpt,ypt,marker='*',color='m')
 #Ploteamos las estaciones
 
 n = random.sample(range(len(Estx)),3)
+#n = [7,8,0] #Un vector random que ayuda
 print(n)
 for i in range(len(Estx)):
     if(i in n):
@@ -125,4 +128,20 @@ for i in range(len(Estx)):
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
 
+
+#Vemos el area que intersecta las 3 partes
+#
+a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
+b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])
+c = sg.Point(Estx[n[2]],Esty[n[2]]).buffer(text3[n[2]][3])
+abc = a.intersection(b)
+abc = abc.intersection(c)
+ab = a.intersection(b)
+ac = a.intersection(c)
+bc = b.intersection(c)
+ax.add_patch(descartes.PolygonPatch(ab, fc='g', ec='k', alpha=0.2))
+ax.add_patch(descartes.PolygonPatch(ac, fc='b', ec='k', alpha=0.2))
+ax.add_patch(descartes.PolygonPatch(bc, fc='y', ec='k', alpha=0.2))
+ax.add_patch(descartes.PolygonPatch(abc, fc='r', ec='k', alpha=0.2))
+#
 plt.show()

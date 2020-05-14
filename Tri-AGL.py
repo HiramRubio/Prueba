@@ -128,10 +128,11 @@ lol = 0
 while(val):    
     #print(lol)
     lol=lol+1
-    if(lol==100): val=False
-    n = random.sample(range(len(Estx)),3)
-    #n = [7,8,0]    #Un vector random que ayuda bueno
+    if(lol==1): val=False
+    #n = random.sample(range(len(Estx)),3)
+    n = [7,8,0]    #Un vector random que ayuda bueno
     #n = [11,7,1]   #Un vector random debil
+    #n=[8,9,10]
     #print(n)
     #Calculamos distancia euclidiana entre las estaciones seleccionadas
     d_ab = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[1]],Esty[n[1]])))
@@ -156,7 +157,6 @@ while(val):
             val = False
     elif(Casos==5 or Casos == 4): 
         Mensaje = "Posible solucion (Estaciones Alineadas o muy cercanas)" 
-        val = False
     else:   
         Mensaje = "Triangulación no confiable"
 
@@ -228,12 +228,12 @@ for a in S1:
   
 #Hacemos un promedio de las soluciones y determinamos el error
 SFxm = (SFx[0]+SFx[1]+SFx[2])/3
-SFxep = max(SFx)-SFxm 
-SFxen = min(SFx)-SFxm
+SFxep = max(SFx) 
+SFxen = min(SFx)
 
 SFym = (SFy[0]+SFy[1]+SFy[2])/3
-SFyep = max(SFy)-SFym 
-SFyen = min(SFy)-SFym
+SFyep = max(SFy)
+SFyen = min(SFy)
 
 
 lonF,latF = m( SFxm,SFym,True)
@@ -242,12 +242,13 @@ erxn,eryn = m( SFxen,SFyen,True)
 
 print("Solucion Antelope: "+data[0]+","+data[1])
 print("Solucion Programa: "+str(latF)+","+str(lonF))
-print("Error lon: "+str(SFxen)+" / "+str(SFxep))
-print("Error Lat: "+str(SFyen)+" / "+str(SFyep))
+print("Error lon: -"+str(-erxn+lonF)+" / +"+str(erxp-lonF))
+print("Error Lat: -"+str(-eryn+latF)+" / +"+str(eryp-latF))
 
-if( (SFxm-xpt)<SFxep or(SFxm-xpt)>SFxen ):
-    if( (SFym-ypt)<SFyep or (SFym-ypt)>SFyen):print("n")
 
+if(-erxn+lonF<0.01,erxp-lonF<0.01,-eryn+latF<0.01,eryp-latF<0.01):
+    print("Acierto en la solucion")
+else: print("Solucion no correcta")
 #Ploteamos los puntos
 for a in SF:    
     plt.plot(a[0],a[1],marker='.',color='y')

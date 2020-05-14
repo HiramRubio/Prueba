@@ -126,13 +126,13 @@ lol = 0
 #[6, 2, 3]
 #[6, 1, 3]
 while(val):    
-    print(lol)
+    #print(lol)
     lol=lol+1
-    if(lol==1): val=False
+    if(lol==100): val=False
     n = random.sample(range(len(Estx)),3)
     #n = [7,8,0]    #Un vector random que ayuda bueno
     #n = [11,7,1]   #Un vector random debil
-    print(n)
+    #print(n)
     #Calculamos distancia euclidiana entre las estaciones seleccionadas
     d_ab = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[1]],Esty[n[1]])))
     d_ac = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[2]],Esty[n[2]]))) 
@@ -156,10 +156,11 @@ while(val):
             val = False
     elif(Casos==5 or Casos == 4): 
         Mensaje = "Posible solucion (Estaciones Alineadas o muy cercanas)" 
-        #val = False
+        val = False
     else:   
         Mensaje = "Triangulación no confiable"
- 
+
+print("Grado de la solución: "+str(Casos))
 #Ploteamos el origen
 plt.plot(xpt,ypt,marker='*',color='m')    
 #Ploteamos las estaciones
@@ -168,7 +169,7 @@ for i in range(len(Estx)):
     if(i in n):
         CP = plt.Circle((Estx[i],Esty[i]),radius=text3[i][3],color='g',fill=False)
         ax.add_artist(CP)
-        print("Nombre: "+ str(text3[i][0])+" Coordenadas: ("+str(text3[i][1])+","+str(text3[i][2])+")")
+        print("Nombre: "+ str(text3[i][0])+", Coordenadas: ("+str(text3[i][1])+","+str(text3[i][2])+")")
         plt.plot(Estx[i],Esty[i],marker='^',color='g')
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
@@ -202,6 +203,8 @@ S3.append((sol3[1][x],sol3[1][y]))
 
 #Determinamos las soluciones que están cerca
 SF = []
+SFx = []
+SFy = []
 CV = 0.0
 for a in S1:
     for b in S2:
@@ -212,14 +215,44 @@ for a in S1:
                 SF.append((a[0],a[1]))
                 SF.append((b[0],b[1]))
                 SF.append((c[0],c[1]))
+                SFx.append(a[0])
+                SFx.append(b[0])
+                SFx.append(c[0])
+                SFy.append(a[1])
+                SFy.append(b[1])
+                SFy.append(c[1])
             if(NV<CV):
                 SF = [(a[0],a[1]),(b[0],b[1]),(c[0],c[1])]
-    
+                SFx = [a[0],b[0],c[0]]
+                SFy = [a[1],b[1],c[1]]
+  
+#Hacemos un promedio de las soluciones y determinamos el error
+SFxm = (SFx[0]+SFx[1]+SFx[2])/3
+SFxep = max(SFx)-SFxm 
+SFxen = min(SFx)-SFxm
+
+SFym = (SFy[0]+SFy[1]+SFy[2])/3
+SFyep = max(SFy)-SFym 
+SFyen = min(SFy)-SFym
+
+
+lonF,latF = m( SFxm,SFym,True)
+erxp,eryp = m( SFxep,SFyep,True)
+erxn,eryn = m( SFxen,SFyen,True)
+
+print("Solucion Antelope: "+data[0]+","+data[1])
+print("Solucion Programa: "+str(latF)+","+str(lonF))
+print("Error lon: "+str(SFxen)+" / "+str(SFxep))
+print("Error Lat: "+str(SFyen)+" / "+str(SFyep))
+
+if( (SFxm-xpt)<SFxep or(SFxm-xpt)>SFxen ):
+    if( (SFym-ypt)<SFyep or (SFym-ypt)>SFyen):print("n")
+
 #Ploteamos los puntos
 for a in SF:    
     plt.plot(a[0],a[1],marker='.',color='y')
     
-    
+
 #Vemos el area que intersecta las 3 partes
 # a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
 # b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])

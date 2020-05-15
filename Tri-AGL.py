@@ -120,7 +120,7 @@ with open(str2+".site", 'r') as f:
 #Variable para ejecutar un ciclo de localizaciones
 val = True
 lol = 0
-
+Fails = 0
 #[0, 3, 6]
 #[6, 11, 3]
 #[6, 2, 3]
@@ -128,9 +128,9 @@ lol = 0
 while(val):    
     #print(lol)
     lol=lol+1
-    if(lol==1): val=False
-    #n = random.sample(range(len(Estx)),3)
-    n = [7,8,0]    #Un vector random que ayuda bueno
+    if(lol==300): val=False
+    n = random.sample(range(len(Estx)),3)
+    #n = [7,8,0]    #Un vector random que ayuda bueno
     #n = [11,7,1]   #Un vector random debil
     #n=[8,9,10]
     #print(n)
@@ -160,100 +160,91 @@ while(val):
     else:   
         Mensaje = "Triangulación no confiable"
 
-print("Grado de la solución: "+str(Casos))
-#Ploteamos el origen
-plt.plot(xpt,ypt,marker='*',color='m')    
-#Ploteamos las estaciones
-print("Estaciones Utilizadas para triangulazión")
-for i in range(len(Estx)):
-    if(i in n):
-        CP = plt.Circle((Estx[i],Esty[i]),radius=text3[i][3],color='g',fill=False)
-        ax.add_artist(CP)
-        print("Nombre: "+ str(text3[i][0])+", Coordenadas: ("+str(text3[i][1])+","+str(text3[i][2])+")")
-        plt.plot(Estx[i],Esty[i],marker='^',color='g')
-    else:
-        plt.plot(Estx[i],Esty[i],marker='.',color='r')
-        
-#Buscamos la solución numerica de donde se intersectan los circulos
-x, y = sympy.symbols("x y", real=True)
+    #print("Grado de la solución: "+str(Casos))
 
-
-h1,k1,r1 = Estx[n[0]],Esty[n[0]],text3[n[0]][3]
-h2,k2,r2 = Estx[n[1]],Esty[n[1]],text3[n[1]][3]
-h3,k3,r3 = Estx[n[2]],Esty[n[2]],text3[n[2]][3]
-
-#Resolvemos las ecuaciones para determinar donde se intersectan los circulos                         
-eq1 = sympy.Eq((x-h1)**2 + (y-k1)**2, r1**2)
-eq2 = sympy.Eq((x-h2)**2 + (y-k2)**2, r2**2)
-eq3 = sympy.Eq((x-h3)**2 + (y-k3)**2, r3**2)
-sol1 = sympy.solve([eq1, eq2])
-sol2 = sympy.solve([eq1, eq3])
-sol3 = sympy.solve([eq2, eq3])
-
-#Posibles soluciones
-S1 = []
-S1.append((sol1[0][x],sol1[0][y]))
-S1.append((sol1[1][x],sol1[1][y]))
-S2 = []
-S2.append((sol2[0][x],sol2[0][y]))
-S2.append((sol2[1][x],sol2[1][y]))
-S3 = []
-S3.append((sol3[0][x],sol3[0][y]))
-S3.append((sol3[1][x],sol3[1][y]))
-
-#Determinamos las soluciones que están cerca
-SF = []
-SFx = []
-SFy = []
-CV = 0.0
-for a in S1:
-    for b in S2:
-        for c in S3:
-            NV = abs(a[0]-b[0])+abs(a[0]-c[0])+abs(c[0]-b[0])
-            if(CV==0.0):
-                CV = NV
-                SF.append((a[0],a[1]))
-                SF.append((b[0],b[1]))
-                SF.append((c[0],c[1]))
-                SFx.append(a[0])
-                SFx.append(b[0])
-                SFx.append(c[0])
-                SFy.append(a[1])
-                SFy.append(b[1])
-                SFy.append(c[1])
-            if(NV<CV):
-                SF = [(a[0],a[1]),(b[0],b[1]),(c[0],c[1])]
-                SFx = [a[0],b[0],c[0]]
-                SFy = [a[1],b[1],c[1]]
-  
-#Hacemos un promedio de las soluciones y determinamos el error
-SFxm = (SFx[0]+SFx[1]+SFx[2])/3
-SFxep = max(SFx) 
-SFxen = min(SFx)
-
-SFym = (SFy[0]+SFy[1]+SFy[2])/3
-SFyep = max(SFy)
-SFyen = min(SFy)
-
-
-lonF,latF = m( SFxm,SFym,True)
-erxp,eryp = m( SFxep,SFyep,True)
-erxn,eryn = m( SFxen,SFyen,True)
-
-print("Solucion Antelope: "+data[0]+","+data[1])
-print("Solucion Programa: "+str(latF)+","+str(lonF))
-print("Error lon: -"+str(-erxn+lonF)+" / +"+str(erxp-lonF))
-print("Error Lat: -"+str(-eryn+latF)+" / +"+str(eryp-latF))
-
-
-if(-erxn+lonF<0.01,erxp-lonF<0.01,-eryn+latF<0.01,eryp-latF<0.01):
-    print("Acierto en la solucion")
-else: print("Solucion no correcta")
-#Ploteamos los puntos
-for a in SF:    
-    plt.plot(a[0],a[1],marker='.',color='y')
+    #Buscamos la solución numerica de donde se intersectan los circulos
+    x, y = sympy.symbols("x y", real=True)
     
-
+    h1,k1,r1 = Estx[n[0]],Esty[n[0]],text3[n[0]][3]
+    h2,k2,r2 = Estx[n[1]],Esty[n[1]],text3[n[1]][3]
+    h3,k3,r3 = Estx[n[2]],Esty[n[2]],text3[n[2]][3]
+    
+    #Resolvemos las ecuaciones para determinar donde se intersectan los circulos                         
+    eq1 = sympy.Eq((x-h1)**2 + (y-k1)**2, r1**2)
+    eq2 = sympy.Eq((x-h2)**2 + (y-k2)**2, r2**2)
+    eq3 = sympy.Eq((x-h3)**2 + (y-k3)**2, r3**2)
+    sol1 = sympy.solve([eq1, eq2])
+    sol2 = sympy.solve([eq1, eq3])
+    sol3 = sympy.solve([eq2, eq3])
+    
+    #Posibles soluciones
+    S1 = []
+    S1.append((sol1[0][x],sol1[0][y]))
+    S1.append((sol1[1][x],sol1[1][y]))
+    S2 = []
+    S2.append((sol2[0][x],sol2[0][y]))
+    S2.append((sol2[1][x],sol2[1][y]))
+    S3 = []
+    S3.append((sol3[0][x],sol3[0][y]))
+    S3.append((sol3[1][x],sol3[1][y]))
+    
+    #Determinamos las soluciones que están cerca
+    SF = []
+    SFx = []
+    SFy = []
+    CV = 0.0
+    for a in S1:
+        for b in S2:
+            for c in S3:
+                NV = abs(a[0]-b[0])+abs(a[0]-c[0])+abs(c[0]-b[0])
+                if(CV==0.0):
+                    CV = NV
+                    SF.append((a[0],a[1]))
+                    SF.append((b[0],b[1]))
+                    SF.append((c[0],c[1]))
+                    SFx.append(a[0])
+                    SFx.append(b[0])
+                    SFx.append(c[0])
+                    SFy.append(a[1])
+                    SFy.append(b[1])
+                    SFy.append(c[1])
+                if(NV<CV):
+                    SF = [(a[0],a[1]),(b[0],b[1]),(c[0],c[1])]
+                    SFx = [a[0],b[0],c[0]]
+                    SFy = [a[1],b[1],c[1]]
+      
+    #Hacemos un promedio de las soluciones y determinamos el error
+    SFxm = (SFx[0]+SFx[1]+SFx[2])/3
+    SFxep = max(SFx) 
+    SFxen = min(SFx)
+    
+    SFym = (SFy[0]+SFy[1]+SFy[2])/3
+    SFyep = max(SFy)
+    SFyen = min(SFy)
+    
+    lonF,latF = m( SFxm,SFym,True)
+    erxp,eryp = m( SFxep,SFyep,True)
+    erxn,eryn = m( SFxen,SFyen,True)
+    
+    #Validacion de la solución
+    if(-erxn+lonF<0.01 and erxp-lonF<0.01 and -eryn+latF<0.01 and eryp-latF<0.01):
+        #print("Acierto en la solucion")
+        mensj2 = ", Acierto"
+    else: 
+        #print("Solucion no correcta")
+        mensj2 = ", Sol. Erronea"+str(n)
+        Fails = Fails + 1
+    
+    # print("Solucion Antelope: "+data[0]+","+data[1])
+    print(str(lol)+" Grado: "+str(Casos)+", Solucion Programa: "+str(latF)+","+str(lonF)+mensj2)
+    # print("Error lon: -"+str(-erxn+lonF)+" / +"+str(erxp-lonF))
+    # print("Error Lat: -"+str(-eryn+latF)+" / +"+str(eryp-latF))
+    
+    #Ploteamos los puntos
+    for a in SF:    
+        plt.plot(a[0],a[1],marker='.',color='y')
+     
+        
 #Vemos el area que intersecta las 3 partes
 # a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
 # b = sg.Point(Estx[n[1]],Esty[n[1]]).buffer(text3[n[1]][3])
@@ -267,6 +258,22 @@ for a in SF:
 # ax.add_patch(descartes.PolygonPatch(ac, fc='b', ec='k', alpha=0.2))
 # ax.add_patch(descartes.PolygonPatch(bc, fc='y', ec='k', alpha=0.2))
 # ax.add_patch(descartes.PolygonPatch(abc, fc='r', ec='k', alpha=0.2))
+
+"""
+#Ploteamos el origen
+plt.plot(xpt,ypt,marker='*',color='m')    
+#Ploteamos las estaciones
+print("Estaciones Utilizadas para triangulazión")
+for i in range(len(Estx)):
+    if(i in n):
+        CP = plt.Circle((Estx[i],Esty[i]),radius=text3[i][3],color='g',fill=False)
+        ax.add_artist(CP)
+        print("Nombre: "+ str(text3[i][0])+", Coordenadas: ("+str(text3[i][1])+","+str(text3[i][2])+")")
+        plt.plot(Estx[i],Esty[i],marker='^',color='g')
+    else:
+        plt.plot(Estx[i],Esty[i],marker='.',color='r')
+"""
 #Titulo
+print(str(Fails)+"/300")
 plt.title(Mensaje)
 plt.show()

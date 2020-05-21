@@ -7,7 +7,7 @@ Created on Thu Apr 30 23:23:45 2020
 Programa que buscar determinar que tan "triangulable" podría ser un evento en 
 base a donde se encuentran las estaciones
 """
-
+from pointInside import is_inside_sm
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.basemap import Basemap
@@ -15,6 +15,7 @@ import random
 #import shapely.geometry as sg
 #import descartes
 import sympy
+import pandas as pd
 
 fig, ax = plt.subplots(figsize=(8,8))
 Opc = False
@@ -30,16 +31,17 @@ m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
    
-#Creación del mapa y el Grid
-#Est = [(2,1,6),(1,6,4)]
-#x = np.linspace(0.0, 10.0)
-#y = np.linspace(0.0, 10.0)
+
 
 # Abriendo el evento y extrañendo el origen y las Estaciones que se utilizaron para localizarlo
 text = []
+#Creamos la lista de los datos del nuevo csv
+n_dat = []
 
 str2 = "Data/2020-05-07-0233/20201280233"
+name = "2020-05-07-0233"
 #str2 = "Data/2020-04-07-1102/20200981102"
+#name = "2020-04-07-1102"
 with open(str2+".origin", 'r') as f:
     for i in f:
         if (i[0:4]!='-999'):
@@ -116,7 +118,6 @@ with open(str2+".site", 'r') as f:
             Estx.append(xEs)
             Esty.append(yEs)
                     
-#print(text3)
 #Variable para ejecutar un ciclo de localizaciones
 val = True
 lol = 0
@@ -128,12 +129,12 @@ Fails = 0
 while(val):    
     #print(lol)
     lol=lol+1
-    if(lol==300): val=False
+    if(lol==30): val=False
+    #n = [12,1,11]   #Sol erronea pero en rango
+    #n = [11,2,7]   #Sol erronea pero en rango
+    #n = [2,11,4] 
     n = random.sample(range(len(Estx)),3)
-    #n = [7,8,0]    #Un vector random que ayuda bueno
-    #n = [11,7,1]   #Un vector random debil
-    #n=[8,9,10]
-    #print(n)
+   
     #Calculamos distancia euclidiana entre las estaciones seleccionadas
     d_ab = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[1]],Esty[n[1]])))
     d_ac = np.linalg.norm(np.array((Estx[n[0]],Esty[n[0]]))-np.array((Estx[n[2]],Esty[n[2]]))) 
@@ -193,10 +194,13 @@ while(val):
     SFx = []
     SFy = []
     CV = 0.0
+    k=0
     for a in S1:
         for b in S2:
             for c in S3:
+                k = k+1
                 NV = abs(a[0]-b[0])+abs(a[0]-c[0])+abs(c[0]-b[0])
+                print(k,": ",NV)
                 if(CV==0.0):
                     CV = NV
                     SF.append((a[0],a[1]))
@@ -212,8 +216,18 @@ while(val):
                     SF = [(a[0],a[1]),(b[0],b[1]),(c[0],c[1])]
                     SFx = [a[0],b[0],c[0]]
                     SFy = [a[1],b[1],c[1]]
+                    CV = NV
       
     #Hacemos un promedio de las soluciones y determinamos el error
+    patches3 = []
+    for i in range(len(SFx)):
+            patches3.append((SFx[i],SFy[i]))
+    testP = (xpt,ypt)
+    
+    if (is_inside_sm(patches3,testP)!=0):  menj3 = ("Inside")
+    else:   menj3 = ("Outside")
+        
+        
     SFxm = (SFx[0]+SFx[1]+SFx[2])/3
     SFxep = max(SFx) 
     SFxen = min(SFx)
@@ -230,20 +244,24 @@ while(val):
     if(-erxn+lonF<0.01 and erxp-lonF<0.01 and -eryn+latF<0.01 and eryp-latF<0.01):
         #print("Acierto en la solucion")
         mensj2 = ", Acierto"
+        val2 = True
     else: 
         #print("Solucion no correcta")
         mensj2 = ", Sol. Erronea"+str(n)
         Fails = Fails + 1
+        val2 = False
     
-    # print("Solucion Antelope: "+data[0]+","+data[1])
-    print(str(lol)+" Grado: "+str(Casos)+", Solucion Programa: "+str(latF)+","+str(lonF)+mensj2)
-    # print("Error lon: -"+str(-erxn+lonF)+" / +"+str(erxp-lonF))
-    # print("Error Lat: -"+str(-eryn+latF)+" / +"+str(eryp-latF))
+    print("Solucion Antelope: "+data[0]+", "+data[1])
+    print(str(lol)+" Grado: "+str(Casos)+", Solucion Programa > Lat: "+str(latF)+", Lon: "+str(lonF)+mensj2)
+    print("Error lon: -"+str(-erxn+lonF)+" / +"+str(erxp-lonF))
+    print("Error Lat: -"+str(-eryn+latF)+" / +"+str(eryp-latF))
     
     #Ploteamos los puntos
-    for a in SF:    
-        plt.plot(a[0],a[1],marker='.',color='y')
+    # for a in SF:    
+    #     plt.plot(a[0],a[1],marker='.',color='y')
      
+    #Agregamos datos a .csv
+    n_dat.append((name,text3[n[0]][0],text3[n[1]][0],text3[n[2]][0],Casos,latF,lonF,val2,menj3))   
         
 #Vemos el area que intersecta las 3 partes
 # a = sg.Point(Estx[n[0]],Esty[n[0]]).buffer(text3[n[0]][3])
@@ -259,7 +277,7 @@ while(val):
 # ax.add_patch(descartes.PolygonPatch(bc, fc='y', ec='k', alpha=0.2))
 # ax.add_patch(descartes.PolygonPatch(abc, fc='r', ec='k', alpha=0.2))
 
-"""
+
 #Ploteamos el origen
 plt.plot(xpt,ypt,marker='*',color='m')    
 #Ploteamos las estaciones
@@ -272,8 +290,21 @@ for i in range(len(Estx)):
         plt.plot(Estx[i],Esty[i],marker='^',color='g')
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
-"""
+plt.show()
+
+
+coord = [[SFx[0],SFy[0]], [SFx[1],SFy[1]], [SFx[2],SFy[2]]]
+coord.append(coord[0]) #repeat the first point to create a 'closed loop'
+
+plt.figure()
+xs, ys = zip(*coord) #create lists of x and y values
+plt.plot(xs,ys) 
+plt.plot(xpt,ypt,marker='*',color='m') 
+plt.show()
+#Creamos un nuevo csv con la informacion que necesitamos
+dfs_n = pd.DataFrame(n_dat,columns=['Folder','Est1','Est2','Est3','Grado','Lat','Lon','Acierto','Inside'])
+dfs_n.to_csv('Data/2020-05-07-0233-S2.csv',index=True)
 #Titulo
 print(str(Fails)+"/300")
-plt.title(Mensaje)
-plt.show()
+#plt.title(Mensaje)
+#plt.show()

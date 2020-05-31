@@ -129,7 +129,7 @@ Fails = 0
 while(val):    
     #print(lol)
     lol=lol+1
-    if(lol==30): val=False
+    if(lol==1): val=False
     #n = [12,1,11]   #Sol erronea pero en rango
     #n = [11,2,7]   #Sol erronea pero en rango
     #n = [2,11,4] 
@@ -290,6 +290,9 @@ for i in range(len(Estx)):
         plt.plot(Estx[i],Esty[i],marker='^',color='g')
     else:
         plt.plot(Estx[i],Esty[i],marker='.',color='r')
+        
+
+plt.title(Mensaje)
 plt.show()
 
 
@@ -305,6 +308,5 @@ plt.show()
 dfs_n = pd.DataFrame(n_dat,columns=['Folder','Est1','Est2','Est3','Grado','Lat','Lon','Acierto','Inside'])
 dfs_n.to_csv('Data/2020-05-07-0233-S2.csv',index=True)
 #Titulo
-print(str(Fails)+"/300")
 #plt.title(Mensaje)
 #plt.show()

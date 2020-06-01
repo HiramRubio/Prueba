@@ -31,8 +31,6 @@ m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
    
-
-
 # Abriendo el evento y extrañendo el origen y las Estaciones que se utilizaron para localizarlo
 text = []
 #Creamos la lista de los datos del nuevo csv
@@ -71,7 +69,7 @@ with open(str2+".arrival", 'r') as f:
             text2.append(a)
       
 #print(text2)
-#Almacenamos la estacion y el tiempo que le tomo llegar a la onda en listas separadas            
+#Almacenamos la estacion y el tiempo que les tomo llegar a la onda en listas separadas            
 #Almacenamos todas las P 
 ListP = []
 #print("Ondas P: ")

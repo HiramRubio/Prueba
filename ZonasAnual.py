@@ -128,13 +128,39 @@ for info, shape in zip(map.ej3_info, map.ej3):
 if(len(dfs)>0):
     rm = []
     for i in range(len(dfs)):
+        region = 'SC'
+        color = '#666666'
         xpo = dfs[' lon'][i]
         ypo = dfs[' lat'][i]
+        utf = dfs['fyh_utc'][i]
+        mag = dfs[' ml'][i]
+        prof = dfs[' prof'][i]
+        if(prof<15 and prof >0):
+            z2 = 'Superficial'
+        elif(prof<65 and prof >=15):
+            z2 = 'Intra 1'
+        elif(prof<150 and prof >=65):
+            z2 = 'Intra 2'
+        elif(prof>150 and prof <500):
+            z2 = 'Profundo'
+        else:
+            z2 = 'NA'
         xpt,ypt = map(xpo,ypo)
-        ax.plot(xpt,ypt,'o',color ='#666666')
+        if(xpt<445000 and region =='SC'):     
+            color ='#0DFBF2'
+            region = 'Mexico'
+        if(ypt<445000 and ypt>240000 and xpt>880000 and region =='SC'):     
+            color ='#E60DFB'
+            region = 'HondurasLejano'  
+            
+        if(xpt>775000 and ypt<200000 and region =='SC'):     
+            color ='#B0FA04'
+            region = 'SalvadorLejano'                 
+            
+        ax.plot(xpt,ypt,'o',color =color)
         var = dfs[' folder'][i]
         #print(xpo,ypo,var,j)
-        n_dat.append((xpo,ypo,var,'SC'))
+        n_dat.append((xpo,ypo,utf,var,region,prof,z2,mag))
         rm.append(dfs.index[i])      
     dfs.drop(rm,inplace =True)             
 
@@ -144,7 +170,7 @@ print("Longitud: ",len(dfs))
 print("Execution time: " + str(time.perf_counter() - t)) 
 
 #Creamos un nuevo csv con la informacion que necesitamos
-#dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml'])
-#dfs_n.to_csv('Data/Informe2A.csv',index=True)
+dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml'])
+dfs_n.to_csv('Data/Informe2A.csv',index=True)
 #Mostramos la data y las regiones
 plt.show()

@@ -115,7 +115,7 @@ for info, shape in zip(map.ej3_info, map.ej3):
                     mag = dfs[' ml'][i]
                     #mun = Det_Mun(xpo,ypo)
                     #Adjuntamos la data de interes y el indice que vamos a eliminar
-                    n_dat.append((xpo,ypo,utf_0,var,j,prof,z2,mag))
+                    n_dat.append((xpo,ypo,utf_0,var,Zonas[j],prof,z2,mag))
                     rm.append(dfs.index[i])
             #Eliminamos los sismos ya clasificados y reiniciamos el index de nuestro archivo
             dfs.drop(rm,inplace =True)   

@@ -123,8 +123,9 @@ for info, shape in zip(map.ej3_info, map.ej3):
             
         patches3 = []
         
-#Aqui estamos asignando la denominacion SC = Sin clasificar a todos los mismos
-#Que no pertenecen a las zonas sismogenicas de GT
+#Aqui estamos asignando la denominacion SC = Sin clasificar a los simos
+#Que no pertenecen a las zonas sismogenicas de GT y que no se encuentran en una
+#Region de nuestro interes
 if(len(dfs)>0):
     rm = []
     for i in range(len(dfs)):
@@ -135,6 +136,8 @@ if(len(dfs)>0):
         utf = dfs['fyh_utc'][i]
         mag = dfs[' ml'][i]
         prof = dfs[' prof'][i]
+        
+        #Aproximación sobre regiones de profundidad
         if(prof<15 and prof >0):
             z2 = 'Superficial'
         elif(prof<65 and prof >=15):
@@ -145,10 +148,22 @@ if(len(dfs)>0):
             z2 = 'Profundo'
         else:
             z2 = 'NA'
+        #Mapeo a coordenadas locales
         xpt,ypt = map(xpo,ypo)
-        if(xpt<445000 and region =='SC'):     
+        
+        #Regiones extras (No Sismogenéticas)
+        if(xpt<445000 and ypt<470000 and region =='SC'):     
             color ='#0DFBF2'
-            region = 'Mexico'
+            region = 'MexicoCosta'
+            
+        if(xpt<240000 and ypt<520000 and region =='SC'):     
+            color ='#0DFBF2'
+            region = 'MexicoCosta'
+            
+        if(xpt<445000 and ypt>470000 and region =='SC'):     
+            color ='#FB20C6'
+            region = 'MexicoSuperior'
+            
         if(ypt<445000 and ypt>240000 and xpt>880000 and region =='SC'):     
             color ='#E60DFB'
             region = 'HondurasLejano'  

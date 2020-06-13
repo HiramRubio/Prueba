@@ -37,8 +37,8 @@ n_dat = []
 
 #str2 = "Data/2020-05-07-0233/20201280233"
 #name = "2020-05-07-0233"
-str2 = "Data/2020-04-07-1102/20200981102"
-name = "2020-04-07-1102"
+str2 = "Data/2019-03-05-1315/20190641315"
+name = "2019-03-05-1315"
 with open(str2+".origin", 'r') as f:
     for i in f:
         if (i[0:4]!='-999'):
@@ -122,5 +122,5 @@ with open(str2+".site", 'r') as f:
             
 #Creamos un nuevo csv con la informacion que necesitamos
 dfs_n = pd.DataFrame(text3,columns=['Folder','Prof','mag','Est','Lat','Lon','Dist (km) ','Angle','Onda','DeltaT (segundos)'])
-dfs_n.to_csv('Data/EST1.csv',index=True)
+dfs_n.to_csv('Data/ESTP2.csv',index=True)
 

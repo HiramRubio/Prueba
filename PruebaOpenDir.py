@@ -92,7 +92,6 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    
             console.print("Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
-            print()
         if(dataF[4]=='-1' or dataF[4]=='' ):    
             console.print("Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
              
@@ -172,7 +171,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
 def events_station_extractor(Eventos,name,homeDir):
     n_dat = []
     #Recorremos la lista de eventos
-    for i in range(len(Eventos)):
+    for i in track(range(len(Eventos))):
         #Unimos/concatenamos el data Frame anterior al nuevo
         if(i!=0):
             dataF = event_stations_info_extractor(Eventos[i],n_dat,homeDir)
@@ -182,9 +181,11 @@ def events_station_extractor(Eventos,name,homeDir):
         #Solo en el caso 1 no actualizamos el dataFrame
         else:
             dataO = event_stations_info_extractor(Eventos[i],n_dat,homeDir)
+        i   #Track
     
     #Generamos un csv con todos los resultados.
     dataO.to_csv(homeDir+'/'+str(name)+'_estaciones.csv',index=True)
+    
   
      
 #---------------------------*//------------------------------    

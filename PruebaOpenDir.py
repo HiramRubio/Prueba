@@ -60,8 +60,16 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         
         #Obtenemos el día del año del evento
         path2 = path+'/'+str(year)
-        # This would print all the files and directories
-        dirs2 = os.listdir( path2 )
+                    
+        #Progra defensiva para no ingresar un evento que no se encuentra en el path
+        try:
+            dirs2 = os.listdir( path2 )
+            E = True
+        
+        except FileNotFoundError:
+            print("Evento "+str(name)+" no tiene la carpeta año")      
+            return 0
+    
         nday = dirs2[0]
     
         #Construimos el nombre del evento
@@ -159,7 +167,9 @@ def events_station_extractor(Eventos,name,homeDir):
         #Unimos/concatenamos el data Frame anterior al nuevo
         if(i!=0):
             dataF = event_stations_info_extractor(Eventos[i],n_dat,homeDir)
-            dataO = pd.concat([dataO,dataF]) 
+            #Se evita concatenar eventos cuando existe un error en las carpetas o no existe
+            if(type(dataF) != int and type(dataO) != int):   
+                dataO = pd.concat([dataO,dataF]) 
         #Solo en el caso 1 no actualizamos el dataFrame
         else:
             dataO = event_stations_info_extractor(Eventos[i],n_dat,homeDir)
@@ -172,7 +182,7 @@ def events_station_extractor(Eventos,name,homeDir):
 name = 'Mex_Sup'
 
 if(False):
-    Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322"]
+    Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102"]
     homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 else:
     #Leemos los eventos que queremos analizar del informe anual 2 filtrado

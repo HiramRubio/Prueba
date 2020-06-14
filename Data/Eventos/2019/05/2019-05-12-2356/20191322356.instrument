@@ -1,0 +1,3 @@
+       1 Episensor 200 Hz 1.25 Volt per g/KMI Etna-2 Causal epi_1. b - 100.0000000      2365.263823        -1.000000 response                                                         epi_1.25_vpg+etna2_c@100         A       1557757062.16225
+       2 Episensor 200 Hz 2.5 Volt per g/KMI Rock Acausal w epi_2. b - 200.0000000      1168.718595        -1.000000 response                                                         epi_2.5_vpg+rock_c_5pp@200       A       1557757064.52758
+       3 Episensor 200 Hz 2.5 Volt per g/KMI Rock Acausal w epi_2. b - 100.0000000      1168.718595        -1.000000 response                                                         epi_2.5_vpg+rock_c_5pp@100       A       1557757065.77542

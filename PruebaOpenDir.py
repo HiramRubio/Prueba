@@ -10,6 +10,8 @@ Prueba
 import os, sys, math
 import geopy.distance
 import pandas as pd
+from rich.console import Console
+from rich.progress import track
 
 
 def calculate_initial_compass_bearing(pointA, pointB):
@@ -53,7 +55,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         E = True
     
     except FileNotFoundError:
-        print("Evento "+str(name)+" no existe")      
+        console.print("Evento "+str(name)+" no existe",style="bold red")      
         return 0
        
     if(E):
@@ -67,7 +69,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
             E = True
         
         except FileNotFoundError:
-            print("Evento "+str(name)+" no tiene la carpeta año")      
+            console.print("Evento "+str(name)+" no tiene la carpeta año",style="bold red")      
             return 0
     
         nday = dirs2[0]
@@ -87,6 +89,13 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         #El tiempo se encuentra en un formato conocido como Unix Epoch
         dataF = (data[0],data[1],data[2],data[3],data2[-6])
         
+        #Revisamos los valores de magnitud y profundidad
+        if(dataF[2]==''):    
+            console.print("Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
+            print()
+        if(dataF[4]=='-1' or dataF[4]=='' ):    
+            console.print("Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
+             
         text2 = []
         #Abrimos un evento
         with open(eventN+".arrival", 'r') as f: 
@@ -177,12 +186,17 @@ def events_station_extractor(Eventos,name,homeDir):
     #Generamos un csv con todos los resultados.
     dataO.to_csv(homeDir+'/'+str(name)+'_estaciones.csv',index=True)
   
-    
+     
+#---------------------------*//------------------------------    
 #Ejecución del programa
+
+#Consola para imprimir mensajes en pantalla. 
+console = Console()
+
 name = 'Mex_Sup'
 
-if(False):
-    Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102"]
+if(True):
+    Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102","2020-04-07-1122","2019-05-12-2356","2019-05-13-0150"]
     homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 else:
     #Leemos los eventos que queremos analizar del informe anual 2 filtrado

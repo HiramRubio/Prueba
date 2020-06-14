@@ -1,0 +1,65 @@
+dbgenloc Version $Revision$ $Date$
+
+Input Arrival data:
+	Arid Sta         Phase     Time                  uncertainty
+	    4 SMARC        P       5/12/2019  23:56:28.256      0.010
+	    5 SMARC        S       5/12/2019  23:56:55.702      0.100
+	   18 XELA         P       5/12/2019  23:56:32.196      0.010
+	   45 XELA         S       5/12/2019  23:57:01.116      0.100
+	    8 HUEH         P       5/12/2019  23:56:34.439      0.010
+	    9 HUEH         S       5/12/2019  23:57:05.069      0.100
+	   50 QUICH        S       5/12/2019  23:57:11.946      0.100
+
+Parameters
+	atime_residual_weight = yes
+	atime_distance_weight = no 
+	slow_residual_weight = no 
+	slow_distance_weight = no 
+	relative weight slowness data/arrival data =      1.000
+     1.000 < scaled rms residuals in residual weighting <   1000.000
+	fix initial lat ? no  ; lon ? no  ; depth ? no  ; time ? no 
+	generalized_inverse = 1
+	     0.000 < damping <      1.000, damping adjustment =      5.000
+	pseudo-inverse relative truncation parameter =      0.001
+	     0.000 < depth <    800.000 (kilometers)
+	step_length_scale_factor =      0.500
+	min_step_length_scale =      0.010
+	maximum iterations = 40
+	convergence when relative weighted residual change <   0.010000
+	convergence when position change <   0.100000 km
+
+Convergence History
+	                                                                       residual        inter     degrees of
+	iter    lat        lon        depth      time	                    raw       weighted  quartile  freedom
+	  0   14.54940  -93.86260    5.61520  5/12/2019  23:55:53.649         -1         -1         -1     0
+	  1   14.58207  -93.73016   -0.00000  5/12/2019  23:55:53.318      0.827       4.66       37.8     2
+	  2   14.55336  -93.70925    2.07890  5/12/2019  23:55:53.256      0.377      0.633       5.63     2
+	  3   14.56810  -93.70784    2.19490  5/12/2019  23:55:53.365      0.381      0.349        2.6     2
+	  4   14.56900  -93.70194    3.10175  5/12/2019  23:55:53.557      0.392      0.186       1.28     1
+	  5   14.56801  -93.70408    3.99568  5/12/2019  23:55:53.626        0.4      0.168       1.31     1
+	  6   14.56785  -93.70477    4.10242  5/12/2019  23:55:53.630      0.401      0.167       1.25     1
+
+Converged because:
+	Insignificant improvement in fit to these data.  Final relative rms change = 0.005372
+
+Unscaled Covariance matrix (x,y,z,t)
+        14651.1         3630.41        -18496.8        -318.762 
+        3630.41          899.93        -4583.45        -78.9872 
+       -18496.8        -4583.45         23352.6         402.497 
+       -318.762        -78.9872         402.497         6.94296 
+Model Error Bounds (x,y,z,t)
+        0.65591 km EW
+          6.197 km NS
+        38.5654 km Z
+        6.75321 s origin time
+
+Arrival Residuals:
+	                               weighted   raw       residual      other
+	arid sta         phase         residual residual    weight        weight
+	    4 SMARC        P            -1.5      -0.81     0.0185        100
+	    5 SMARC        S            1.02      0.102          1         10
+	   18 XELA         P         0.00168   1.68e-05          1        100
+	   45 XELA         S          -0.466    -0.0466          1         10
+	    8 HUEH         P           0.147    0.00147          1        100
+	    9 HUEH         S          -0.864    -0.0864          1         10
+	   50 QUICH        S             1.5      0.669      0.224         10

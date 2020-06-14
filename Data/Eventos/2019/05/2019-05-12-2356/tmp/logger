@@ -1,0 +1,446 @@
+
+
+ 5/13/2019  18:22:54.000 dbloc commencing
+ 5/13/2019  18:22:54.000 busy: grouping from  5/12/2019  23:56:25.960 with window of 1500
+ 5/13/2019  18:22:55.000 arrivals: 8 arrivals found
+ 5/13/2019  18:22:59.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:23:00.000 Locate: found solution
+ 5/13/2019  18:23:00.000 busy: rearranging arrivals to show residuals for 12
+ 5/13/2019  18:23:09.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:23:10.000 Locate: found solution
+ 5/13/2019  18:23:10.000 busy: rearranging arrivals to show residuals for 13
+ 5/13/2019  18:23:13.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:23:13.000 Locate: found solution
+ 5/13/2019  18:23:13.000 busy: rearranging arrivals to show residuals for 14
+
+
+ 5/13/2019  18:28:34.000 dbloc commencing
+ 5/13/2019  18:28:34.000 busy: grouping from  5/12/2019  23:56:25.860 with window of 1500
+ 5/13/2019  18:28:36.000 arrivals: 10 arrivals found
+ 5/13/2019  18:28:38.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:28:39.000 Locate: found solution
+ 5/13/2019  18:28:39.000 busy: rearranging arrivals to show residuals for 16
+ 5/13/2019  18:28:47.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:28:48.000 Locate: found solution
+ 5/13/2019  18:28:48.000 busy: rearranging arrivals to show residuals for 17
+ 5/13/2019  18:28:52.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:28:52.000 Locate: found solution
+ 5/13/2019  18:28:52.000 busy: rearranging arrivals to show residuals for 18
+
+
+ 5/13/2019  18:31:06.000 dbloc commencing
+ 5/13/2019  18:31:06.000 busy: grouping from  5/12/2019  23:56:25.760 with window of 1500
+ 5/13/2019  18:31:07.000 arrivals: 10 arrivals found
+ 5/13/2019  18:31:09.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:31:10.000 Locate: found solution
+ 5/13/2019  18:31:10.000 busy: rearranging arrivals to show residuals for 20
+
+
+ 5/13/2019  18:32:25.000 dbloc commencing
+ 5/13/2019  18:32:25.000 busy: grouping from  5/12/2019  23:56:25.660 with window of 1500
+ 5/13/2019  18:32:27.000 arrivals: 10 arrivals found
+ 5/13/2019  18:32:30.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:32:31.000 Locate: found solution
+ 5/13/2019  18:32:31.000 busy: rearranging arrivals to show residuals for 22
+
+
+ 5/13/2019  18:34:38.000 dbloc commencing
+ 5/13/2019  18:34:38.000 busy: grouping from  5/12/2019  23:56:25.560 with window of 1500
+ 5/13/2019  18:34:41.000 arrivals: 10 arrivals found
+ 5/13/2019  18:34:43.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:34:44.000 Locate: found solution
+ 5/13/2019  18:34:44.000 busy: rearranging arrivals to show residuals for 24
+ 5/13/2019  18:35:09.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:35:10.000 Locate: found solution
+ 5/13/2019  18:35:10.000 busy: rearranging arrivals to show residuals for 25
+ 5/13/2019  18:35:15.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:35:15.000 Locate: found solution
+ 5/13/2019  18:35:15.000 busy: rearranging arrivals to show residuals for 26
+ 5/13/2019  18:35:18.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:35:18.000 Locate: found solution
+ 5/13/2019  18:35:18.000 busy: rearranging arrivals to show residuals for 27
+ 5/13/2019  18:35:23.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:35:23.000 Locate: found solution
+ 5/13/2019  18:35:24.000 busy: rearranging arrivals to show residuals for 28
+ 5/13/2019  18:35:31.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:35:31.000 Locate: found solution
+ 5/13/2019  18:35:32.000 busy: rearranging arrivals to show residuals for 29
+ 5/13/2019  18:36:46.000 busy: rearranging arrivals to show residuals for 27
+
+
+ 5/13/2019  18:42:21.000 dbloc commencing
+ 5/13/2019  18:42:21.000 busy: grouping from  5/12/2019  23:56:25.460 with window of 1500
+ 5/13/2019  18:42:23.000 arrivals: 10 arrivals found
+ 5/13/2019  18:42:25.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:42:26.000 Locate: found solution
+ 5/13/2019  18:42:26.000 busy: rearranging arrivals to show residuals for 31
+ 5/13/2019  18:42:33.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:42:34.000 Locate: found solution
+ 5/13/2019  18:42:34.000 busy: rearranging arrivals to show residuals for 32
+ 5/13/2019  18:42:37.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:42:37.000 Locate: found solution
+ 5/13/2019  18:42:37.000 busy: rearranging arrivals to show residuals for 33
+ 5/13/2019  18:42:41.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:42:41.000 Locate: found solution
+ 5/13/2019  18:42:41.000 busy: rearranging arrivals to show residuals for 34
+
+
+ 5/13/2019  18:43:35.000 dbloc commencing
+ 5/13/2019  18:43:35.000 busy: grouping from  5/12/2019  23:56:25.360 with window of 1500
+ 5/13/2019  18:43:37.000 arrivals: 10 arrivals found
+ 5/13/2019  18:43:38.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:43:39.000 Locate: found solution
+ 5/13/2019  18:43:39.000 busy: rearranging arrivals to show residuals for 36
+ 5/13/2019  18:43:43.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:43:44.000 Locate: found solution
+ 5/13/2019  18:43:44.000 busy: rearranging arrivals to show residuals for 37
+ 5/13/2019  18:43:48.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:43:48.000 Locate: found solution
+ 5/13/2019  18:43:48.000 busy: rearranging arrivals to show residuals for 38
+ 5/13/2019  18:43:52.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:43:52.000 Locate: found solution
+ 5/13/2019  18:43:52.000 busy: rearranging arrivals to show residuals for 39
+ 5/13/2019  18:43:56.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:43:56.000 Locate: found solution
+ 5/13/2019  18:43:57.000 busy: rearranging arrivals to show residuals for 40
+ 5/13/2019  18:44:08.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:44:08.000 Locate: found solution
+ 5/13/2019  18:44:09.000 busy: rearranging arrivals to show residuals for 41
+ 5/13/2019  18:44:14.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:44:14.000 Locate: found solution
+ 5/13/2019  18:44:15.000 busy: rearranging arrivals to show residuals for 42
+ 5/13/2019  18:44:20.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:44:20.000 Locate: found solution
+ 5/13/2019  18:44:21.000 busy: rearranging arrivals to show residuals for 43
+ 5/13/2019  18:44:38.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:44:38.000 Locate: found solution
+ 5/13/2019  18:44:39.000 busy: rearranging arrivals to show residuals for 44
+ 5/13/2019  18:44:43.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:44:43.000 Locate: found solution
+ 5/13/2019  18:44:44.000 busy: rearranging arrivals to show residuals for 45
+
+
+ 5/13/2019  18:46:57.000 dbloc commencing
+ 5/13/2019  18:46:57.000 busy: grouping from  5/12/2019  23:56:25.260 with window of 1500
+ 5/13/2019  18:46:59.000 arrivals: 10 arrivals found
+ 5/13/2019  18:47:02.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:47:03.000 Locate: found solution
+ 5/13/2019  18:47:03.000 busy: rearranging arrivals to show residuals for 47
+
+
+ 5/13/2019  18:49:51.000 dbloc commencing
+ 5/13/2019  18:49:51.000 busy: grouping from  5/12/2019  23:56:25.160 with window of 1500
+ 5/13/2019  18:49:53.000 arrivals: 10 arrivals found
+ 5/13/2019  18:49:55.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:49:56.000 Locate: found solution
+ 5/13/2019  18:49:56.000 busy: rearranging arrivals to show residuals for 49
+
+
+ 5/13/2019  18:51:35.000 dbloc commencing
+ 5/13/2019  18:51:36.000 busy: grouping from  5/12/2019  23:56:25.060 with window of 1500
+ 5/13/2019  18:51:37.000 arrivals: 10 arrivals found
+ 5/13/2019  18:51:39.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:51:40.000 Locate: found solution
+ 5/13/2019  18:51:40.000 busy: rearranging arrivals to show residuals for 51
+
+
+ 5/13/2019  18:52:30.000 dbloc commencing
+ 5/13/2019  18:52:30.000 busy: grouping from  5/12/2019  23:56:24.960 with window of 1500
+ 5/13/2019  18:52:32.000 arrivals: 10 arrivals found
+ 5/13/2019  18:52:33.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:52:34.000 Locate: found solution
+ 5/13/2019  18:52:34.000 busy: rearranging arrivals to show residuals for 53
+
+
+ 5/13/2019  18:53:13.000 dbloc commencing
+ 5/13/2019  18:53:13.000 busy: grouping from  5/12/2019  23:56:24.860 with window of 1500
+ 5/13/2019  18:53:14.000 arrivals: 10 arrivals found
+ 5/13/2019  18:53:31.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:53:32.000 Locate: found solution
+ 5/13/2019  18:53:32.000 busy: rearranging arrivals to show residuals for 55
+ 5/13/2019  18:53:36.000 busy: saving results
+ 5/13/2019  18:53:36.000 Save: dbloc_verify tmp/trial 55
+ 5/13/2019  18:53:36.000 Save: dbloc_verify is ok
+ 5/13/2019  18:53:36.000 busy: saving origin records 0
+ 5/13/2019  18:53:36.000 Save: copying origin 31 55 0
+ 5/13/2019  18:53:36.000 Save: copying matching assoc records for orid=55
+ 5/13/2019  18:53:36.000 Save: copying matching origerr records for orid=55
+ 5/13/2019  18:53:36.000 Save: copying matching emodel records for orid=55
+ 5/13/2019  18:53:36.000 Save: copying matching predarr records for orid=55
+ 5/13/2019  18:53:36.000 Save: copying matching netmag records for orid=55: nnetmag = 0
+ 5/13/2019  18:53:36.000 Save: copying matching stamag records for orid=55
+ 5/13/2019  18:53:36.000 Save: copying matching commid records for orid=55
+ 5/13/2019  18:53:36.000 Save: dbset 20191322356.origin review orid == 55 y
+ 5/13/2019  18:53:36.000 Save: Saved 1 origins with 1 new events, changing 0 prefors
+ 5/13/2019  18:53:36.000 Save: deleting 0 origins ('')
+
+
+ 5/13/2019  18:53:40.000 dbloc commencing
+ 5/13/2019  18:53:40.000 busy: grouping from  5/12/2019  23:56:25.860 with window of 1500
+ 5/13/2019  18:53:42.000 arrivals: 10 arrivals found
+ 5/13/2019  18:53:42.000 busy: rearranging arrivals to show residuals for 55
+ 5/13/2019  18:53:43.000 busy: dblocsat2: trying to locate event...
+ 5/13/2019  18:53:44.000 Locate: found solution
+ 5/13/2019  18:53:44.000 busy: rearranging arrivals to show residuals for 57
+ 5/13/2019  18:53:47.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:53:48.000 Locate: found solution
+ 5/13/2019  18:53:48.000 busy: rearranging arrivals to show residuals for 58
+ 5/13/2019  18:53:50.000 busy: dbgenloc: trying to locate event...
+ 5/13/2019  18:53:50.000 Locate: found solution
+ 5/13/2019  18:53:50.000 busy: rearranging arrivals to show residuals for 59
+ 5/13/2019  18:54:30.000 busy: saving results
+ 5/13/2019  18:54:30.000 Save: dbloc_verify tmp/trial 57 58 59
+ 5/13/2019  18:54:30.000 Save: dbloc_verify is ok
+ 5/13/2019  18:54:30.000 busy: saving origin records 1 2 3
+ 5/13/2019  18:54:30.000 Save: copying origin 31 57 1
+ 5/13/2019  18:54:30.000 Save: copying matching assoc records for orid=57
+ 5/13/2019  18:54:30.000 Save: copying matching origerr records for orid=57
+ 5/13/2019  18:54:30.000 Save: copying matching emodel records for orid=57
+ 5/13/2019  18:54:30.000 Save: copying matching predarr records for orid=57
+ 5/13/2019  18:54:30.000 Save: copying matching netmag records for orid=57: nnetmag = 0
+ 5/13/2019  18:54:30.000 Save: copying matching stamag records for orid=57
+ 5/13/2019  18:54:30.000 Save: copying matching commid records for orid=57
+ 5/13/2019  18:54:30.000 Save: copying origin 31 58 2
+ 5/13/2019  18:54:30.000 Save: copying matching assoc records for orid=58
+ 5/13/2019  18:54:30.000 Save: copying matching origerr records for orid=58
+ 5/13/2019  18:54:30.000 Save: copying matching emodel records for orid=58
+ 5/13/2019  18:54:30.000 Save: copying matching predarr records for orid=58
+ 5/13/2019  18:54:30.000 Save: copying matching netmag records for orid=58: nnetmag = 0
+ 5/13/2019  18:54:30.000 Save: copying matching stamag records for orid=58
+ 5/13/2019  18:54:30.000 Save: copying matching commid records for orid=58
+ 5/13/2019  18:54:30.000 Save: copying origin 31 59 3
+ 5/13/2019  18:54:30.000 Save: copying matching assoc records for orid=59
+ 5/13/2019  18:54:30.000 Save: copying matching origerr records for orid=59
+ 5/13/2019  18:54:30.000 Save: copying matching emodel records for orid=59
+ 5/13/2019  18:54:30.000 Save: copying matching predarr records for orid=59
+ 5/13/2019  18:54:30.000 Save: copying matching netmag records for orid=59: nnetmag = 0
+ 5/13/2019  18:54:30.000 Save: copying matching stamag records for orid=59
+ 5/13/2019  18:54:30.000 Save: copying matching commid records for orid=59
+ 5/13/2019  18:54:30.000 Save: setprefor 31 59 SSIN3:rt
+ 5/13/2019  18:54:30.000 Save: dbset 20191322356.origin review orid == 57 || orid ==58 || orid ==59 y
+ 5/13/2019  18:54:30.000 Save: Saved 3 origins with 0 new events, changing 1 prefors
+ 5/13/2019  18:54:30.000 Save: deleting 1 origins ('55')
+ 5/13/2019  18:54:30.000 Save: Deleted 1 origins (55 -k )
+
+
+ 5/13/2019  18:54:54.000 dbloc commencing
+ 5/13/2019  18:54:54.000 busy: grouping from  5/12/2019  23:56:25.860 with window of 1500
+ 5/13/2019  18:54:56.000 arrivals: 10 arrivals found
+ 5/13/2019  18:54:56.000 busy: rearranging arrivals to show residuals for 59
+
+
+ 5/13/2019  18:56:00.000 dbloc commencing
+ 5/13/2019  18:56:00.000 busy: grouping from  5/12/2019  23:56:25.760 with window of 1500
+ 5/13/2019  18:56:02.000 arrivals: 10 arrivals found
+ 5/13/2019  18:56:02.000 busy: rearranging arrivals to show residuals for 59
+
+
+ 5/14/2019  16:03:56.000 dbloc commencing
+ 5/14/2019  16:03:56.000 busy: grouping from  5/12/2019  23:56:25.660 with window of 1500
+ 5/14/2019  16:03:58.000 arrivals: 10 arrivals found
+ 5/14/2019  16:03:58.000 busy: rearranging arrivals to show residuals for 58
+ 5/14/2019  16:04:02.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  16:04:03.000 Locate: found solution
+ 5/14/2019  16:04:03.000 busy: rearranging arrivals to show residuals for 63
+ 5/14/2019  16:04:06.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  16:04:07.000 Locate: found solution
+ 5/14/2019  16:04:07.000 busy: rearranging arrivals to show residuals for 64
+ 5/14/2019  16:04:11.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  16:04:11.000 Locate: found solution
+ 5/14/2019  16:04:11.000 busy: rearranging arrivals to show residuals for 65
+ 5/14/2019  16:04:41.000 busy: saving results
+ 5/14/2019  16:04:41.000 Save: dbloc_verify tmp/trial 65
+ 5/14/2019  16:04:41.000 Save: dbloc_verify is ok
+ 5/14/2019  16:04:41.000 busy: saving origin records 3
+ 5/14/2019  16:04:41.000 Save: copying origin 31 65 3
+ 5/14/2019  16:04:41.000 Save: copying matching assoc records for orid=65
+ 5/14/2019  16:04:41.000 Save: copying matching origerr records for orid=65
+ 5/14/2019  16:04:41.000 Save: copying matching emodel records for orid=65
+ 5/14/2019  16:04:41.000 Save: copying matching predarr records for orid=65
+ 5/14/2019  16:04:41.000 Save: copying matching netmag records for orid=65: nnetmag = 2
+ 5/14/2019  16:04:41.000 Save: copying matching stamag records for orid=65
+ 5/14/2019  16:04:41.000 Save: copying matching commid records for orid=65
+ 5/14/2019  16:04:41.000 Save: setprefor 31 65 SSIN3:rt
+ 5/14/2019  16:04:41.000 Save: dbset 20191322356.origin review orid == 65 y
+ 5/14/2019  16:04:41.000 Save: Saved 1 origins with 0 new events, changing 1 prefors
+ 5/14/2019  16:04:41.000 Save: deleting 1 origins ('58')
+ 5/14/2019  16:04:41.000 Save: Deleted 1 origins (58 -k )
+
+
+ 5/14/2019  16:06:23.000 dbloc commencing
+ 5/14/2019  16:06:23.000 busy: grouping from  5/12/2019  23:56:25.860 with window of 1500
+ 5/14/2019  16:06:25.000 arrivals: 10 arrivals found
+ 5/14/2019  16:06:25.000 busy: rearranging arrivals to show residuals for 65
+
+
+ 5/14/2019  20:42:27.000 dbloc commencing
+ 5/14/2019  20:42:27.000 busy: grouping from  5/12/2019  23:56:25.760 with window of 1500
+ 5/14/2019  20:42:29.000 arrivals: 8 arrivals found
+ 5/14/2019  20:42:29.000 busy: rearranging arrivals to show residuals for 65
+ 5/14/2019  20:42:32.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:42:33.000 Locate: found solution
+ 5/14/2019  20:42:33.000 busy: rearranging arrivals to show residuals for 68
+ 5/14/2019  20:42:35.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:42:36.000 Locate: found solution
+ 5/14/2019  20:42:36.000 busy: rearranging arrivals to show residuals for 69
+ 5/14/2019  20:42:39.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:42:39.000 Locate: found solution
+ 5/14/2019  20:42:39.000 busy: rearranging arrivals to show residuals for 70
+ 5/14/2019  20:43:10.000 busy: rearranging arrivals to show residuals for 69
+
+
+ 5/14/2019  20:47:01.000 dbloc commencing
+ 5/14/2019  20:47:01.000 busy: grouping from  5/12/2019  23:56:25.660 with window of 1500
+ 5/14/2019  20:47:03.000 arrivals: 8 arrivals found
+ 5/14/2019  20:47:03.000 busy: rearranging arrivals to show residuals for 65
+ 5/14/2019  20:47:23.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:47:24.000 Locate: found solution
+ 5/14/2019  20:47:24.000 busy: rearranging arrivals to show residuals for 72
+ 5/14/2019  20:47:27.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:47:28.000 Locate: found solution
+ 5/14/2019  20:47:28.000 busy: rearranging arrivals to show residuals for 73
+ 5/14/2019  20:47:40.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:47:40.000 Locate: found solution
+ 5/14/2019  20:47:40.000 busy: rearranging arrivals to show residuals for 74
+ 5/14/2019  20:47:51.000 busy: rearranging arrivals to show residuals for 73
+
+
+ 5/14/2019  20:55:35.000 dbloc commencing
+ 5/14/2019  20:55:35.000 busy: grouping from  5/12/2019  23:56:25.560 with window of 1500
+ 5/14/2019  20:55:37.000 arrivals: 7 arrivals found
+ 5/14/2019  20:55:37.000 busy: rearranging arrivals to show residuals for 65
+ 5/14/2019  20:55:42.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:55:43.000 Locate: found solution
+ 5/14/2019  20:55:43.000 busy: rearranging arrivals to show residuals for 76
+ 5/14/2019  20:55:46.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:55:47.000 Locate: found solution
+ 5/14/2019  20:55:47.000 busy: rearranging arrivals to show residuals for 77
+ 5/14/2019  20:55:49.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:55:49.000 Locate: found solution
+ 5/14/2019  20:55:49.000 busy: rearranging arrivals to show residuals for 78
+ 5/14/2019  20:56:01.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:56:01.000 Locate: found solution
+ 5/14/2019  20:56:01.000 busy: rearranging arrivals to show residuals for 79
+ 5/14/2019  20:56:05.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:56:05.000 Locate: found solution
+ 5/14/2019  20:56:05.000 busy: rearranging arrivals to show residuals for 80
+ 5/14/2019  20:56:10.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:56:10.000 Locate: found solution
+ 5/14/2019  20:56:11.000 busy: rearranging arrivals to show residuals for 81
+ 5/14/2019  20:56:18.000 busy: saving results
+ 5/14/2019  20:56:18.000 busy: saving origin records 
+ 5/14/2019  20:56:18.000 Save: Saved 0 origins with 0 new events, changing 0 prefors
+ 5/14/2019  20:56:18.000 Save: deleting 1 origins ('65')
+ 5/14/2019  20:56:18.000 Save: Deleted 1 origins (65 -k )
+
+
+ 5/14/2019  20:56:21.000 dbloc commencing
+ 5/14/2019  20:56:21.000 busy: grouping from  5/12/2019  23:56:28.056 with window of 1500
+ 5/14/2019  20:56:23.000 arrivals: 7 arrivals found
+ 5/14/2019  20:56:24.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:56:25.000 Locate: found solution
+ 5/14/2019  20:56:25.000 busy: rearranging arrivals to show residuals for 83
+ 5/14/2019  20:56:28.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:56:29.000 Locate: found solution
+ 5/14/2019  20:56:29.000 busy: rearranging arrivals to show residuals for 84
+ 5/14/2019  20:56:32.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:56:33.000 Locate: found solution
+ 5/14/2019  20:56:33.000 busy: rearranging arrivals to show residuals for 85
+
+
+ 5/14/2019  20:57:29.000 dbloc commencing
+ 5/14/2019  20:57:29.000 busy: grouping from  5/12/2019  23:56:27.956 with window of 1500
+ 5/14/2019  20:57:31.000 arrivals: 7 arrivals found
+ 5/14/2019  20:57:33.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:57:34.000 Locate: found solution
+ 5/14/2019  20:57:34.000 busy: rearranging arrivals to show residuals for 87
+ 5/14/2019  20:57:38.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:57:39.000 Locate: found solution
+ 5/14/2019  20:57:39.000 busy: rearranging arrivals to show residuals for 88
+ 5/14/2019  20:57:44.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:57:44.000 Locate: found solution
+ 5/14/2019  20:57:44.000 busy: rearranging arrivals to show residuals for 89
+ 5/14/2019  20:57:49.000 busy: rearranging arrivals to show residuals for 87
+
+
+ 5/14/2019  20:59:19.000 dbloc commencing
+ 5/14/2019  20:59:19.000 busy: grouping from  5/12/2019  23:56:27.856 with window of 1500
+ 5/14/2019  20:59:21.000 arrivals: 7 arrivals found
+ 5/14/2019  20:59:45.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  20:59:46.000 Locate: found solution
+ 5/14/2019  20:59:46.000 busy: rearranging arrivals to show residuals for 91
+ 5/14/2019  20:59:52.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:59:53.000 Locate: found solution
+ 5/14/2019  20:59:53.000 busy: rearranging arrivals to show residuals for 92
+ 5/14/2019  20:59:57.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  20:59:57.000 Locate: found solution
+ 5/14/2019  20:59:57.000 busy: rearranging arrivals to show residuals for 93
+ 5/14/2019  21:00:00.000 busy: saving results
+ 5/14/2019  21:00:00.000 Save: dbloc_verify tmp/trial 91
+ 5/14/2019  21:00:00.000 Save: dbloc_verify is ok
+ 5/14/2019  21:00:00.000 busy: saving origin records 0
+ 5/14/2019  21:00:00.000 Save: copying origin 45 91 0
+ 5/14/2019  21:00:00.000 Save: copying matching assoc records for orid=91
+ 5/14/2019  21:00:00.000 Save: copying matching origerr records for orid=91
+ 5/14/2019  21:00:00.000 Save: copying matching emodel records for orid=91
+ 5/14/2019  21:00:00.000 Save: copying matching predarr records for orid=91
+ 5/14/2019  21:00:00.000 Save: copying matching netmag records for orid=91: nnetmag = 0
+ 5/14/2019  21:00:00.000 Save: copying matching stamag records for orid=91
+ 5/14/2019  21:00:00.000 Save: copying matching commid records for orid=91
+ 5/14/2019  21:00:00.000 Save: dbset 20191322356.origin review orid == 91 y
+ 5/14/2019  21:00:00.000 Save: Saved 1 origins with 1 new events, changing 0 prefors
+ 5/14/2019  21:00:00.000 Save: deleting 0 origins ('')
+
+
+ 5/14/2019  21:00:03.000 dbloc commencing
+ 5/14/2019  21:00:03.000 busy: grouping from  5/12/2019  23:56:28.056 with window of 1500
+ 5/14/2019  21:00:05.000 arrivals: 7 arrivals found
+ 5/14/2019  21:00:05.000 busy: rearranging arrivals to show residuals for 91
+ 5/14/2019  21:00:06.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  21:00:07.000 Locate: found solution
+ 5/14/2019  21:00:07.000 busy: rearranging arrivals to show residuals for 95
+ 5/14/2019  21:00:09.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  21:00:10.000 Locate: found solution
+ 5/14/2019  21:00:10.000 busy: rearranging arrivals to show residuals for 96
+ 5/14/2019  21:00:12.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  21:00:12.000 Locate: found solution
+ 5/14/2019  21:00:12.000 busy: rearranging arrivals to show residuals for 97
+ 5/14/2019  21:00:25.000 busy: saving results
+ 5/14/2019  21:00:25.000 Save: dbloc_verify tmp/trial 91
+ 5/14/2019  21:00:25.000 Save: dbloc_verify is ok
+ 5/14/2019  21:00:25.000 busy: saving origin records 
+ 5/14/2019  21:00:25.000 Save: dbset 20191322356.origin review orid == 91 y
+ 5/14/2019  21:00:25.000 Save: Saved 0 origins with 0 new events, changing 0 prefors
+ 5/14/2019  21:00:25.000 Save: deleting 0 origins ('')
+
+
+ 5/14/2019  21:03:40.000 dbloc commencing
+ 5/14/2019  21:03:40.000 busy: grouping from  5/12/2019  23:56:28.056 with window of 1500
+ 5/14/2019  21:03:42.000 arrivals: 7 arrivals found
+ 5/14/2019  21:03:42.000 busy: rearranging arrivals to show residuals for 91
+ 5/14/2019  21:03:44.000 busy: dblocsat2: trying to locate event...
+ 5/14/2019  21:03:45.000 Locate: found solution
+ 5/14/2019  21:03:45.000 busy: rearranging arrivals to show residuals for 99
+ 5/14/2019  21:03:50.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  21:03:51.000 Locate: found solution
+ 5/14/2019  21:03:51.000 busy: rearranging arrivals to show residuals for 100
+ 5/14/2019  21:03:53.000 busy: dbgenloc: trying to locate event...
+ 5/14/2019  21:03:53.000 Locate: found solution
+ 5/14/2019  21:03:53.000 busy: rearranging arrivals to show residuals for 101
+ 5/14/2019  21:04:02.000 busy: saving results
+ 5/14/2019  21:04:02.000 Save: dbloc_verify tmp/trial 99
+ 5/14/2019  21:04:02.000 Save: dbloc_verify is ok
+ 5/14/2019  21:04:02.000 busy: saving origin records 1
+ 5/14/2019  21:04:02.000 Save: copying origin 45 99 1
+ 5/14/2019  21:04:02.000 Save: copying matching assoc records for orid=99
+ 5/14/2019  21:04:02.000 Save: copying matching origerr records for orid=99
+ 5/14/2019  21:04:02.000 Save: copying matching emodel records for orid=99
+ 5/14/2019  21:04:02.000 Save: copying matching predarr records for orid=99
+ 5/14/2019  21:04:02.000 Save: copying matching netmag records for orid=99: nnetmag = 3
+ 5/14/2019  21:04:02.000 Save: copying matching stamag records for orid=99
+ 5/14/2019  21:04:02.000 Save: copying matching commid records for orid=99
+ 5/14/2019  21:04:02.000 Save: setprefor 45 99 SSIN3:rt
+ 5/14/2019  21:04:02.000 Save: dbset 20191322356.origin review orid == 99 y
+ 5/14/2019  21:04:02.000 Save: Saved 1 origins with 0 new events, changing 1 prefors
+ 5/14/2019  21:04:02.000 Save: deleting 1 origins ('91')
+ 5/14/2019  21:04:02.000 Save: Deleted 1 origins (91 -k )

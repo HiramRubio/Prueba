@@ -1,0 +1,27 @@
+State	&Arr{
+first_arrival 1557705386.060340
+old_evids 45
+unassociated 0
+last_arrival 1557784855.583340
+assoc_phases PS
+time_window_stack_size 25
+time_window 1500
+stack_pointer 7
+assoc_best 0
+current_start_time  5/12/2019 (132) 23:56:28.156
+old_prefors 
+old_orids 91
+S_residual_max 30.0
+assoc_first 0
+auto_locate 0
+evid -1
+assoc_all 0
+arrival_records 3 11 7 4 23 8 25
+next_start_time  5/12/2019  23:57:12.947
+time_window_stack { 5/12/2019  23:56:24.860} { 5/12/2019  23:56:25.860} { 5/12/2019  23:56:25.660} { 5/12/2019  23:56:25.560} { 5/12/2019  23:56:27.856} { 5/12/2019  23:56:28.056} { 5/12/2019  23:56:28.056}
+next_default 0
+locate_default 0
+auto_associate 0
+P_residual_max 30.0
+auto_save 1
+}

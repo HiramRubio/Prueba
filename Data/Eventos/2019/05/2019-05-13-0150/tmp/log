@@ -1,0 +1,396 @@
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:08:20 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82521440 890468032     9% 1821716 9223372036852954091    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712220.233000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712259.265240
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712259.265240'
+group : arrivals records  1 3 5 2 4 6
+tksend : 'arrivals records  1 3 5 2 4 6'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: no_solution : Locsat0:  Exceeded maximum iterations.
+tksend : 'location_solution: no_solution : Locsat0:  Exceeded maximum iterations.'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 2
+tksend : 'location_solution: new origin 2'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 3
+tksend : 'location_solution: new origin 3'
+buttons : bkg dbloc_map tmp/trial 2
+>> Unspawned child 22223 died with status 00.
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22211) died with exit code 0
+my_death_of_child: name=buttons pid=22211 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:16:03 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82522088 890467384     9% 1821726 9223372036852954081    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712220.133000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712264.679300
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712264.679300'
+group : arrivals records  1 3 5 7 2 4 6 8
+tksend : 'arrivals records  1 3 5 7 2 4 6 8'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: no_solution : Locsat0:  Exceeded maximum iterations.
+tksend : 'location_solution: no_solution : Locsat0:  Exceeded maximum iterations.'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 5
+tksend : 'location_solution: new origin 5'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 6
+tksend : 'location_solution: new origin 6'
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22255) died with exit code 0
+my_death_of_child: name=buttons pid=22255 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:18:25 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82519472 890470000     9% 1821728 9223372036852954079    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712220.033000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712264.679300
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712264.679300'
+group : arrivals records  1 3 5 7 2 4 6 8
+tksend : 'arrivals records  1 3 5 7 2 4 6 8'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: no_solution : Locsat0:  Exceeded maximum iterations.
+tksend : 'location_solution: no_solution : Locsat0:  Exceeded maximum iterations.'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 8
+tksend : 'location_solution: new origin 8'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 9
+tksend : 'location_solution: new origin 9'
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22291) died with exit code 0
+my_death_of_child: name=buttons pid=22291 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:24:27 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82520292 890469180     9% 1821731 9223372036852954076    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712219.933000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260'
+group : arrivals records  1 3 5 7 10 2 4 6 8 9 11
+tksend : 'arrivals records  1 3 5 7 10 2 4 6 8 9 11'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: new origin 11
+tksend : 'location_solution: new origin 11'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 12
+tksend : 'location_solution: new origin 12'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 13
+tksend : 'location_solution: new origin 13'
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22333) died with exit code 0
+my_death_of_child: name=buttons pid=22333 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:26:13 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82521404 890468068     9% 1821732 9223372036852954075    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712219.833000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260'
+group : arrivals records  1 3 5 7 10 2 4 6 8 9 11
+tksend : 'arrivals records  1 3 5 7 10 2 4 6 8 9 11'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: new origin 15
+tksend : 'location_solution: new origin 15'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 16
+tksend : 'location_solution: new origin 16'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 17
+tksend : 'location_solution: new origin 17'
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22368) died with exit code 0
+my_death_of_child: name=buttons pid=22368 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:27:42 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82522160 890467312     9% 1821732 9223372036852954075    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712219.733000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260'
+group : arrivals records  1 3 5 7 10 2 4 6 8 9 11
+tksend : 'arrivals records  1 3 5 7 10 2 4 6 8 9 11'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: new origin 19
+tksend : 'location_solution: new origin 19'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 20
+tksend : 'location_solution: new origin 20'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 21
+tksend : 'location_solution: new origin 21'
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22403) died with exit code 0
+my_death_of_child: name=buttons pid=22403 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:33:58 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82522956 890466516     9% 1821736 9223372036852954071    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712219.633000 1500 0
+group : event -1
+tksend : 'event -1'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260'
+group : arrivals records  1 3 5 7 10 2 4 6 8 9 11
+tksend : 'arrivals records  1 3 5 7 10 2 4 6 8 9 11'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: new origin 23
+tksend : 'location_solution: new origin 23'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 24
+tksend : 'location_solution: new origin 24'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 25
+tksend : 'location_solution: new origin 25'
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22443) died with exit code 0
+my_death_of_child: name=buttons pid=22443 sig=0 result=0 dumped_core=0
+
+Quitting
+
+
+
+dbloc2    Antelope Release 5.7 Mac OS X 10.9.5 2017-04-26  <#>
+   e26c2569a0ada65dc4a2bc82b9f4f6751a428a7a  <#>
+   Wed Apr 26 14:27:45 2017 <#>
+
+--> /opt/antelope/5.7/bin/dbloc2 20191330150 <#>
+
+
+ANTELOPE=/opt/antelope/5.7
+Darwin analista2.local 18.5.0 Darwin Kernel Version 18.5.0: Mon Mar 11 20:40:32 PDT 2019; root:xnu-4903.251.3~3/RELEASE_X86_64 x86_64
+Tue May 14 04:35:03 CST 2019
+/Users/rt/desktop/eventos/2019-05-13-0150
+Filesystem   1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   976900220 82524056 890465416     9% 1821742 9223372036852954065    0%   /
+rt
+
+starting buttons: dbloc_buttons -p dbloc2.pf 20191330150
+starting delorids: dbloc_delorids 20191330150
+starting setprefor: dbloc_setprefor 20191330150
+starting assoc: dbloc_assoc 20191330150 tmp/trial pde_monthly reb
+starting group: dbloc_group 20191330150 tmp/trial
+starting dbpick_msgs: <tmp/dbpick_pipe
+buttons : group 1557712220.133000 1500 0
+group : arrivals origin 24 15 3 4 5 6 7 9 10 14 13 2
+tksend : 'arrivals origin 24 15 3 4 5 6 7 9 10 14 13 2'
+starting tksend: tksend -i -p dbloc_buttons
+group : arrivals event 14 24 24
+tksend : 'arrivals event 14 24 24'
+group : arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260
+tksend : 'arrivals range    1557712220.333420    1558223962.015030    1557712220.333420    1557712282.106260'
+group : arrivals records  1 3 5 7 10 2 4 6 8 11
+tksend : 'arrivals records  1 3 5 7 10 2 4 6 8 11'
+buttons : dblocsat2
+starting dblocsat2: dblocsat2 20191330150 tmp/trial
+dblocsat2 : location_solution: new origin 27
+tksend : 'location_solution: new origin 27'
+buttons : dbgenloc
+starting dbgenloc: dbgenloc 20191330150 tmp/trial
+dbgenloc : location_solution: new origin 28
+tksend : 'location_solution: new origin 28'
+buttons : dbgenloc
+dbgenloc : location_solution: new origin 29
+tksend : 'location_solution: new origin 29'
+buttons : bkg dbloc_map tmp/trial 27
+buttons : setprefor 14 28 :rt
+buttons : delorids 24 -k
+delorids : dbloc_delorids: deleted orids
+tksend : 'dbloc_delorids: deleted orids'
+tksend : 1
+tksend result: '1'
+>> Unspawned child 22493 died with status 00.
+death_of_child: sig=0 dumped_core=0 result=0
+'dbloc_buttons -p dbloc2.pf 20191330150' (22483) died with exit code 0
+my_death_of_child: name=buttons pid=22483 sig=0 result=0 dumped_core=0
+
+Quitting
+

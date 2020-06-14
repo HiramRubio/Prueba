@@ -181,10 +181,12 @@ def events_station_extractor(Eventos,name,homeDir):
         #Solo en el caso 1 no actualizamos el dataFrame
         else:
             dataO = event_stations_info_extractor(Eventos[i],n_dat,homeDir)
+        
         i   #Track
     
     #Generamos un csv con todos los resultados.
-    dataO.to_csv(homeDir+'/'+str(name)+'_estaciones.csv',index=True)
+    if(type(dataO) != int):     
+        dataO.to_csv(homeDir+'/'+str(name)+'_estaciones.csv',index=True)
     
   
      
@@ -196,7 +198,7 @@ console = Console()
 
 name = 'Mex_Sup'
 
-if(True):
+if(False):
     Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102","2020-04-07-1122","2019-05-12-2356","2019-05-13-0150"]
     homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 else:

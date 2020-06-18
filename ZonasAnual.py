@@ -102,13 +102,13 @@ for info, shape in zip(map.ej3_info, map.ej3):
                     ax.plot(xpt,ypt,'o',color =Colors[j])
                     var = dfs[' folder'][i]
                     prof = dfs[' prof'][i]
-                    if(prof<15 and prof >0):
+                    if(prof<16.4 and prof >0):
                         z2 = 'Superficial'
-                    elif(prof<65 and prof >=15):
+                    elif(prof<38.7 and prof >=16.4):
                         z2 = 'Intra 1'
-                    elif(prof<150 and prof >=65):
+                    elif(prof<97.3 and prof >=38.7):
                         z2 = 'Intra 2'
-                    elif(prof>150 and prof <500):
+                    elif(prof>97.3 and prof <500):
                         z2 = 'Profundo'
                     else:
                         z2 = 'NA'

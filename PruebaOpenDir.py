@@ -88,12 +88,24 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         mg = data2[163:167]
         #Solo guardamos los primeros 4 datos: Lat, lon, prof, tiempo, magnitud
         #El tiempo se encuentra en un formato conocido como Unix Epoch
+        Opcion = 0
+        if(data2[17:21] == '    ' and Opcion == 0): 
+            print('Evento 1 digito')
+            Opcion = 1
+        if(data2[17:20] == '   ' and Opcion == 0): 
+            print('Evento 2 digitos')
+            Opcion = 2
+        if(data2[17:19] == '   ' and Opcion == 0): 
+            print('Evento 3 digitos')
+            Opcion = 3
         
         #Eventos de profundidad con 2 digitos
-        if(data[2] != "" and data[3] != ""): 
+        if(Opcion == 2): 
             dataF = (data[0],data[1],data[2],data[3],mg)
         #Eventos de profundidad con 1 digito
-        if(data[2] == "" and data[3] != ""):  
+        if(Opcion == 1):  
+            dataF = (data[0],data[1],data[3],data[4],mg)
+        if(Opcion == 3):  
             dataF = (data[0],data[1],data[3],data[4],mg)
             
         #Revisamos los valores de magnitud y profundidad
@@ -205,7 +217,7 @@ console = Console()
 
 name = 'Mex_Sup'
 
-if(False):
+if(True):
     Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102","2020-04-07-1122","2019-05-12-2356","2019-05-13-0150"]
     homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 else:

@@ -81,14 +81,21 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
             for i in f:
                 if (i[0:4]!='-999'):
                     text.append(str(i[2:]))
-                    
+                                
         #Cortamos los espacios en blanco para obtener solo la data
         data  = text[0].split("  ",36)
-        data2 = text[0].split('    ')
+        data2 = text[0]
+        mg = data2[163:167]
         #Solo guardamos los primeros 4 datos: Lat, lon, prof, tiempo, magnitud
         #El tiempo se encuentra en un formato conocido como Unix Epoch
-        dataF = (data[0],data[1],data[2],data[3],data2[-6])
         
+        #Eventos de profundidad con 2 digitos
+        if(data[2] != "" and data[3] != ""): 
+            dataF = (data[0],data[1],data[2],data[3],mg)
+        #Eventos de profundidad con 1 digito
+        if(data[2] == "" and data[3] != ""):  
+            dataF = (data[0],data[1],data[3],data[4],mg)
+            
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    
             console.print("Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 

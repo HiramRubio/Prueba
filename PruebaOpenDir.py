@@ -95,7 +95,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         if(data2[17:20] == '   ' and Opcion == 0): 
             print('Evento 2 digitos')
             Opcion = 2
-        if(data2[17:19] == '   ' and Opcion == 0): 
+        if(data2[17:19] == '  ' and Opcion == 0): 
             print('Evento 3 digitos')
             Opcion = 3
         

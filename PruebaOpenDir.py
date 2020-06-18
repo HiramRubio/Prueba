@@ -132,7 +132,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         #print("Ondas P: ")
         for i in range(len(text2)):
             if(text2[i][7]=='P'):
-                x = -float(data[3])+float(text2[i][1])
+                x = -float(dataF[3])+float(text2[i][1])
                 ListP.append((text2[i][0],x))
         #        print((text2[i][0],x))
         
@@ -141,7 +141,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         #print("Ondas S: ")
         for i in range(len(text2)):
             if(text2[i][7]=='S'):
-                x = -float(data[3])+float(text2[i][1])
+                x = -float(dataF[3])+float(text2[i][1])
                 ListS.append((text2[i][0],x))
         #        print((text2[i][0],x)) 
         

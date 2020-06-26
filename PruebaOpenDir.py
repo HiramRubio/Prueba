@@ -3,9 +3,8 @@
 Created on Sat Jun 13 04:40:10 2020
 
 @author: Steven Rubio
-Abrir un evento y extraer si información solo con el nombre del evento
 
-Prueba
+Extraccion de informacion de estaciones. 
 """
 import os, sys, math
 import geopy.distance
@@ -35,9 +34,17 @@ def calculate_initial_compass_bearing(pointA, pointB):
     # Function to assign a degree to a compass point
     return compass_bearing
 
-
+#Extraccion de información de un evento
 def event_stations_info_extractor(Evento,n_dat,homeDir):
-          
+    # ----------
+    # Entradas:
+    # Evento    = Nombre del Folder
+    # n_dat     = Lista con la información de los instrumentos
+    # homeDir   = Directorio donde se encuentran los eventos
+    # ----------
+    # Salidas:
+    # dfs_n     = Data frame con información del evento
+    # ----------      
     name    = Evento
     year    = name[0:4]
     month   = name[5:7]
@@ -188,6 +195,16 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
     
 
 def events_station_extractor(Eventos,name,homeDir):
+    # ----------
+    # Entradas:
+    # Eventos   = Lista con nombres del Folders
+    # name      = Nombre para el .csv
+    # homeDir   = Directorio donde se encuentran los eventos
+    # ----------
+    # Salidas:
+    # .csv      = Información de los eventos
+    # ----------  
+    
     n_dat = []
     #Recorremos la lista de eventos
     for i in track(range(len(Eventos))):
@@ -229,5 +246,7 @@ else:
         Eventos.append(envt)
     homeDir = '/antelope/analysis/eventos/'
 
-#Llamamos nuestra función        
-events_station_extractor(Eventos,name,homeDir)
+#Verificamos que nuestro programa sea principal
+if __name__ == "__main__":  
+    #Llamamos nuestra función        
+    events_station_extractor(Eventos,name,homeDir)

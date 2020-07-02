@@ -13,35 +13,19 @@ import numpy as np
 #Importamos el archivo
 dfs = pd.read_csv('Data/Informe2A.csv')
 
-'''
-names  = dfs['folder']
-zones  = dfs['Zona']
-zones2 = dfs['Zona2']
-mag    = dfs['ml']
-
-#Buscador por zona 
-
-#Lista de zonas 1 disponibles
-i = 0
-x = np.unique(zones)
-for a,b in zip(names,zones):
-    if(b == x[4]): 
-        #print(a)
-        i = i+1
-print(i)
-'''
-
-def zone_finder(dfs):
+def zone_finder(dfs,column):
     
+    #Columnas con las que el método funciona
+    opc_val = ['Zona','Zona2']
     #Lista de eventos
     Eventos = []
     x = dfs.columns
     #Validación de que el archivo que estamos utilizando contiene la clasificación zone
-    if 'Zona' in x:
+    if( column in x and column in opc_val):
         print('Archivo utilizable')
         
         #Se muestran las opciones
-        zones  = dfs['Zona']
+        zones  = dfs[column]
         opc = []
         opc_names = np.unique(zones)
         var = True
@@ -82,8 +66,12 @@ def zone_finder(dfs):
                 Eventos.append(a)
                 i = i+1
         print("Cantidad de eventos localizados: "+str(i))
-        print(Eventos)
+        return(Eventos)
         
         
     else:
         print('Archivo no contiene columna Zona ')
+        return(False)
+    
+    
+#zone_finder(dfs,'Zona2')

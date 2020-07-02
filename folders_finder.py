@@ -9,9 +9,15 @@ Prueba de función para abrir el csv de estaciones extraer los eventos dados cie
 
 import pandas as pd
 import numpy as np
+from rich import print
+from rich.console import Console
+from rich.progress import track
 
 #Importamos el archivo
 dfs = pd.read_csv('Data/Informe2A.csv')
+#Consola para imprimir mensajes en pantalla. 
+console = Console()
+console.print()
 
 def zone_finder(dfs,column):
     # ----------
@@ -32,7 +38,7 @@ def zone_finder(dfs,column):
     x = dfs.columns
     #Validación de que el archivo que estamos utilizando contiene la clasificación zone
     if( column in x and column in opc_val):
-        print('Archivo utilizable')
+        console.print('Archivo utilizable', style="bold green")
         
         #Se muestran las opciones
         zones  = dfs[column]
@@ -41,39 +47,39 @@ def zone_finder(dfs,column):
         var = True
         #Ciclo para seleccionar zona o zonas
         
-        print('Opciones Disponibles')
-        print(opc_names)
+        console.print('Opciones Disponibles')
+        console.print(opc_names)
         while(var):
-            #Entrada dle usuario
-            a = input('Ingrese la zona a clasificar, Done, Zonas o Selec (Seleccionados): ')
             #Entrada No Valida: El usuario intenta ingresar más zonas de las presentadas, automáticamente
             #sale del ciclo con todas las opciones
             if(len(opc)==len(opc_names)):
-                print('Todas las Zonas seleccionadas, ejecutando busqueda')
+                console.print('[bold green]Todas las Zonas seleccionadas !![/bold green]. Ejecutando busqueda')
                 var = False
+            #Entrada dle usuario
+            if(var):    a = input('Ingrese la zona a clasificar, Done, Zonas o Selec (Seleccionados): ')
             #Salida del ciclo, esta es válida si se tiene al menos una opcion seleccionada
             if(a == 'Done'): 
                 if(len(opc)== 0): 
-                    print('Ninguna Zona seleccionada')
+                    console.print('Ninguna Zona seleccionada', style="bold red")
                 else: 
                     var = False  
             #Impresión de Zonas disponibles para clasificcion
             if(a == 'Zonas'):   
-                print(opc_names)
+                console.print(opc_names)
             #Impresión de Zonas seleccionadas hasta el momento
             if(a == 'Selec'):   
-                print(opc)
+                console.print(opc)
             else:
                 if(a in opc_names): 
                     #Entrada no Valida: Una opcion repetida
-                    if(a in opc):   print('Opcion ya seleccionada')
+                    if(a in opc and var):   console.print('Opcion ya seleccionada',style='bold magenta')
                     else:           opc.append(a)
                 else: 
                     #Entrada no valida: Una opcion no valida, entre otras
-                    if(a!='Zonas' and len(opc)!=len(opc_names)): print('Opcion no valida')
+                    if(a!='Zonas' and len(opc)!=len(opc_names) and a != 'Done'): console.print('Opcion no valida',style='bold red')
                 
-        print('Zonas seleccionadas')
-        print(opc)
+        console.print('Zonas seleccionadas')
+        console.print(opc)
         #Nombre de los eventos del csv
         names  = dfs['folder']
         i = 0
@@ -84,7 +90,7 @@ def zone_finder(dfs,column):
                 i = i+1
                 
         #Conteo de eventos
-        print("Cantidad de eventos localizados: "+str(i))
+        console.print("Cantidad de eventos seleccionados: "+str(i))
         #Retornamos los eventos que cumplieron
         return(Eventos)
         
@@ -92,8 +98,8 @@ def zone_finder(dfs,column):
     else:
         #En caso de que el archivo no conenta la columna que especificamos
         #Returnomos un False
-        print('Archivo no contiene columna Zona ')
+        console.print('Archivo no contiene columna Zona ', style="bold red")
         return(False)
     
     
-#zone_finder(dfs,'Zona2')
+zone_finder(dfs,'Zona')

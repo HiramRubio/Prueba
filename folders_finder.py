@@ -14,7 +14,16 @@ import numpy as np
 dfs = pd.read_csv('Data/Informe2A.csv')
 
 def zone_finder(dfs,column):
+    # ----------
+    # Entradas:
+    # dfs       = Archivo csv a trabajar
+    # column    = Columna utilizada para filtrar
+    # ----------
+    # Salidas:
+    # Eventos   = Lista con los eventos clasificados
+    # ----------    
     
+    name    = Evento
     #Columnas con las que el método funciona
     opc_val = ['Zona','Zona2']
     #Lista de eventos

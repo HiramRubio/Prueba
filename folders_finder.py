@@ -9,9 +9,9 @@ Prueba de función para abrir el csv de estaciones extraer los eventos dados cie
 
 import pandas as pd
 import numpy as np
-from rich import print
+#from rich import print
 from rich.console import Console
-from rich.progress import track
+#from rich.progress import track
 
 #Importamos el archivo
 dfs = pd.read_csv('Data/Informe2A.csv')
@@ -101,5 +101,65 @@ def zone_finder(dfs,column):
         console.print('Archivo no contiene columna Zona ', style="bold red")
         return(False)
     
+#--------------------------//-----------------------
+
+def range_finder(dfs,column):
+    # ----------
+    # Entradas:
+    # dfs       = Archivo csv a trabajar
+    # column    = Columna utilizada para filtrar
+    # ----------
+    # Salidas:
+    # Eventos   = Lista con los eventos clasificados
+    # ----------    
     
-zone_finder(dfs,'Zona')
+
+    #Columnas con las que el método funciona
+    opc_val = ['prof','ml']
+    #Lista de eventos
+    Eventos = []
+    #Columnas disponibles en el csv
+    x = dfs.columns
+    #Validación de que el archivo que estamos utilizando contiene la clasificación zone
+    if( column in x and column in opc_val):
+        console.print('Archivo utilizable', style="bold green")
+        
+        #Se muestran las opciones
+        values  = dfs[column]
+        opc = []
+        minV,maxV = min(values),max(values)
+        var = True
+        #Ciclo para seleccionar zona o zonas
+        
+        console.print('Rango Disponible')
+        console.print('('+str(minV)+' ,'+str(maxV)+')')
+        
+        while(var):
+            inpA = input('Ingrese el valor minimo: ')
+            inpB = input('Ingrese el valor máximo: ')
+            var = False
+            
+        console.print(opc)
+        #Nombre de los eventos del csv
+        names  = dfs['folder']
+        i = 0
+        #Buscamos los folders que cuenten con 
+        for a,b in zip(names,values):
+            if(b >= float(inpA) and b <= float(inpB)): 
+                Eventos.append(a)
+                i = i+1
+                
+        #Conteo de eventos
+        console.print("Cantidad de eventos seleccionados: "+str(i))
+        #Retornamos los eventos que cumplieron
+        console.print(Eventos)
+        
+        
+    else:
+        #En caso de que el archivo no conenta la columna que especificamos
+        #Returnomos un False
+        console.print('Archivo no contiene columna Zona ', style="bold red")
+        return(False)    
+    
+#zone_finder(dfs,'Zona')
+range_finder(dfs,'prof')

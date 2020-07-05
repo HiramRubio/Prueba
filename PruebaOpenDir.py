@@ -223,6 +223,7 @@ def events_station_extractor(Eventos,name,homeDir):
     #Generamos un csv con todos los resultados.
     if(type(dataO) != int):     
         dataO.to_csv(homeDir+'/'+str(name)+'_estaciones.csv',index=True)
+        console.print('Evento Guardado')
     
   
      
@@ -232,9 +233,9 @@ def events_station_extractor(Eventos,name,homeDir):
 #Consola para imprimir mensajes en pantalla. 
 console = Console()
 
-name = 'Mex_Sup'
+name = 'Prueba_folder_finder'
 
-if(True):
+if(False):
     Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102","2020-04-07-1122","2019-05-12-2356","2019-05-13-0150"]
     homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 else:
@@ -248,5 +249,10 @@ else:
 
 #Verificamos que nuestro programa sea principal
 if __name__ == "__main__":  
-    #Llamamos nuestra función        
+    #Llamamos nuestra función    
+    from folders_finder import range_finder
+    #Leemos un archivo con todos los filtros
+    events = []
+    dfs = pd.read_csv('Data/Informe2A.csv')
+    Eventos = range_finder(dfs,'prof',events)
     events_station_extractor(Eventos,name,homeDir)

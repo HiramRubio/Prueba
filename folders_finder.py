@@ -9,9 +9,8 @@ Prueba de función para abrir el csv de estaciones extraer los eventos dados cie
 
 import pandas as pd
 import numpy as np
-#from rich import print
 from rich.console import Console
-#from rich.progress import track
+
 
 #Importamos el archivo
 dfs = pd.read_csv('Data/Informe2A.csv')
@@ -19,17 +18,19 @@ dfs = pd.read_csv('Data/Informe2A.csv')
 console = Console()
 console.print()
 
-def zone_finder(dfs,column):
+def zone_finder(dfs,column,events):
     # ----------
     # Entradas:
     # dfs       = Archivo csv a trabajar
     # column    = Columna utilizada para filtrar
+    # events    = Eventos ya filtrados
     # ----------
     # Salidas:
     # Eventos   = Lista con los eventos clasificados
     # ----------    
     
-
+    #Variable de control
+    PRINT = False
     #Columnas con las que el método funciona
     opc_val = ['Zona','Zona2']
     #Lista de eventos
@@ -90,8 +91,25 @@ def zone_finder(dfs,column):
                 i = i+1
                 
         #Conteo de eventos
-        console.print("Cantidad de eventos seleccionados: "+str(i))
+        console.print("Cantidad de eventos seleccionados: "+str(len(Eventos)))
         #Retornamos los eventos que cumplieron
+        if(PRINT):  console.print(Eventos)
+        
+        #Verificamos si se posee una busqueda previa
+        if(len(events)>0):
+            #Buscamos los elementos que se encuentran en la lista ingresada
+            for elemnt in Eventos:
+                if (elemnt in events):  
+                    pass
+                #Si un elemento no se encuentra se muestra y quita
+                else:   
+                    if(PRINT):  console.print('Evento [bold red]no [/bold red]encontrado: '+elemnt)
+                    Eventos.remove(elemnt)
+                
+            #Conteo de eventos filtrados
+            console.print("Cantidad de eventos con [bold cyan]ambos [/bold cyan]filtros: "+str(len(Eventos)))
+            #Retornamos los eventos que cumplieron
+            if(PRINT):  console.print(Eventos)
         return(Eventos)
         
         
@@ -103,17 +121,19 @@ def zone_finder(dfs,column):
     
 #--------------------------//-----------------------
 
-def range_finder(dfs,column):
+def range_finder(dfs,column,events):
     # ----------
     # Entradas:
     # dfs       = Archivo csv a trabajar
     # column    = Columna utilizada para filtrar
+    # events    = Eventos ya filtrados
     # ----------
     # Salidas:
     # Eventos   = Lista con los eventos clasificados
     # ----------    
     
-
+    #Variable de control
+    PRINT = False
     #Columnas con las que el método funciona
     opc_val = ['prof','ml']
     #Lista de eventos
@@ -134,10 +154,12 @@ def range_finder(dfs,column):
         console.print('Rango Disponible')
         console.print('('+str(minV)+' ,'+str(maxV)+')')
         
+    
+        inpA = input('Ingrese el valor minimo: ')
         while(var):
-            inpA = input('Ingrese el valor minimo: ')
             inpB = input('Ingrese el valor máximo: ')
-            var = False
+            if(float(inpB) > float(inpA)):   var = False
+            else:   console.print('Rango no valido')
             
         console.print(opc)
         #Nombre de los eventos del csv
@@ -150,16 +172,48 @@ def range_finder(dfs,column):
                 i = i+1
                 
         #Conteo de eventos
-        console.print("Cantidad de eventos seleccionados: "+str(i))
+        console.print("Cantidad de eventos seleccionados: "+str(len(Eventos)))
         #Retornamos los eventos que cumplieron
-        console.print(Eventos)
+        if(PRINT):  console.print(Eventos)
         
+        #Verificamos si se posee una busqueda previa
+        if(len(events)>0):
+            #Buscamos los elementos que se encuentran en la lista ingresada
+            for elemnt in Eventos:
+                if (elemnt in events):  
+                    pass
+                #Si un elemento no se encuentra se muestra y quita
+                else:   
+                    if(PRINT):  console.print('Evento [bold red]no [/bold red]encontrado: '+elemnt)
+                    Eventos.remove(elemnt)
+                
+            #Conteo de eventos filtrados
+            console.print("Cantidad de eventos con [bold cyan]ambos [/bold cyan]filtros: "+str(len(Eventos)))
+            #Retornamos los eventos que cumplieron
+            if(PRINT):  console.print(Eventos)
+        return(Eventos)
         
     else:
         #En caso de que el archivo no conenta la columna que especificamos
         #Returnomos un False
         console.print('Archivo no contiene columna Zona ', style="bold red")
         return(False)    
-    
-#zone_finder(dfs,'Zona')
-range_finder(dfs,'prof')
+ 
+#Filtro 21.5 - 22.5 prof
+Eventos_Prueba = [
+    '2019-08-27-0339',
+    '2019-09-30-0427',
+    '2019-12-21-1809',
+    '2020-01-31-1311',
+    '2019-06-05-0925',
+    '2019-09-13-0827',
+    '2020-02-03-0722',
+    '2019-12-28-0905',
+    '2019-02-02-1710',
+    '2019-06-23-0530',
+    '2019-08-26-0950',
+    '2019-10-26-0921',
+]
+
+#zone_finder(dfs,'Zona',Eventos_Prueba)
+range_finder(dfs,'prof',Eventos_Prueba)

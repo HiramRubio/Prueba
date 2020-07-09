@@ -46,6 +46,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
     # dfs_n     = Data frame con información del evento
     # ----------      
     name    = Evento
+	print(name)
     year    = name[0:4]
     month   = name[5:7]
     day     = name[8:10]
@@ -98,13 +99,13 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         #El tiempo se encuentra en un formato conocido como Unix Epoch
         Opcion = 0
         if(data2[17:21] == '    ' and Opcion == 0): 
-            print('Evento 1 digito')
+            #print('Evento 1 digito')
             Opcion = 1
         if(data2[17:20] == '   ' and Opcion == 0): 
-            print('Evento 2 digitos')
+            #print('Evento 2 digitos')
             Opcion = 2
         if(data2[17:19] == '  ' and Opcion == 0): 
-            print('Evento 3 digitos')
+            #print('Evento 3 digitos')
             Opcion = 3
         
         #Eventos de profundidad con 2 digitos

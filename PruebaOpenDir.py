@@ -80,7 +80,8 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
             return 0
     
         nday = dirs2[0]
-    
+        #Corrección para evitar archivo DS_Store
+        if(len(nday)>3):    nday = dirs2[1]
         #Construimos el nombre del evento
         eventN = path+'/'+year+nday+hour
         text = []
@@ -233,10 +234,11 @@ def events_station_extractor(Eventos,name,homeDir):
 #Consola para imprimir mensajes en pantalla. 
 console = Console()
 
-name = 'Prueba_folder_finder'
+name = 'Prueba_0_prof'
 
 if(False):
-    Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102","2020-04-07-1122","2019-05-12-2356","2019-05-13-0150"]
+    #Eventos = ["2019-03-05-1315",'2020-03-15-0122',"2020-04-22-2322","2020-04-07-1102","2020-04-07-1122","2019-05-12-2356","2019-05-13-0150"]
+    EventosD = ["2019-03-05-1315",'2019-11-14-0647','2020-03-06-0125']
     homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 else:
     #Leemos los eventos que queremos analizar del informe anual 2 filtrado

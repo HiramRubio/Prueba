@@ -64,7 +64,8 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         E = True
     
     except FileNotFoundError:
-        console.print("Evento "+str(name)+" no existe",style="bold red")      
+        console.print("Evento "+str(name)+" no existe",style="bold red")
+        console.print('Path:'+path+'/')
         return 0
        
     if(E):
@@ -84,7 +85,9 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         nday = dirs2[0]
         #Corrección para evitar archivo DS_Store
         if(len(nday)>3):    nday = dirs2[1]
-        #Construimos el nombre del evento
+        #Construimos el nombre del evento>
+        if(len(dirs2)>1 and len(dirs2[1])==3):
+            nday = dirs2[1]
         eventN = path+'/'+year+nday+hour
         text = []
         with open(eventN+".origin", 'r') as f:
@@ -116,7 +119,8 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         if(Opcion == 1):  
             dataF = (data[0],data[1],data[3],data[4],mg)
         if(Opcion == 3):  
-            dataF = (data[0],data[1],data[3],data[4],mg)
+            dataF = (data[0],data[1],data[2],data[3],mg)
+
             
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    

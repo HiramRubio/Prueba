@@ -13,10 +13,10 @@ from rich.console import Console
 
 
 #Importamos el archivo
-dfs = pd.read_csv('Data/Informe2A.csv')
+#dfs = pd.read_csv('Data/Informe2A.csv')
 #Consola para imprimir mensajes en pantalla. 
 console = Console()
-console.print()
+#console.print()
 
 def zone_finder(dfs,column,events):
     # ----------

@@ -11,7 +11,7 @@ import geopy.distance
 import pandas as pd
 from rich.console import Console
 from rich.progress import track
-
+console = Console()
 
 def calculate_initial_compass_bearing(pointA, pointB):
     #Public Domain Code. Edit by Steven Rubio

@@ -11,6 +11,8 @@ import geopy.distance
 import pandas as pd
 from rich.console import Console
 from rich.progress import track
+#Llamamos nuestra función    
+from folders_finder import *
 
 
 def calculate_initial_compass_bearing(pointA, pointB):
@@ -46,7 +48,6 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
     # dfs_n     = Data frame con información del evento
     # ----------      
     name    = Evento
-	print(name)
     year    = name[0:4]
     month   = name[5:7]
     day     = name[8:10]
@@ -125,17 +126,21 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
              
         text2 = []
         #Abrimos un evento
-        with open(eventN+".arrival", 'r') as f: 
-            for i in f:
-                #Filtramos los datos que nos interesan de origin
-                a = str(i[0:75])
-                a = a.split()
-                #Quitamos la U y todos los arrivos 'del' o 'mL'
-                if(len(a)==8 and a[7]!='del' and a[7]!='ml'):
-                    text2.append(a) 
-    
+        try: 
+            with open(eventN+".arrival", 'r') as f: 
+                for i in f:
+                    #Filtramos los datos que nos interesan de origin
+                    a = str(i[0:75])
+                    a = a.split()
+                    #Quitamos la U y todos los arrivos 'del' o 'mL'
+                    if(len(a)==8 and a[7]!='del' and a[7]!='ml'):
+                        text2.append(a) 
+                        
+        except FileNotFoundError:
+            console.print("Evento "+str(name)+" no tiene .arrival",style="bold red")      
+            return 0
+        
         #Almacenamos la estacion y el tiempo que les tomo llegar a la onda en listas separadas  
-              
         #Almacenamos todas las ondas P 
         ListP = []
         #print("Ondas P: ")
@@ -252,8 +257,6 @@ else:
 
 #Verificamos que nuestro programa sea principal
 if __name__ == "__main__":  
-    #Llamamos nuestra función    
-    from folders_finder import range_finder
     #Leemos un archivo con todos los filtros
     events = []
     dfs = pd.read_csv('Data/Informe2A.csv')

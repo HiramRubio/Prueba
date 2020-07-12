@@ -137,7 +137,6 @@ def range_finder(dfs,column,events):
         
         #Se muestran las opciones
         values  = dfs[column]
-        opc = []
         minV,maxV = min(values),max(values)
         var = True
         #Ciclo para seleccionar zona o zonas
@@ -152,7 +151,6 @@ def range_finder(dfs,column,events):
             if(float(inpB) > float(inpA)):   var = False
             else:   console.print('Rango no valido')
             
-        console.print(opc)
         #Nombre de los eventos del csv
         names  = dfs['folder']
         i = 0

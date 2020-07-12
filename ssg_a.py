@@ -21,7 +21,8 @@ console = Console()
 name = ''
 dfs = 'NONE'
 Eventos = []
-homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+#homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+homeDir = '/antelope/analysis/eventos/'
 EventosD = ["2019-03-05-1315",'2019-11-14-0647','2020-03-06-0125']
 
 '''

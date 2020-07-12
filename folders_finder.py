@@ -87,32 +87,24 @@ def zone_finder(dfs,column,events):
         #Buscamos los folders que cuenten con 
         for a,b in zip(names,zones):
             if(b in opc): 
-                Eventos.append(a)
-                i = i+1
-                
+            
+                #Si no tenemos una busqueda previa , no se verifica
+                if(len(events)==0): 
+                    Eventos.append(a)
+                    i = i+1
+                #Si tenemos una busqueda previa, se dejan los que cumplen con ambas 
+                if(len(events)>0):
+                    if( a in events):
+                        Eventos.append(a)
+                        i = i+1
+
+      
         #Conteo de eventos
         console.print("Cantidad de eventos seleccionados: "+str(len(Eventos)))
         #Retornamos los eventos que cumplieron
         if(PRINT):  console.print(Eventos)
         
-        #Verificamos si se posee una busqueda previa
-        if(len(events)>0):
-            #Buscamos los elementos que se encuentran en la lista ingresada
-            for elemnt in Eventos:
-                if (elemnt in events):  
-                    pass
-                #Si un elemento no se encuentra se muestra y quita
-                else:   
-                    if(PRINT):  console.print('Evento [bold red]no [/bold red]encontrado: '+elemnt)
-                    Eventos.remove(elemnt)
-                
-            #Conteo de eventos filtrados
-            console.print("Cantidad de eventos con [bold cyan]ambos [/bold cyan]filtros: "+str(len(Eventos)))
-            #Retornamos los eventos que cumplieron
-            if(PRINT):  console.print(Eventos)
-        return(Eventos)
-        
-        
+
     else:
         #En caso de que el archivo no conenta la columna que especificamos
         #Returnomos un False
@@ -133,7 +125,7 @@ def range_finder(dfs,column,events):
     # ----------    
     
     #Variable de control
-    PRINT = False
+    PRINT =  False
     #Columnas con las que el método funciona
     opc_val = ['prof','ml']
     #Lista de eventos
@@ -168,29 +160,22 @@ def range_finder(dfs,column,events):
         #Buscamos los folders que cuenten con 
         for a,b in zip(names,values):
             if(b >= float(inpA) and b <= float(inpB)): 
-                Eventos.append(a)
-                i = i+1
+                
+                #Si no tenemos una busqueda previa , no se verifica
+                if(len(events)==0): 
+                    Eventos.append(a)
+                    i = i+1
+                #Si tenemos una busqueda previa, se dejan los que cumplen con ambas 
+                if(len(events)>0):
+                    if( a in events):
+                        Eventos.append(a)
+                        i = i+1
                 
         #Conteo de eventos
         console.print("Cantidad de eventos seleccionados: "+str(len(Eventos)))
         #Retornamos los eventos que cumplieron
         if(PRINT):  console.print(Eventos)
         
-        #Verificamos si se posee una busqueda previa
-        if(len(events)>0):
-            #Buscamos los elementos que se encuentran en la lista ingresada
-            for elemnt in Eventos:
-                if (elemnt in events):  
-                    pass
-                #Si un elemento no se encuentra se muestra y quita
-                else:   
-                    if(PRINT):  console.print('Evento [bold red]no [/bold red]encontrado: '+elemnt)
-                    Eventos.remove(elemnt)
-                
-            #Conteo de eventos filtrados
-            console.print("Cantidad de eventos con [bold cyan]ambos [/bold cyan]filtros: "+str(len(Eventos)))
-            #Retornamos los eventos que cumplieron
-            if(PRINT):  console.print(Eventos)
         return(Eventos)
         
     else:
@@ -200,20 +185,21 @@ def range_finder(dfs,column,events):
         return(False)    
  
 #Filtro 21.5 - 22.5 prof
-Eventos_Prueba = [
-    '2019-08-27-0339',
-    '2019-09-30-0427',
-    '2019-12-21-1809',
-    '2020-01-31-1311',
-    '2019-06-05-0925',
-    '2019-09-13-0827',
-    '2020-02-03-0722',
-    '2019-12-28-0905',
-    '2019-02-02-1710',
-    '2019-06-23-0530',
-    '2019-08-26-0950',
-    '2019-10-26-0921',
-]
+# Eventos_Prueba = [
+#     '2019-08-27-0339',
+#     '2019-09-30-0427',
+#     '2019-12-21-1809',
+#     '2020-01-31-1311',
+#     '2019-06-05-0925',
+#     '2019-09-13-0827',
+#     '2020-02-03-0722',
+#     '2019-12-28-0905',
+#     '2019-02-02-1710',
+#     '2019-06-23-0530',
+#     '2019-08-26-0950',
+#     '2019-10-26-0921',
+# ]
 
+#dfs = pd.read_csv('Data/Informe2A.csv')
 #zone_finder(dfs,'Zona',Eventos_Prueba)
 #range_finder(dfs,'prof',Eventos_Prueba)

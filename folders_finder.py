@@ -86,9 +86,7 @@ def zone_finder(dfs,column,events):
         i = 0
         #Buscamos los folders que cuenten con 
         for a,b in zip(names,zones):
-            if(b in opc): 
-            
-                #Si no tenemos una busqueda previa , no se verifica
+            if(b in opc): #Si no tenemos una busqueda previa , no se verifica
                 if(len(events)==0): 
                     Eventos.append(a)
                     i = i+1
@@ -104,6 +102,7 @@ def zone_finder(dfs,column,events):
         #Retornamos los eventos que cumplieron
         if(PRINT):  console.print(Eventos)
         
+        return(Eventos)
 
     else:
         #En caso de que el archivo no conenta la columna que especificamos

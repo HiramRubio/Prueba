@@ -23,7 +23,7 @@ dfs = 'NONE'
 Eventos = []
 #homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
 homeDir = '/antelope/analysis/eventos/'
-EventosD = ["2019-03-05-1315",'2019-11-14-0647','2020-03-06-0125']
+#EventosD = ["2019-03-05-1315",'2019-11-14-0647','2020-03-06-0125']
 
 '''
 if(False):
@@ -74,7 +74,7 @@ if __name__ == "__main__":
                 console.print('4.   Generar Archivo ')
                 console.print('0.   [red]Regresar[/red]')
                 
-                        #Entrada del usuario
+                #Entrada del usuario
                 b = input()
                 
                 #Verificación de entrada valida
@@ -148,7 +148,44 @@ if __name__ == "__main__":
                     name = input()
                     events_station_extractor(Eventos,name,homeDir)
                     
+        #OPCION 2
+        if(a ==2):
+            ACTIVE2 = True
+            nombre = []
+            while(ACTIVE2):
+                console.print('1.   Extraer Informacion de evento')
+                console.print('2.   Plot estaciones Evento ')
+                console.print('0.   [red]Regresar[/red]')
+                
+                #Entrada del usuario
+                b = input()
+                
+                #Verificación de entrada valida
+                try:
+                    b = int(b)
+                #Manejo de entrada incorrecta
+                except ValueError:
+                    console.print('Entrada [red]NO[/red] valida')
                     
+                #Salida del Menu
+                if(b == 0):
+                    ACTIVE2 = False
+                    
+                #Opcion 2-1   
+                if(b == 1):
+                    x = input('Ingrese nombre del folder del evento: ')
+                    nombre.append(x)
+                    events_station_extractor(nombre,x,homeDir)
+                    
+                #Opcion 2-2 Error
+                if(b == 2 and len(nombre)==0):
+                    console.print('Archivo de evento [red]no[/red] generado')
+                    
+                #Opcion 2-2   
+                if(b == 2 and len(nombre)>0):
+                    event_plot_stations(nombre[0],homeDir)
+                    
+            
     console.print('Adios!', style="bold blue")
     #dfs = pd.read_csv('Data/Informe2A.csv')
     #Eventos = range_finder(dfs,'prof',events)

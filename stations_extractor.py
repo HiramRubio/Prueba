@@ -34,7 +34,7 @@ def calculate_initial_compass_bearing(pointA, pointB):
     # Function to assign a degree to a compass point
     return compass_bearing
 
-#Extraccion de información de un evento
+#Extraccion de información de estaciones de un evento
 def event_stations_info_extractor(Evento,n_dat,homeDir):
     # ----------
     # Entradas:
@@ -97,7 +97,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         data  = text[0].split("  ",36)
         data2 = text[0]
         mg = data2[163:167]
-        #Solo guardamos los primeros 4 datos: Lat, lon, prof, tiempo, magnitud
+        #Solo guardamos los primeros 5 datos: Lat, lon, prof, tiempo, magnitud
         #El tiempo se encuentra en un formato conocido como Unix Epoch
         Opcion = 0
         if(data2[17:21] == '    ' and Opcion == 0): 

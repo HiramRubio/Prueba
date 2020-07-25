@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 #Lectura de un archivo Pre-Procesado
                 if(b == 1):
                     dfs = pd.read_csv('Data/Informe3A.csv')
-                    console.print('Archivo Seleccionado: [blue]Informe2A[/blue]')
+                    console.print('Archivo Seleccionado: [blue]Informe3A[/blue]')
                 
                 #OPCION 1-2 No valida
                 if(b == 2 and type(dfs) == str):

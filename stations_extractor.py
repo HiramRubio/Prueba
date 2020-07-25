@@ -123,6 +123,8 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    
             console.print(" Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
+        if(dataF[2]=='0' or dataF[2]=='0.0' or dataF[2]=='0.00'):    
+            console.print(" Evento "+str(name)+" con profundidad 0 (.origin)",style="bold red")     
         if(dataF[4]=='-1' or dataF[4]=='' ):    
             console.print(" Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
         if(mg == '9.00'):    
@@ -326,7 +328,9 @@ def event_info_extractor(Evento,homeDir):
   
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    
-            console.print(" Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
+            console.print(" Evento "+str(name)+" con error en profundidad (.origin)",style="bold red")
+        if(dataF[2]=='0' or dataF[2]=='0.0' or dataF[2]=='0.00'):    
+            console.print(" Evento "+str(name)+" con profundidad 0 (.origin)",style="bold red")  
         if(dataF[4]=='-1' or dataF[4]=='' ):    
             console.print(" Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
         if(mg == '9.00'):    

@@ -62,7 +62,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
         E = True
     
     except FileNotFoundError:
-        console.print("Evento "+str(name)+" no existe",style="bold red")
+        console.print(" Evento "+str(name)+" no existe",style="bold red")
         console.print('Path:'+path+'/')
         return 0
        
@@ -77,7 +77,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
             E = True
         
         except FileNotFoundError:
-            console.print("Evento "+str(name)+" no tiene la carpeta año",style="bold red")      
+            console.print(" Evento "+str(name)+" no tiene la carpeta año",style="bold red")      
             return 0
     
         nday = dirs2[0]
@@ -122,11 +122,11 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
             
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    
-            console.print("Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
+            console.print(" Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
         if(dataF[4]=='-1' or dataF[4]=='' ):    
-            console.print("Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
+            console.print(" Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
         if(mg == '9.00'):    
-            console.print("Evento "+str(name)+" con soluciones del sistema Automatico (.origin)",style="bold red")      
+            console.print(" Evento "+str(name)+" con soluciones del sistema Automatico (.origin)",style="bold red")      
         
         text2 = []
         #Abrimos un evento
@@ -141,7 +141,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
                         text2.append(a) 
                         
         except FileNotFoundError:
-            console.print("Evento "+str(name)+" no tiene .arrival",style="bold red")      
+            console.print(" Evento "+str(name)+" no tiene .arrival",style="bold red")      
             return 0
         
         #Almacenamos la estacion y el tiempo que les tomo llegar a la onda en listas separadas  
@@ -234,7 +234,7 @@ def events_station_extractor(Eventos,name,homeDir):
     #Generamos un csv con todos los resultados.
     if(type(dataO) != int):     
         dataO.to_csv(homeDir+'/'+str(name)+'_estaciones.csv',index=True)
-        console.print('Evento Guardado')
+        console.print(' Evento Guardado',style="bold green")
     
   
      
@@ -267,7 +267,7 @@ def event_info_extractor(Evento,homeDir):
         E = True
     
     except FileNotFoundError:
-        console.print("Evento "+str(name)+" no existe",style="bold red")
+        console.print(" Evento "+str(name)+" no existe",style="bold red")
         console.print('Path:'+path+'/')
         return 0
        
@@ -282,7 +282,7 @@ def event_info_extractor(Evento,homeDir):
             E = True
         
         except FileNotFoundError:
-            console.print("Evento "+str(name)+" no tiene la carpeta año",style="bold red")      
+            console.print(" Evento "+str(name)+" no tiene la carpeta año",style="bold red")      
             return 0
     
         nday = dirs2[0]
@@ -323,15 +323,14 @@ def event_info_extractor(Evento,homeDir):
             dataF = (data[0],data[1],data[3],data[4],mg)
         if(Opcion == 3):  
             dataF = (data[0],data[1],data[2],data[3],mg)
-
-        print(mg)    
+  
         #Revisamos los valores de magnitud y profundidad
         if(dataF[2]==''):    
-            console.print("Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
+            console.print(" Evento "+str(name)+" con error en profundidad (.origin)",style="bold red") 
         if(dataF[4]=='-1' or dataF[4]=='' ):    
-            console.print("Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
+            console.print(" Evento "+str(name)+" con error en magnitud (.origin)",style="bold red") 
         if(mg == '9.00'):    
-            console.print("Evento "+str(name)+" con soluciones del sistema Automatico (.origin)",style="bold red") 
+            console.print(" Evento "+str(name)+" con soluciones del sistema Automatico (.origin)",style="bold red") 
            
     return dataF
 

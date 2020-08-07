@@ -12,7 +12,7 @@ import pandas as pd
 from rich.console import Console
 from folders_finder import *
 from stations_extractor import * 
-
+from art import *
 
 #Ejecución del programa
 #Consola para imprimir mensajes en pantalla. 
@@ -43,6 +43,7 @@ else:
 if __name__ == "__main__":  
     #Menu con todas las opciones
     ACTIVE = True
+    console.print(text2art('  ssg_a  test*'), style="bold green")
     console.print('¡Bienvenido! Elige un [cyan]numero[/cyan] de las siguiente opciones:')
     while(ACTIVE):
         #Opciones
@@ -187,7 +188,7 @@ if __name__ == "__main__":
                     event_plot_stations(nombre[0],homeDir)
                     
             
-    console.print('Adios!', style="bold blue")
+    console.print(text2art(' Adios '), style="bold blue")
     #dfs = pd.read_csv('Data/Informe2A.csv')
     #Eventos = range_finder(dfs,'prof',events)
     #events_station_extractor(Eventos,name,homeDir)

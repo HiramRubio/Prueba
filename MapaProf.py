@@ -3,8 +3,8 @@
 Created on Fri May 29 05:38:06 2020
 
 @author: HRV
+Mapa regiones de profundidad utilizando SF proporcionadas por Alejandra
 """
-
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap

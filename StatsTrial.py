@@ -23,6 +23,10 @@ dfs = pd.read_csv("C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/bugFr
 
 #Copia
 df2 = dfs.copy()
+
+#Cantidad de eventos registrados
+fldrs = df2['Folder']
+n_fldrs = len(np.unique(fldrs))
 #Filtrado por estación 
 Ests = df2['Est']
 names = np.unique(Ests)
@@ -34,10 +38,21 @@ dataF = []
 for NAME in names:
     dataE = []
     print('Estacion: '+str(NAME))
+    #Nombre de la estación 
     dataE.append(NAME)
     df3 = df2[df2['Est'].isin([NAME])]
     #Filtrado por onda P
     df2P = df3[df3['Onda'].isin(['P'])]
+    
+    #Lat 
+    x = df2P['Lat']
+    x2 = np.unique(x)
+    dataE.append(x2[0])
+    #Lon
+    x = df2P['Lon']
+    x2 = np.unique(x)
+    dataE.append(x2[0])
+    
     #Recorremos todas las variables
     for col in LB:
         var = df2P[col]
@@ -54,7 +69,8 @@ for NAME in names:
         dataE.append(var_d)    
     #Numero de eventos detectados
     n = len(df2P)
-    dataE.append(n)       
+    dataE.append(n)
+    dataE.append(float(n/n_fldrs))       
     
     dataF.append(dataE)
     # #plt.hist(profs, density=True)  # `density=False` would make counts
@@ -117,5 +133,5 @@ for NAME in names:
 #plt.title('Media y desviacionS de cada estación, Prof')
 #plt.show()  
 
-dfs_n = pd.DataFrame(dataF,columns=['Est','prof_m','prof_d','mag_m','mag_d','dist_m','dist_d','eventos'])
+dfs_n = pd.DataFrame(dataF,columns=['Est','Lat','Lon','prof_m','prof_d','mag_m','mag_d','dist_m','dist_d','eventos','kd'])
 dfs_n.to_csv(homeDir+'/'+'Resumen_estaciones_P.csv',index=True)               

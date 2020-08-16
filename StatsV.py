@@ -21,19 +21,23 @@ df2 = dfs.copy()
 Ests = df2['Est']
 
 LB = ['Prof', 'mag','Dist (km) ']
-
 TopEsts = dfsN['Est']
-TopEsts = TopEsts[0:20]
+TopEstsF = TopEsts[0:20]
 
-for name in TopEsts:
+L1 = ['ESCTL','STARS','JUTI','XELA','SMARC','CHAMP','COAT','QUICH','JACAL']
+
+for name in TopEstsF:
     #Filtro el nombre
     df3 = df2[df2['Est'].isin([name])]
     var = df3[LB[2]]
-    
+    var2 = df3[LB[1]]
     fig, ax = plt.subplots(figsize=(8,8))
     plt.hist(var, density=True)
     plt.title(name+', media: '+str(round(mean(var),3)))
     plt.ylabel('Probabilidad') 
-    plt.xlabel('Distancia a evento (kms)') 
+    plt.xlabel('Distancia (km)') 
+    
+    # plt.scatter(var2,var)
+    # plt.title(name+' dist vs mag')
     plt.show() 
     

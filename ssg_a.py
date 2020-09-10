@@ -93,8 +93,9 @@ if __name__ == "__main__":
                 #Opcion 1-1   
                 #Lectura de un archivo Pre-Procesado
                 if(b == 1):
-                    dfs = pd.read_csv('Data/Informe3A.csv')
-                    console.print('Archivo Seleccionado: [blue]Informe3A[/blue]')
+                    dfs = pd.read_csv('Data/Informe4A.csv')
+                    console.print('Archivo Seleccionado: [blue]Informe4A[/blue]')
+                    console.print('Fechas [blue]2019-01-01[/blue] -> [blue]2020-09-09[/blue]')
                 
                 #OPCION 1-2 No valida
                 if(b == 2 and type(dfs) == str):

@@ -44,7 +44,10 @@ def init():
 
 # animation function 
 def animate(i): 
+    #Actualización de plot
     plot = ax.plot(x[i],y[i],marker='*',markersize=7)
+    #Actualización de título
+    plt.title('Frame: '+str(i))
     # return plot object 
     return plot
 

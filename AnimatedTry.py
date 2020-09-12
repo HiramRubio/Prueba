@@ -8,17 +8,18 @@ Aprendiendo a hacer imagenes animadas
 """
 
 
-import numpy as np 
+#import numpy as np 
+import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
-
 from mpl_toolkits.basemap import Basemap
-from matplotlib.patches import Polygon
-from matplotlib.collections import PatchCollection
-import random
+#from matplotlib.patches import Polygon
+#from matplotlib.collections import PatchCollection
+import random, math
 
+#Inicio de plot
 fig, ax = plt.subplots(figsize=(8,8))
 #Nacional
 m = Basemap(resolution='i', # c, l, i, h, f or None
@@ -30,34 +31,70 @@ m.drawmapboundary(fill_color='#46bcec')
 m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 #Leemos nuestra shapefile, no los activamos todos
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
+m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',linewidth=0.5)
 
+#Data de cada estacion 
+est = pd.read_csv('Data/g1.csv',sep=';',names=['num1','Folder','Prof','mag','Est','Lat','Lon','Dist','Angle','Onda','DeltaT'])
 
-#Data Aleatoria
-x = [random.randint(61000,500000) for i in range(100)]
-y = [random.randint(61000,500000) for i in range(100)]
-
+#Tiempo máximo
+t_max =math.ceil(max(est['DeltaT']))+2
+      
 # initialization function 
 def init(): 
     # plot the first day (day=0) here:
-    plot = ax.plot(x[0],y[0])
+    
+    ax.plot(420000,400000,'s',marker='^',color='r', markersize=6)
+    ax.plot(420000,410000,'s',marker='^',color='g', markersize=6)
+    ax.text(430000,395000,'Onda P', fontsize=8)
+    plot = ax.text(430000,405000,'Onda S', fontsize=8)
     return plot
 
+# Estaciones a plotear
+def station_check(ploted,actual_time,tipo_onda):
+    #Puntos a plotear
+    xp = []
+    yp = []  
+    #Verificamos que estación detecto el sismo
+    for name,lat,lon,time,onda in zip(est['Est'],est['Lat'],est['Lon'],est['DeltaT'],est['Onda']):
+        if time<=actual_time:
+            nameO=name+onda
+            if(nameO in ploted):
+                pass
+            else:
+                if(onda==tipo_onda):
+                    x,y = m(lon,lat)
+                    xp.append(x)
+                    yp.append(y)
+                    #Dato ya ploteado
+                    ploted.append(nameO)
+    return xp,yp
+    
 # animation function 
 def animate(i): 
-    #Actualización de plot
-    plot = ax.plot(x[i],y[i],marker='*',markersize=7)
+    #Buscamos en que estaciones aparecen las ondas P
+    xp,yp = station_check(ploted,i,'P')           
+    #Actualización de plot              
+    plot = ax.plot(xp,yp,'s',marker='^',color='r', markersize=10)
+    
+    #Buscamos en que estaciones aparecen las ondas S
+    xp,yp = station_check(ploted,i,'S')           
+    #Actualización de plot              
+    plot = ax.plot(xp,yp,'s',marker='^',color='g', markersize=6)
+    
     #Actualización de título
-    plt.title('Frame: '+str(i))
+    plt.title('Segundos desde Origen: '+str(i))
     # return plot object 
     return plot
 
+#Variable de control
+ploted = []
 # call the animator     
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=99, interval=200,save_count=2000)
-#plt.show()
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=t_max, interval=500)
+plt.show()
 
 # save the animation as mp4 video file 
-writervideo = animation.FFMpegWriter(fps=10) 
-anim.save('Imagenes/random.mp4', writervideo )
+writervideo = animation.FFMpegWriter(fps=2) 
+anim.save('Imagenes/eventG1.mp4', writervideo )
 
 # save the animation as GIF file 
 # writergif = animation.PillowWriter(fps=10) 

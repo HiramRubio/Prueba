@@ -8,16 +8,13 @@ Aprendiendo a hacer imagenes animadas
 """
 
 
-#import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+#from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation
-import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
-#from matplotlib.patches import Polygon
-#from matplotlib.collections import PatchCollection
-import random, math
+import math
+from stations_extractor import event_info_extractor
 
 #Inicio de plot
 fig, ax = plt.subplots(figsize=(8,8))
@@ -34,19 +31,26 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidt
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',linewidth=0.5)
 
 #Data de cada estacion 
+#Evento 2019-11-13-1628
 est = pd.read_csv('Data/g1.csv',sep=';',names=['num1','Folder','Prof','mag','Est','Lat','Lon','Dist','Angle','Onda','DeltaT'])
+#Directorio con data del evento
+homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+#Data principal del evento
+data = event_info_extractor('2019-11-13-1628',homeDir)
 
 #Tiempo máximo
 t_max =math.ceil(max(est['DeltaT']))+2
       
 # initialization function 
 def init(): 
-    # plot the first day (day=0) here:
-    
+    #Texto/Leyenda
     ax.plot(420000,400000,'s',marker='^',color='r', markersize=6)
     ax.plot(420000,410000,'s',marker='^',color='g', markersize=6)
     ax.text(430000,395000,'Onda P', fontsize=8)
-    plot = ax.text(430000,405000,'Onda S', fontsize=8)
+    ax.text(430000,405000,'Onda S', fontsize=8)
+    #Plot epicentro
+    x,y = m(float(data[1]),float(data[0]))
+    plot = ax.plot(x,y,'s',marker='*',color='k', markersize=10)
     return plot
 
 # Estaciones a plotear

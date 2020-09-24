@@ -186,6 +186,7 @@ if __name__ == "__main__":
                 if(b == 3 and len(nombre)>0):
                     #event_plot_stations(nombre[0],homeDir)
                     Animate_event(nombre[0], homeDir)
+                    console.print('Video generado', style="bold green")
                     
             
     console.print(text2art(' Adios '), style="bold blue")

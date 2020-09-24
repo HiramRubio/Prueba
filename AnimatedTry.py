@@ -103,7 +103,7 @@ def Animate_event(folder, homeDir):
     ploted = []
     # call the animator     
     anim = animation.FuncAnimation(fig, animate, init_func=init, frames=t_max, interval=500)
-    plt.show()
+    #plt.show()
     
     #Decicimos guardar el vídeo 
     if(True):

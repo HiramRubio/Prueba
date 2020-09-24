@@ -13,6 +13,7 @@ from rich.console import Console
 from folders_finder import *
 from stations_extractor import * 
 from art import *
+from AnimatedTry import *
 
 #Ejecución del programa
 #Consola para imprimir mensajes en pantalla. 
@@ -26,19 +27,7 @@ Eventos = []
 homeDir = '/antelope/analysis/eventos/'
 #EventosD = ["2019-03-05-1315",'2019-11-14-0647','2020-03-06-0125']
 
-'''
-if(False):
-    EventosD = ["2019-03-05-1315",'2019-11-14-0647','2020-03-06-0125']
-    homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
-else:
-    #Leemos los eventos que queremos analizar del informe anual 2 filtrado
-    dfs = pd.read_csv('Data/Informe2A_Mex_Sup.csv')
-    Env_names = dfs['folder']
-    Eventos = []
-    for envt in Env_names:
-        Eventos.append(envt)
-    homeDir = '/antelope/analysis/eventos/'
-'''
+
 #Verificamos que nuestro programa sea principal
 if __name__ == "__main__":  
     #Menu con todas las opciones
@@ -158,6 +147,7 @@ if __name__ == "__main__":
             while(ACTIVE2):
                 console.print('1.   Extraer Informacion de evento')
                 console.print('2.   Plot estaciones Evento ')
+                console.print('3.   Plot arrivo a estaciones ')
                 console.print('0.   [red]Regresar[/red]')
                 
                 #Entrada del usuario
@@ -187,6 +177,15 @@ if __name__ == "__main__":
                 #Opcion 2-2   
                 if(b == 2 and len(nombre)>0):
                     event_plot_stations(nombre[0],homeDir)
+                    
+                #Opcion 3-2 Error
+                if(b == 3 and len(nombre)==0):
+                    console.print('Archivo de evento [red]no[/red] generado')
+                    
+                #Opcion 2-3   
+                if(b == 3 and len(nombre)>0):
+                    #event_plot_stations(nombre[0],homeDir)
+                    Animate_event(nombre[0], homeDir)
                     
             
     console.print(text2art(' Adios '), style="bold blue")

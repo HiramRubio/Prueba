@@ -49,7 +49,10 @@ def Animate_event(folder, homeDir):
           
     # initialization function 
     def init(): 
-        Names = ['XELA','STARS','CHAMP','CHULA','JUTI','SMARC']
+        #Ingreo de nombres de estaciones que se desean poner en la gráfica
+        print('Estaciones disponibles: ')
+        print(np.unique(est['Est']))
+        Names = input("Ingrese el nombre de las estaciones a gráficar (Entre comillas y separadas por coma): ")
         #Texto/Leyenda
         ax.plot(-89.00,17.0,'s',marker='^',color='r', markersize=6)
         ax.plot(-89.00,16.8,'s',marker='^',color='g', markersize=6)
@@ -129,6 +132,6 @@ def Animate_event(folder, homeDir):
     # writergif = animation.PillowWriter(fps=10) 
     # anim.save('random.gif', writer=writergif)
     
-homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
-folder = '2019-11-13-1628'
-Animate_event(folder, homeDir)
+#homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+#folder = '2019-11-13-1628'
+#Animate_event(folder, homeDir)

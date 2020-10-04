@@ -172,7 +172,7 @@ def Multiple_Lead_time(name, homeDir,METHOD = False):
     import numpy as np
     
     #Leemos el archivo con las estaciones del evento
-    ests = pd.read_csv(homeDir+str(name)+'.csv')
+    ests = pd.read_csv(homeDir+str(name)+'_estaciones.csv')
     #Obtenemos el nombre de todos los folders
     events_names = np.unique(ests['Folder'])
     

@@ -33,7 +33,7 @@ homeDir = '/antelope/analysis/eventos/'
 if __name__ == "__main__":  
     #Menu con todas las opciones
     ACTIVE = True
-    console.print(text2art('  ssg_a  test*'), style="bold green")
+    console.print(text2art('  ssg_a: Analisis Avanzado'), style="bold green")
     console.print('¡Bienvenido! Elige un [cyan]numero[/cyan] de las siguiente opciones:')
     while(ACTIVE):
         #Opciones
@@ -149,9 +149,9 @@ if __name__ == "__main__":
                     console.print('Archivo de estaciones [red]no[/red] generado')
                 
                 #Opcion 1-5 
-                if(b == 5 and CSV == False):
+                if(b == 5 and CSV == True):
                     Multiple_Lead_time(name, homeDir)
-                    console.print('Archivo [red]generado[/red]')
+                    console.print('Archivo [blue]generado[/blue]')
                     
                     
         #OPCION 2
@@ -214,7 +214,7 @@ if __name__ == "__main__":
                     console.print('Lead time: '+str(LT[3]-LT[1])+', entre '+LT[0]+' ,'+LT[2], style="bold green")
                     
             
-    console.print(text2art(' Adios '), style="bold blue")
+    console.print(text2art(' :)  '), style="bold blue")
     #dfs = pd.read_csv('Data/Informe2A.csv')
     #Eventos = range_finder(dfs,'prof',events)
     #events_station_extractor(Eventos,name,homeDir)

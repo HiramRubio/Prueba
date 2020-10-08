@@ -181,7 +181,7 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
                 a = str(i[0:45])
                 a = a.split()
                 #Quitamos la U y todos los arrivos 'del'
-                if(a[2]=='-1' and a[0] in ListPS):
+                if(a[2]=='-1'):
                     #Almacenamos: Nombre, Lat, lon, Dis (distancia al epicentro), angle
                     xEs,yEs = (float(a[4]),float(a[3]))
                     #Calculamos distancia euclidiana al epicentro
@@ -192,12 +192,14 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
                     angle = calculate_initial_compass_bearing(coords_2, coords_1)
                     #Adjuntamos todos los datos de ondas P
                     for i in range(len(ListP)):
-                        if(ListP[i][0] == a[0]): time = ListP[i][1]   
-                    text3.append((name,dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'P',time))
+                        if(ListP[i][0] == a[0]): 
+                            time = ListP[i][1]   
+                            text3.append((name,dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'P',time))
                     #Adjuntamos todos los datos de ondas S
                     for i in range(len(ListS)):
-                        if(ListS[i][0] == a[0]): time = ListS[i][1]   
-                    text3.append((name,dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'S',time))
+                        if(ListS[i][0] == a[0]): 
+                            time = ListS[i][1]   
+                            text3.append((name,dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'S',time))
                     #Almacenamos las coordenadas para ploteo
                     Estx.append(xEs)
                     Esty.append(yEs) 

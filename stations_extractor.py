@@ -361,7 +361,7 @@ def event_plot_stations(name,homeDir):
     #Mapa Nacional GT
     m = Basemap(resolution='l', # c, l, i, h, f or None
         lat_0=14.6569, lon_0=-90.51,
-        llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42,
+        llcrnrlon=-92.93, llcrnrlat=13.15,urcrnrlon=-87.58, urcrnrlat=18.42,epsg=4326,
         projection='tmerc')
     #Colores    
     m.drawmapboundary(fill_color='#46bcec')                  
@@ -370,25 +370,39 @@ def event_plot_stations(name,homeDir):
     m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
     m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
     
+    #Texto/Leyenda
+    ax.plot(-89.00,17.0,'s',marker='^',color='None', markersize=7,markeredgecolor = 'm')
+    ax.plot(-89.00,16.8,'s',marker='^',color='b'   , markersize=7,markeredgecolor = 'None')
+    ax.text(-88.90,16.97,'Onda P', fontsize=8,bbox=dict(boxstyle = "square",facecolor = "white"))
+    ax.text(-88.90,16.77,'Onda S', fontsize=8,bbox=dict(boxstyle = "square",facecolor = "white"))
+        
     #Leemos Latitud, Longitud y Nombre de las estaciones
-    e_lats = dfe['Lat']
-    e_lons = dfe['Lon']
-    e_names = dfe['Est']
-    ploted = []
+    e_lats  =   dfe['Lat']
+    e_lons  =   dfe['Lon']
+    e_names =   dfe['Est']
+    e_onda  =   dfe['Onda']
+    ploted  =   []
+    plotedN =   []
     
     #Generación de Plot
-    for lat,lon,name_E in zip(e_lats,e_lons,e_names):
+    for lat,lon,name_E,onda in zip(e_lats,e_lons,e_names,e_onda):
         #Mapeo
         x,y = m(lon,lat)
+        name_E2 = name_E+onda   #Nuevo nombre
         #Si la estación ya se ploteo, se omite
-        if(name_E in ploted):
+        if(name_E2 in ploted):
             pass
         else:    
-            #Punto y texto
-            plt.plot(x,y,marker='*',color='r')
-            ax.text((x+10),(y+10),name_E, fontsize=6)
+            #Punto
+            if(onda == 'S'):    plt.plot(x,y,'s',marker='^',color='None', markersize=10,markeredgecolor = 'm')
+            else:               plt.plot(x,y,'s',marker='^',color='b'   , markersize=10,markeredgecolor = 'None')
             #Se agrega a la lista de Estaciones Ploteadas
-            ploted.append( name_E ) 
+            ploted.append( name_E2 ) 
+            #Texto
+            if(name_E in plotedN):  pass
+            else:   
+                ax.text((x+0.01),(y+0.07),name_E, fontsize=6)
+                plotedN.append( name_E ) 
     
     #Extraemos la informacion del evento
     e_main = event_info_extractor(name,homeDir)
@@ -396,7 +410,7 @@ def event_plot_stations(name,homeDir):
     xp = float(e_main[0])
     yp = float(e_main[1])
     x,y = m(yp,xp)
-    plt.plot(x,y,marker='^',color='b')
+    plt.plot(x,y,marker='*',color='y',markersize=12,markeredgecolor = 'k')
     
     Mensaje = 'Evento: '+str(name)+', Mag: '+str(e_main[4])+', Prof:'+str(e_main[2])
     plt.title(Mensaje)

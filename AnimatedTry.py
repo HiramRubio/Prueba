@@ -9,7 +9,7 @@ de las estaciones que detectaron un evento en específico
 """
 import pandas as pd 
 
-def Animate_event(folder, homeDir):
+def Animate_event(folder, homeDir,EXPECTED = True):
     
     
     #Leemos el archivo con las estaciones del evento
@@ -41,6 +41,7 @@ def Animate_event(folder, homeDir):
     
     #Directorio con data del evento
     #homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+    
     #Data principal del evento
     data = event_info_extractor(folder,homeDir)
     
@@ -74,6 +75,46 @@ def Animate_event(folder, homeDir):
                 
         return plot
     
+    #Funcion para generar puntos esperados de onda
+    def expected_wave_points(xo,yo,est):
+        # ----------
+        # Entradas:
+        # xo,yo     = Coordenadas del evento
+        # est       = Archivo .csv con datos del evento
+        # ----------
+        # Salidas:
+        # x_e_p,y_e_p   = Coordenadas de onda esperadas
+        # time_e        = Lista con los tiempos (segundos desde origen) en que se 
+        #                 espera que la onda pase en cierta coordenada
+        # onda_e        = Nombre de onda
+        # ----------     
+        
+        #List to save values
+        y_e_p = []
+        x_e_p = []
+        time_e = []
+        onda_e = []
+        
+        #Loop para generar todos los puntos esperados
+        for name,yv,xv,t,onda in zip(est['Est'],est['Lat'],est['Lon'],est['DeltaT (segundos)'],est['Onda']):
+            #New point or expected point
+            dx, dy = xv-xo, yv-yo
+            var = 1
+            #Generation of expected wave points
+            while(var <= t):
+                x_p = var*dx/t+xo
+                y_p = var*dy/t+yo
+                #Saving points
+                x_e_p.append(x_p)
+                y_e_p.append(y_p)
+                time_e.append(var)
+                onda_e.append(onda)
+                #print("Expeted point ",var,": ",x_p,y_p)
+                var= var+1
+                
+        return x_e_p, y_e_p, time_e, onda_e
+    
+    
     # Estaciones a plotear
     def station_check(ploted,actual_time,tipo_onda):
         #Puntos a plotear
@@ -93,6 +134,21 @@ def Animate_event(folder, homeDir):
                         #Dato ya ploteado
                         ploted.append(nameO)
         return xp,yp
+    
+    # Ondsa a plotear
+    def wave_check(actual_time,tipo_onda,x_e_p,y_e_p,time_e,onda_e):
+        #Puntos a plotear
+        xp = []
+        yp = []  
+        #Verificamos que estación detecto el sismo
+        for x,y,time,onda in zip(x_e_p,y_e_p,time_e,onda_e):
+            #Buscamos los puntos esperados en ese instante y que sea la onda
+            #Deseada
+            if (time==actual_time and onda == tipo_onda):
+                xp.append(x)
+                yp.append(y)
+                        
+        return xp,yp
         
     # animation function 
     def animate(i): 
@@ -111,11 +167,34 @@ def Animate_event(folder, homeDir):
         # return plot object 
         return plot
     
+    # animation function 2
+    def animate2(i): 
+        x_pts,y_pts,t_pts,w_pts = expected_wave_points(float(data[1]),float(data[0]),est) 
+        #Buscamos en que estaciones aparecen las ondas P
+        xp , yp = wave_check(i,'P',x_pts,y_pts,t_pts,w_pts)
+        #Actualización de plot              
+        plot = ax.plot(xp,yp,'s',marker='.',color='r', markersize=2,markeredgecolor = 'k')
+        
+        #Buscamos en que estaciones aparecen las ondas S
+        xp , yp = wave_check(i,'S',x_pts,y_pts,t_pts,w_pts)
+        #Actualización de plot              
+        plot = ax.plot(xp,yp,'s',marker='*',color='b', markersize=4,markeredgecolor = 'k')
+        
+        #Actualización de título
+        plt.title('Segundos desde Origen: '+str(i))
+        # return plot object 
+        return plot
+    
     #Variable de control
     ploted = []
-    # call the animator     
-    anim = animation.FuncAnimation(fig, animate, init_func=init, frames=t_max, interval=500)
-    #plt.show()
+    
+    if(EXPECTED == False):
+        # call the animator 
+        anim = animation.FuncAnimation(fig, animate2, init_func=init, frames=t_max, interval=500)
+        
+    if(EXPECTED):
+        # call the animator     
+        anim = animation.FuncAnimation(fig, animate, init_func=init, frames=t_max, interval=500)
     
     #Decicimos guardar el vídeo 
     if(True):
@@ -123,7 +202,7 @@ def Animate_event(folder, homeDir):
         writervideo = animation.FFMpegWriter(fps=2) 
         #Directoio de Pruebas
         if(homeDir == "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"):
-            anim.save('Imagenes/'+str(folder)+'.mp4', writervideo )
+            anim.save('Imagenes/'+str(folder)+'Prueba.mp4', writervideo )
         #Directorio en compu del trabajo
         else:
             anim.save(homeDir+str(folder)+'.mp4', writervideo )
@@ -132,6 +211,6 @@ def Animate_event(folder, homeDir):
     # writergif = animation.PillowWriter(fps=10) 
     # anim.save('random.gif', writer=writergif)
     
-#homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
-#folder = '2019-11-13-1628'
-#Animate_event(folder, homeDir)
+homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+folder = '2019-11-13-1628'
+Animate_event(folder, homeDir,EXPECTED = False)

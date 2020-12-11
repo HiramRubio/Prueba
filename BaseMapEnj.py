@@ -46,9 +46,9 @@ if(Opc==False):
             lat_0=15.94, lon_0=-90.7943,
             llcrnrlon=x2, llcrnrlat=y2,urcrnrlon=x1, urcrnrlat=y1, epsg=4326)
     
-    #m.arcgisimage(service='Elevation/World_Hillshade', xpixels=900, dpi=100,verbose= True)
-    # m.drawmapboundary(fill_color='#46bcec')                  
-    #m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+    m.arcgisimage(service='Elevation/World_Hillshade', xpixels=900, dpi=100,verbose= True)                  
+    #m.fillcontinents(lake_color='#46bcec')
+    m.drawrivers(color='#46bcec')
     # m.drawmapboundary(zorder = 0)
     # m.drawcoastlines()
 else:  
@@ -57,11 +57,13 @@ else:
             lat_0=14.6569, lon_0=-90.51,
             llcrnrlon=-92.5, llcrnrlat=13.6,urcrnrlon=-88.0, urcrnrlat=18.0,epsg=4326)
     
-    m.drawmapboundary(fill_color='#46bcec')                  
+    m.drawmapboundary(fill_color='#46bcec')       
+    #Cuerpos de Agua
+    m.drawrivers(color='#46bcec')           
     m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
     m.drawmapboundary(zorder = 0)
     m.drawcoastlines()
-    #m.arcgisimage(service='Elevation/World_Hillshade', xpixels=600, dpi=100,verbose= True)
+    m.arcgisimage(service='Elevation/World_Hillshade', xpixels=600, dpi=100,verbose= True)
 
 # draw parallels and meridians.
 parallels = np.arange(-92.,87.,0.5)
@@ -114,10 +116,7 @@ else:
 #Delimitaciones de Guatemala
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
-#Cuerpos de Agua
-m.readshapefile('Data/cuerpos_agua_gtm2/cuerpos_agua_gtm2', 'ca',drawbounds=True)
-m.readshapefile('Data/rios_gtm2/rios_gtm2', 'ca2',drawbounds=True)
-
+m.readshapefile('Data/fallas/fallas', 'fgt',drawbounds=True)
 
 #Colocamos algunos municipios 
 xc,yc = m(-90.4067400,15.4689600)
@@ -150,10 +149,10 @@ if(Opc==True):
     ax.add_collection(PatchCollection(patches, facecolor= '#527a7a', edgecolor='k', linewidths=1., zorder=2))
 
 
-patches   = []
-for info, shape in zip(m.ca_info, m.ca):
-    patches.append( Polygon(np.array(shape), True) )      
-ax.add_collection(PatchCollection(patches, facecolor= '#85adad', edgecolor='w', linewidths=0.01, zorder=2))
+# patches   = []
+# for info, shape in zip(m.ca_info, m.ca):
+#     patches.append( Polygon(np.array(shape), True) )      
+# ax.add_collection(PatchCollection(patches, facecolor= '#85adad', edgecolor='w', linewidths=0.01, zorder=2))
 
 if(Opc==False): m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
 

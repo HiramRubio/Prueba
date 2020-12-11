@@ -115,8 +115,8 @@ else:
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
 #Cuerpos de Agua
-m.readshapefile('Data/shp/gis_osm_water_a_free_1', 'ca',drawbounds=True)
-m.readshapefile('Data/rios_gtm2/rios_gtm2', 'ca2')
+m.readshapefile('Data/cuerpos_agua_gtm2/cuerpos_agua_gtm2', 'ca',drawbounds=True)
+m.readshapefile('Data/rios_gtm2/rios_gtm2', 'ca2',drawbounds=True)
 
 #Colocamos algunos municipios 
 xc,yc = m(-90.4067400,15.4689600)

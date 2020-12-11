@@ -118,6 +118,7 @@ m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawboun
 m.readshapefile('Data/cuerpos_agua_gtm2/cuerpos_agua_gtm2', 'ca',drawbounds=True)
 m.readshapefile('Data/rios_gtm2/rios_gtm2', 'ca2',drawbounds=True)
 
+
 #Colocamos algunos municipios 
 xc,yc = m(-90.4067400,15.4689600)
 m.plot(xc,yc,marker ='*',color = 'k',markersize=20)

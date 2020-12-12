@@ -4,8 +4,12 @@ Created on Thu Apr 23 21:17:33 2020
 
 @author: Steven Rubio
 
-Mapa de eventos: Utilizado para el análisis de enjambres
+Mapa de eventos: Utilizado para el análisis de enjambres. 
 
+Incluye:
+- Grillas lat/lon
+- Texto en el mapa
+- Clasificacion de eventos por magnitud
 
 """
 
@@ -29,6 +33,10 @@ y2=y2-0.03
 y1=y1+0.03
 x1=x1+0.02
 x2=x2-0.02
+#Cambio para solo colocar AV
+x1 = -89.4
+x2 = -90.8 
+#y2 = 15.35
 
 #m.drawmapscale(-90.5, 14.31, -90.4, 14.4, 5 , barstyle='fancy')
 # http://server.arcgisonline.com/arcgis/rest/services
@@ -43,7 +51,7 @@ x2=x2-0.02
 if(Opc==False):
     m = Basemap(resolution='i', # c, l, i, h, f or None
             projection='tmerc', 
-            lat_0=15.94, lon_0=-90.7943,
+            lat_0=15.74, lon_0=-90.15,
             llcrnrlon=x2, llcrnrlat=y2,urcrnrlon=x1, urcrnrlat=y1, epsg=4326)
     
     m.arcgisimage(service='Elevation/World_Hillshade', xpixels=900, dpi=100,verbose= True)                  
@@ -52,18 +60,18 @@ if(Opc==False):
     # m.drawmapboundary(zorder = 0)
     # m.drawcoastlines()
 else:  
-    m = Basemap(resolution='i', # c, l, i, h, f or None
+    m = Basemap(resolution='c', # c, l, i, h, f or None
             projection='tmerc', 
             lat_0=14.6569, lon_0=-90.51,
             llcrnrlon=-92.5, llcrnrlat=13.6,urcrnrlon=-88.0, urcrnrlat=18.0,epsg=4326)
     
     m.drawmapboundary(fill_color='#46bcec')       
     #Cuerpos de Agua
-    m.drawrivers(color='#46bcec')           
+    m.drawrivers(color='#46bcec',linewidth=4.5)           
     m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
     m.drawmapboundary(zorder = 0)
     m.drawcoastlines()
-    m.arcgisimage(service='Elevation/World_Hillshade', xpixels=600, dpi=100,verbose= True)
+    m.arcgisimage(service='Elevation/World_Hillshade', xpixels=5000, dpi=100,verbose= True)
 
 # draw parallels and meridians.
 parallels = np.arange(-92.,87.,0.5)
@@ -116,7 +124,8 @@ else:
 #Delimitaciones de Guatemala
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
-m.readshapefile('Data/fallas/fallas', 'fgt',drawbounds=True)
+m.readshapefile('Data/fallas/fallas', 'fgt',drawbounds=True,linewidth=1.0)
+m.readshapefile('Data/shp/gis_osm_water_a_free_1', 'ca',drawbounds=True)
 
 #Colocamos algunos municipios 
 xc,yc = m(-90.4067400,15.4689600)
@@ -124,16 +133,16 @@ m.plot(xc,yc,marker ='*',color = 'k',markersize=20)
 xt,yt = m(-90.4067400+0.015,15.4689600+0.035)
 ax.text(xt,yt,'Coban', fontsize=10)
 
-xc,yc = m(-91.315506,15.804456)
-m.plot(xc,yc,marker ='*',color = 'k',markersize=20)
-xt,yt = m(-91.315506+0.02,15.804456+0.03)
-ax.text(xt,yt,'Santa Cruz Barillas', fontsize=10)
+# xc,yc = m(-91.315506,15.804456)
+# m.plot(xc,yc,marker ='*',color = 'k',markersize=20)
+# xt,yt = m(-91.315506+0.02,15.804456+0.03)
+# ax.text(xt,yt,'Santa Cruz Barillas', fontsize=10)
 
-xc,yc = m(-91.034722,15.487222)
-m.plot(xc,yc,marker ='*',color = 'k',markersize=20)
-xt,yt = m(-91.034722+0.02,15.487222+0.03)
-ax.text(xt,yt,'Chajul', fontsize=10)
-#bbox=dict(boxstyle = "square",facecolor = "white")
+# xc,yc = m(-91.034722,15.487222)
+# m.plot(xc,yc,marker ='*',color = 'k',markersize=20)
+# xt,yt = m(-91.034722+0.02,15.487222+0.03)
+# ax.text(xt,yt,'Chajul', fontsize=10)
+# #bbox=dict(boxstyle = "square",facecolor = "white")
 
 
 if(Opc==True):
@@ -148,16 +157,16 @@ if(Opc==True):
             patches.append( Polygon(np.array(shape), True) )      
     ax.add_collection(PatchCollection(patches, facecolor= '#527a7a', edgecolor='k', linewidths=1., zorder=2))
 
-
-# patches   = []
-# for info, shape in zip(m.ca_info, m.ca):
-#     patches.append( Polygon(np.array(shape), True) )      
-# ax.add_collection(PatchCollection(patches, facecolor= '#85adad', edgecolor='w', linewidths=0.01, zorder=2))
+#Agregro los cuerpos de agua
+patches   = []
+for info, shape in zip(m.ca_info, m.ca):
+    patches.append( Polygon(np.array(shape), True) )      
+ax.add_collection(PatchCollection(patches, facecolor= '#46bcec', edgecolor='k', linewidths=0.01, zorder=2))
 
 if(Opc==False): m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',drawbounds=False)
 
 #Titulo
 plt.title("Sismicidad 2020-11-01 a 2020-12-10")
 #Guardar Imagen
-plt.savefig('Imagenes/Enjambre2020-11.png', bbox_inches='tight')
+plt.savefig('Imagenes/Enjambre2020-11_AV.png', bbox_inches='tight')
 plt.show()

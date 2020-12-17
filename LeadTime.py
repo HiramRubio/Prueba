@@ -3,6 +3,10 @@
 Created on Fri Oct  2 02:43:17 2020
 
 @author: Steven Hiram
+
+Calculo del lead time en base a diferencia de tiempo entre: 
+    - 3 estaciones que detectan onda P
+    - 1 estacion en la capital que detecta onda S 
 """
 
 def Estacion_Capital(Estat):
@@ -89,7 +93,7 @@ def Lead_time(folder,homeDir,PRINT = False,READ = True):
 def myFunc(e):
   return e['DeltaT (segundos)']
 
-
+#Lead Time para 3 estaciones P
 def Lead_time2(folder, homeDir,PRINT = False,READ = True):
     # ----------
     # Entradas:
@@ -116,14 +120,21 @@ def Lead_time2(folder, homeDir,PRINT = False,READ = True):
     
     #Ordeno las listas en base al tiempo de arrivo
     listT, listN = (list(t) for t in zip(*sorted(zip(estP['DeltaT (segundos)'].tolist(), estP['Est'].tolist()))))
-    
+
     #Recorrido de estaciones y tiempo de arrivo
     #Se revisa que sea un arrivo P que no esté en la capital
-    #Se rompre al encontrar el primer caso
+    #Se rompre al encontrar el tercer caso*
+    #Se usa el tercer caso ya que es la cantidad mínima de estaciones para declarar evento
+    counter = 0
     for a,b in zip(listN,listT):
-       if(timeP == 0.0 and Estacion_Capital(a) == False):   
-        timeP ,est_P = b, a 
-        break
+        if(timeP == 0.0 and Estacion_Capital(a) == False): 
+            counter = counter + 1
+            #Tercera estacion P
+            if(counter == 3):
+                timeP ,est_P = b, a 
+                #print("P*")
+                break
+
 
     #Filtramos para buscar primer arrivo P
     estS = est[est['Onda'].isin(['S'])]
@@ -135,9 +146,9 @@ def Lead_time2(folder, homeDir,PRINT = False,READ = True):
     
     #Recorrido de estaciones y tiempo de arrivo
     #Se revisa que sea un arrivo S que este en la capital
-    #Se rompre al encontrar el primer caso
+    #Se rompre al encontrar el primer caso que tenga un lead-time positivo
     for a,b in zip(listN,listT):
-       if(timeS == 0.0 and Estacion_Capital(a) == True):   
+       if(timeS == 0.0 and Estacion_Capital(a) == True and b>timeP):   
         timeS ,est_S = b, a 
         break
     
@@ -182,13 +193,13 @@ def Multiple_Lead_time(name, homeDir,METHOD = False):
         eventN = ests[ests['Folder'].isin([str(element)])]
         #Metodos alternativos para calcular el LeadTime
         if(METHOD): eventD = Lead_time(eventN,homeDir,False,False)
-        else:       eventD = Lead_time2(eventN,homeDir,False,False)
+        else:       eventD = Lead_time2(eventN,homeDir,True,False)
         dataLT.append((element,eventD[3]-eventD[1],eventD[0],eventD[2]))
     
     #Conversion a DataFrame
     dataO = pd.DataFrame(dataLT,columns=['Folder','LeadTime','EstacionP','EstacionS'])
-    dataO.to_csv(homeDir+'/'+str(name)+'_LeadTime.csv',index=True)
+    dataO.to_csv(homeDir+'/'+str(name)+'_LeadTime2.csv',index=True)
     
     
-#homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
-#name = "Mag4_estaciones"
+homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+name = "Mag4"

@@ -113,6 +113,16 @@ def Lead_time2(folder, homeDir,PRINT = False,READ = True):
     if(READ):   est = pd.read_csv(homeDir+str(folder)+'_estaciones.csv')
     #LLamada con folder ya filtrado
     else:       est = folder
+    
+    #Data adicional
+    #Profundidad y magnitud del evento
+    prof = est['Prof']
+    profR = 0
+    for a in prof:  profR = a;  break
+    mag = est['mag'] 
+    magR = 0
+    for a in mag:  magR = a;  break
+    
     #Filtramos para buscar primer arrivo P
     estP = est[est['Onda'].isin(['P'])] 
     #Declaración e inialización de variables
@@ -163,7 +173,7 @@ def Lead_time2(folder, homeDir,PRINT = False,READ = True):
         #En caso que no se encuentre una P fuera de la capital o una S en la capital    
         else:   print('No es posible calcular')
     
-    return (est_P, timeP, est_S, timeS)
+    return (est_P, timeP, est_S, timeS,profR,magR)
 
 
 
@@ -193,12 +203,12 @@ def Multiple_Lead_time(name, homeDir,METHOD = False):
         eventN = ests[ests['Folder'].isin([str(element)])]
         #Metodos alternativos para calcular el LeadTime
         if(METHOD): eventD = Lead_time(eventN,homeDir,False,False)
-        else:       eventD = Lead_time2(eventN,homeDir,True,False)
-        dataLT.append((element,eventD[3]-eventD[1],eventD[0],eventD[2]))
+        else:       eventD = Lead_time2(eventN,homeDir,False,False)
+        dataLT.append((element,eventD[5],eventD[4],eventD[3]-eventD[1],eventD[0],eventD[1],eventD[2],eventD[3]))
     
     #Conversion a DataFrame
-    dataO = pd.DataFrame(dataLT,columns=['Folder','LeadTime','EstacionP','EstacionS'])
-    dataO.to_csv(homeDir+'/'+str(name)+'_LeadTime2.csv',index=True)
+    dataO = pd.DataFrame(dataLT,columns=['Folder','Mag','Prof','LeadTime','3eraEstacionP','TiempoP','EstacionS','TiempoS'])
+    dataO.to_csv(homeDir+'/'+str(name)+'_LeadTime2_new.csv',index=True)
     
     
 homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"

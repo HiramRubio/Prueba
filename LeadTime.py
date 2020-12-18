@@ -149,17 +149,18 @@ def Lead_time2(folder, homeDir,PRINT = False,READ = True):
     #Filtramos para buscar primer arrivo P
     estS = est[est['Onda'].isin(['S'])]
     #Declaración e inialización de variables
-    timeS, est_S = 0.0, 'NONE'
+    timeS, est_S, dist_s = 0.0, 'NONE', 0.0
    
+    #Dist (km) 
     #Ordeno las listas en base al tiempo de arrivo
-    listT, listN = (list(t) for t in zip(*sorted(zip(estS['DeltaT (segundos)'].tolist(), estS['Est'].tolist()))))
+    listT, listN, Dist = (list(t) for t in zip(*sorted(zip(estS['DeltaT (segundos)'].tolist(), estS['Est'].tolist(),estS['Dist (km) '].tolist()))))
     
     #Recorrido de estaciones y tiempo de arrivo
     #Se revisa que sea un arrivo S que este en la capital
     #Se rompre al encontrar el primer caso que tenga un lead-time positivo
-    for a,b in zip(listN,listT):
+    for a,b,c in zip(listN,listT,Dist):
        if(timeS == 0.0 and Estacion_Capital(a) == True and b>timeP):   
-        timeS ,est_S = b, a 
+        timeS ,est_S, dist_s = b, a ,c
         break
     
     #print(est_S,timeS)
@@ -173,7 +174,7 @@ def Lead_time2(folder, homeDir,PRINT = False,READ = True):
         #En caso que no se encuentre una P fuera de la capital o una S en la capital    
         else:   print('No es posible calcular')
     
-    return (est_P, timeP, est_S, timeS,profR,magR)
+    return (est_P, timeP, est_S, timeS,profR,magR, dist_s)
 
 
 
@@ -204,10 +205,10 @@ def Multiple_Lead_time(name, homeDir,METHOD = False):
         #Metodos alternativos para calcular el LeadTime
         if(METHOD): eventD = Lead_time(eventN,homeDir,False,False)
         else:       eventD = Lead_time2(eventN,homeDir,False,False)
-        dataLT.append((element,eventD[5],eventD[4],eventD[3]-eventD[1],eventD[0],eventD[1],eventD[2],eventD[3]))
+        dataLT.append((element,eventD[5],eventD[4],eventD[3]-eventD[1],eventD[0],eventD[1],eventD[2],eventD[3],eventD[6]))
     
     #Conversion a DataFrame
-    dataO = pd.DataFrame(dataLT,columns=['Folder','Mag','Prof','LeadTime','3eraEstacionP','TiempoP','EstacionS','TiempoS'])
+    dataO = pd.DataFrame(dataLT,columns=['Folder','Mag','Prof','LeadTime','3eraEstacionP','TiempoP','EstacionS','TiempoS','Dist_s'])
     dataO.to_csv(homeDir+'/'+str(name)+'_LeadTime2_new.csv',index=True)
     
     

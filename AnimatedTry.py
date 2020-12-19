@@ -197,7 +197,7 @@ def Animate_event(folder, homeDir,EXPECTED = True):
         anim = animation.FuncAnimation(fig, animate, init_func=init, frames=t_max, interval=500)
     
     #Decicimos guardar el vídeo 
-    if(True):
+    if(False):
         # save the animation as mp4 video file 
         writervideo = animation.FFMpegWriter(fps=2) 
         #Directoio de Pruebas
@@ -211,6 +211,6 @@ def Animate_event(folder, homeDir,EXPECTED = True):
     # writergif = animation.PillowWriter(fps=10) 
     # anim.save('random.gif', writer=writergif)
     
-homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
-folder = '2019-11-13-1628'
-Animate_event(folder, homeDir,EXPECTED = False)
+#homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+#folder = '2019-11-13-1628'
+#Animate_event(folder, homeDir,EXPECTED = False)

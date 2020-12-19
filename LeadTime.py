@@ -218,5 +218,5 @@ def Multiple_Lead_time(name, homeDir,METHOD = False):
     dataO.to_csv(homeDir+'/'+str(name)+'_LeadTime2_new.csv',index=True)
     
     
-homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
-name = "Mag4"
+#homeDir = "C:/Users/HRV/Desktop/Post-U/Trabajo/Prueba/Data/Eventos/"
+#name = "Mag4"

@@ -29,6 +29,7 @@ m.arcgisimage(service='World_Terrain_Base', xpixels=1600, dpi=200,verbose= True)
 #Leemos nuestra shapefile, no los activamos todos
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
 m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
+m.drawrivers(color='#0000ff')
 #Leemos Latitud, Longitud y Nombre de las estaciones
 e_lats = dfe['lat']
 e_lons = dfe['lon']

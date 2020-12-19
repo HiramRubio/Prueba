@@ -24,11 +24,12 @@ m.drawmapboundary(fill_color='#46bcec')
 m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
 #Leemos nuestra shapefile, no los activamos todos
 m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.5)
-m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=True)
+m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False)
 m.readshapefile('Data/prof2/PDN','pd',drawbounds=False)
 m.readshapefile('Data/prof2/PPN','pp',drawbounds=False)
 m.readshapefile('Data/prof2/PIN','pi',drawbounds=False)
 m.readshapefile('Data/prof2/PSN','ps',drawbounds=False)
+m.readshapefile('Data/zonascap/zonasgt','zg',drawbounds=True)
 
 # patches   = []
 # #Pintamos la region 1
@@ -37,12 +38,12 @@ m.readshapefile('Data/prof2/PSN','ps',drawbounds=False)
 #     patches.append( Polygon(np.array(shape), True) )
 # ax.add_collection(PatchCollection(patches, facecolor= 'b', edgecolor='k', linewidths=1., zorder=2,alpha=0.2))
 
-patches   = []
-#Pintamos la region 2
-Mensaje = 'Región Profunda'
-for info, shape in zip(m.pp_info, m.pp):
-    patches.append( Polygon(np.array(shape), True) )
-ax.add_collection(PatchCollection(patches, facecolor= 'r', edgecolor='k', linewidths=1., zorder=2,alpha=0.2))
+# patches   = []
+# #Pintamos la region 2
+# Mensaje = 'Región Profunda'
+# for info, shape in zip(m.pp_info, m.pp):
+#     patches.append( Polygon(np.array(shape), True) )
+# ax.add_collection(PatchCollection(patches, facecolor= 'r', edgecolor='k', linewidths=1., zorder=2,alpha=0.2))
 
 # patches   = []
 # #Pintamos la region 3
@@ -59,5 +60,5 @@ ax.add_collection(PatchCollection(patches, facecolor= 'r', edgecolor='k', linewi
 # ax.add_collection(PatchCollection(patches, facecolor= 'y', edgecolor='k', linewidths=1., zorder=2,alpha=0.2))
 
 #Titulo
-plt.title(Mensaje)
+#plt.title(Mensaje)
 plt.show()

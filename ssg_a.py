@@ -210,7 +210,7 @@ if __name__ == "__main__":
                 #Opcion 4-2   
                 if(b == 4 and len(nombre)>0):
                     #event_plot_stations(nombre[0],homeDir)
-                    LT = Lead_time(nombre[0],homeDir)
+                    LT = Lead_time2(nombre[0],homeDir)
                     console.print('Lead time: '+str(LT[3]-LT[1])+', entre '+LT[0]+' ,'+LT[2], style="bold green")
                     
             

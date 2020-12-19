@@ -194,18 +194,18 @@ def event_stations_info_extractor(Evento,n_dat,homeDir):
                     for i in range(len(ListP)):
                         if(ListP[i][0] == a[0]): 
                             time = ListP[i][1]   
-                            text3.append((name,dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'P',time))
+                            text3.append((name,dataF[0],dataF[1],dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'P',time))
                     #Adjuntamos todos los datos de ondas S
                     for i in range(len(ListS)):
                         if(ListS[i][0] == a[0]): 
                             time = ListS[i][1]   
-                            text3.append((name,dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'S',time))
+                            text3.append((name,dataF[0],dataF[1],dataF[2],dataF[4],a[0],a[3],a[4],dist,angle,'S',time))
                     #Almacenamos las coordenadas para ploteo
                     Estx.append(xEs)
                     Esty.append(yEs) 
         
         #Creamos un nuevo dataFrame con la informacion que necesitamos
-        dfs_n = pd.DataFrame(text3,columns=['Folder','Prof','mag','Est','Lat','Lon','Dist (km) ','Angle','Onda','DeltaT (segundos)'])
+        dfs_n = pd.DataFrame(text3,columns=['Folder','LatE','LonE','Prof','mag','Est','Lat','Lon','Dist','Angle','Onda','DeltaT (segundos)'])
         return dfs_n
     
 
@@ -390,7 +390,8 @@ def event_plot_stations(name,homeDir):
     for lat,lon,name_E,onda in zip(e_lats,e_lons,e_names,e_onda):
         #Mapeo
         x,y = m(lon,lat)
-        name_E2 = name_E+onda   #Nuevo nombre
+        name_E2 = name_E+str(onda)
+        #Nuevo nombre
         #Si la estación ya se ploteo, se omite
         if(name_E2 in ploted):
             pass

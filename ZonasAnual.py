@@ -40,7 +40,7 @@ ax      = fig.add_subplot(111)
 #Creamos nuestro mapa, entre los argumentos se encuentran: La calidad, proyeccion
 #Resolucion, centro y limites
 #Leemos los datos y delimitamos los limites de nuestro mapa
-dfs = pd.read_csv('Data/Informe4.csv')
+dfs = pd.read_csv('Data/Informe6.csv')
 #print(max(dfs[' lon']),min(dfs[' lon']))
 x1,x2 = max(dfs[' lon']),min(dfs[' lon'])
 #print(max(dfs[' lat']),min(dfs[' lat']))
@@ -186,6 +186,6 @@ print("Execution time: " + str(time.perf_counter() - t))
 
 #Creamos un nuevo csv con la informacion que necesitamos
 dfs_n = pd.DataFrame(n_dat,columns=['lon', 'lat','time','folder','Zona','prof','Zona2','ml'])
-dfs_n.to_csv('Data/Informe4A.csv',index=True)
+dfs_n.to_csv('Data/Informe6A.csv',index=True)
 #Mostramos la data y las regiones
 plt.show()

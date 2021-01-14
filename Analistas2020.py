@@ -2,20 +2,18 @@
 """
 Created on Thu Jan  7 17:46:05 2021
 
-@author: HRV
+@author: Steven Rubio
+Programa para cuantificar la cantidad de sismos que cada 
+analista realizo en el año
 """
 
 from openpyxl import load_workbook
-from openpyxl import Workbook
-
-
 #Variables
 Steven = 0
 Cris = 0
 Alejandra = 0
 Victor = 0
 Grace = 0
-
 
 #Funciones
 def DetAnalista(value):
@@ -29,8 +27,6 @@ def DetAnalista(value):
     if(value=='S'): Steven = Steven +1      ; Sismo = True
     return Sismo
     
-
-
 Archivos = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
 #Eventos sistema automatico
 Auto = 0

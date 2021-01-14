@@ -60,15 +60,19 @@ for evento in folders:
 semanas = int(max(NumDias)/7)
 
 #Figura 1
-if(True):
+if(False):
     #Histograma con distribución de sismos
-    plt.figure(1)
-    plt.hist(NumDias, bins=semanas,color='#0504aa',alpha=0.7, rwidth=0.85)
+    fig = plt.figure(1)
+    n, bins, patches = plt.hist(NumDias, bins=semanas,color='#0504aa',alpha=0.7, rwidth=0.85)
     #plt.grid(axis='y', color='k', linestyle='-', linewidth=1)
-    plt.xlabel('Número de día del año')
+    plt.xlabel('Día del año')
     plt.ylabel('Cantidad de sismos')
     plt.title('Actividad sísmica semanal 2020')
     plt.xlim(xmin=0,xmax = 365)
+    plt.xticks([1,32,61,92,122,153,183,214,245,275,306,336], 
+               ('01-01-2020', '01-02-2020','01-03-2020','01-04-2020','01-05-2020','01-06-2020','01-07-2020','01-08-2020',
+                '01-09-2020','01-10-2020','01-11-2020','01-12-2020'))
+    plt.xticks(rotation=60)
     plt.axvline(x=365,linewidth=1, color='k')
     #plt.text(365,50,'2020',rotation=90)
     sns.set_style("ticks")
@@ -101,7 +105,7 @@ if(False):
     
     plt.figure(2)
     plt.hist([mag01,mag12,mag23, mag34], bins=semanas,color=['#0504aa','r','g','m'],stacked=True,
-             alpha=0.7, rwidth=0.85,label=nombres,density=False,cumulative=False)
+             alpha=0.7, rwidth=0.85,label=nombres,density=False,cumulative=True)
     plt.legend(prop={'size': 10})
     #plt.grid(axis='y', color='k', linestyle='-', linewidth=1)
     plt.xlabel('Número de día del año')
@@ -110,9 +114,13 @@ if(False):
     plt.xlim(xmin=0,xmax = 365)
     plt.axvline(x=365,linewidth=1, color='k')
     #plt.text(365,50,'2020',rotation=90)
+    plt.xticks([1,32,61,92,122,153,183,214,245,275,306,336], 
+               ('01-01-2020', '01-02-2020','01-03-2020','01-04-2020','01-05-2020','01-06-2020','01-07-2020','01-08-2020',
+                '01-09-2020','01-10-2020','01-11-2020','01-12-2020'))
+    plt.xticks(rotation=60)
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020Magnitud.png', bbox_inches='tight')
+    plt.savefig('Imagenes/2020MagnitudA.png', bbox_inches='tight')
     plt.show()
 
 #Figura 3
@@ -148,7 +156,7 @@ if(False):
     axs[1, 1].set_title("Magnitud >5.0 ("+str(len(mag34))+")")
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020Magnitud2.png', bbox_inches='tight')
+    #plt.savefig('Imagenes/2020Magnitud2.png', bbox_inches='tight')
     fig.tight_layout()
 
 #Figura 4
@@ -169,7 +177,7 @@ if(False):
     plt.show()
   
 #Figura 5
-if(False):
+if(True):
     #Histograma con distribución de hora
     plt.figure(3)
     plt.hist(HourD, bins=24,color='#73F914',alpha=0.8, rwidth=1.0,density=False, ec="k")
@@ -179,7 +187,7 @@ if(False):
     plt.grid(axis='y', alpha=0.75)
     plt.title('Actividad sísmica por hora 2020')
     plt.xlim(xmin=0,xmax = 25)
-    plt.xticks(np.arange(-1, 24, 2.0), ha='left', rotation=20)
+    plt.xticks(np.arange(0, 24, 2.0), ha='left', rotation=20)
     #plt.set_xticklabels(labels, rotation=0, ha='center', minor=False)
     #plt.locator_params(axis='y', integer=True)
     sns.set_style("ticks")
@@ -194,11 +202,15 @@ if(False):
     plt.hist(NumDias, bins=max(NumDias),color='#18D204',alpha=0.7, rwidth=1.0,
                            cumulative=True)
     #plt.grid(axis='y', color='k', linestyle='-', linewidth=1)
-    plt.xlabel('Número de día del año')
+    plt.xlabel('Día del año')
     plt.ylabel('Cantidad de sismos')
     plt.title('Actividad sísmica acumulada 2020')
     plt.xlim(xmin=0,xmax = 365)
     plt.axvline(x=365,linewidth=1, color='k')
+    plt.xticks([1,32,61,92,122,153,183,214,245,275,306,336], 
+               ('01-01-2020', '01-02-2020','01-03-2020','01-04-2020','01-05-2020','01-06-2020','01-07-2020','01-08-2020',
+                '01-09-2020','01-10-2020','01-11-2020','01-12-2020'))
+    plt.xticks(rotation=60)
     #plt.text(365,50,'2020',rotation=90)
     sns.set_style("ticks")
     sns.despine()

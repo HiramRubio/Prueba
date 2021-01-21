@@ -43,7 +43,7 @@ dfs = pd.read_csv('Data/Data2020.csv')
 #Filtramos folders y magnitud de los eventos
 folders = dfs[' folder']
 mag = dfs[' ml']
-
+prof = dfs[' prof']
 #Plot 1
 NumDias = []
 FechaDias = []
@@ -70,8 +70,8 @@ if(False):
     plt.title('Actividad sísmica semanal 2020')
     plt.xlim(xmin=0,xmax = 365)
     plt.xticks([1,32,61,92,122,153,183,214,245,275,306,336], 
-               ('01-01-2020', '01-02-2020','01-03-2020','01-04-2020','01-05-2020','01-06-2020','01-07-2020','01-08-2020',
-                '01-09-2020','01-10-2020','01-11-2020','01-12-2020'))
+               ('01-01', '02-01','03-01','04-01','05-01','06-01','07-01','08-01',
+                '09-01','10-01','11-01','12-01'))
     plt.xticks(rotation=60)
     plt.axvline(x=365,linewidth=1, color='k')
     #plt.text(365,50,'2020',rotation=90)
@@ -115,8 +115,8 @@ if(False):
     plt.axvline(x=365,linewidth=1, color='k')
     #plt.text(365,50,'2020',rotation=90)
     plt.xticks([1,32,61,92,122,153,183,214,245,275,306,336], 
-               ('01-01-2020', '01-02-2020','01-03-2020','01-04-2020','01-05-2020','01-06-2020','01-07-2020','01-08-2020',
-                '01-09-2020','01-10-2020','01-11-2020','01-12-2020'))
+               ('01-01', '02-01','03-01','04-01','05-01','06-01','07-01','08-01',
+                '09-01','10-01','11-01','12-01'))
     plt.xticks(rotation=60)
     sns.set_style("ticks")
     sns.despine()
@@ -142,8 +142,7 @@ if(False):
             mag23.append(DayNumer2020(evento))
         if mag> 5.0:
             mag34.append(DayNumer2020(evento))
-            
-            
+    ####
     fig, axs = plt.subplots(2, 2)
     fig.suptitle('Actividad sísmica semanal por magnitud 2020')
     axs[0, 0].hist(mag01, bins=semanas,color='#0504aa',alpha=0.7, rwidth=0.85)
@@ -177,7 +176,7 @@ if(False):
     plt.show()
   
 #Figura 5
-if(True):
+if(False):
     #Histograma con distribución de hora
     plt.figure(3)
     plt.hist(HourD, bins=24,color='#73F914',alpha=0.8, rwidth=1.0,density=False, ec="k")
@@ -198,18 +197,18 @@ if(True):
 #Figura 6
 if(False):
     #Histograma con distribución de sismos
-    plt.figure(1)
-    plt.hist(NumDias, bins=max(NumDias),color='#18D204',alpha=0.7, rwidth=1.0,
+    plt.figure(4)
+    plt.hist(NumDias, bins=max(NumDias),color='#4CF24C',alpha=0.9, rwidth=1.0,
                            cumulative=True)
     #plt.grid(axis='y', color='k', linestyle='-', linewidth=1)
-    plt.xlabel('Día del año')
+    plt.xlabel('Mes-día')
     plt.ylabel('Cantidad de sismos')
     plt.title('Actividad sísmica acumulada 2020')
     plt.xlim(xmin=0,xmax = 365)
     plt.axvline(x=365,linewidth=1, color='k')
     plt.xticks([1,32,61,92,122,153,183,214,245,275,306,336], 
-               ('01-01-2020', '01-02-2020','01-03-2020','01-04-2020','01-05-2020','01-06-2020','01-07-2020','01-08-2020',
-                '01-09-2020','01-10-2020','01-11-2020','01-12-2020'))
+               ('01-01', '02-01','03-01','04-01','05-01','06-01','07-01','08-01',
+                '09-01','10-01','11-01','12-01'))
     plt.xticks(rotation=60)
     #plt.text(365,50,'2020',rotation=90)
     sns.set_style("ticks")
@@ -217,16 +216,94 @@ if(False):
     plt.savefig('Imagenes/2020ActividadA.png', bbox_inches='tight')
     plt.show()
     
-# plt.figure(4)
-# m01, m12, m23, m34 = [],[],[],[]
-# for a,b,c,d in zip(mag01,mag12,mag23,mag34):
-#     m01.append(100*a/(a+b+c+d))
-#     m12.append(100*b/(a+b+c+d))
-#     m23.append(100*c/(a+b+c+d))
-#     m34.append(100*d/(a+b+c+d))
+#Figura 7
+if(False):
+    #Histograma con distribución de sismos por magnitud
+    fig, ax = plt.subplots(figsize= (8,6))
     
-# Y = (m01,m12,m23,m34)    
-# X = list(range(0,max(NumDias)))
-# pal = ["#9b59b6", "#e74c3c", "#34495e", "#2ecc71"]
-# plt.stackplot(X,m01)
-
+    #Listas para almacenar elementos
+    mag02 = []
+    mag23 = []
+    mag34 = []
+    mag45 = []
+    mag56 = []
+    mag69 = []
+    
+    #Clasificacion por rangos
+    for evento, mag in zip(folders,mag):
+        if mag<= 2.0: 
+            mag02.append(DayNumer2020(evento))
+        if mag<= 3.0 and mag>2.0:
+            mag23.append(DayNumer2020(evento))
+        if mag<= 4.0 and mag >3.0:
+            mag34.append(DayNumer2020(evento))
+        if mag<= 5.0 and mag >4.0:
+            mag45.append(DayNumer2020(evento))
+        if mag<= 6.0 and mag >5.0:
+            mag56.append(DayNumer2020(evento))
+        if mag >6.0:
+            mag69.append(DayNumer2020(evento))
+    ##
+    xvals = ['(0, 2.0]','(2.0, 3.0]','(3.0, 4.0]','(4.0, 5.0]','(5.0, 6.0]','(6.0, 7.52] ']
+    yvals = [len(mag02),len(mag23),len(mag34),len(mag45),len(mag56),len(mag69)]
+    # Create labels
+    label = [f"n = {len(mag02)}",f"n = {len(mag23)}",f"n = {len(mag34)}",f"n = {len(mag45)}",f"n = {len(mag56)}",f"n = {len(mag69)}" ]
+    ax.bar( xvals, yvals, width = 0.95 , edgecolor = 'black') 
+    #plt.grid(axis='y', color='k', linestyle='-', linewidth=1)
+    plt.xlabel('Magnitud (Ml)')
+    plt.ylabel('Cantidad de sismos')
+    plt.title('Actividad sísmica 2020')
+    plt.xticks(rotation=30)
+    #Text
+    for i in range(len(label)):
+        plt.text(xvals[i],yvals[i]+5.0, s = label[i], size = 10, style='oblique')
+    #Styles   
+    sns.set_style("ticks")
+    sns.despine()
+    plt.savefig('Imagenes/2020ActividadxM.png', bbox_inches='tight')
+    plt.show()
+    
+#Figura 8
+if(False):
+    #Histograma con distribución de sismos por magnitud
+    fig, ax = plt.subplots(figsize= (8,6))
+    
+    #Listas para almacenar elementos
+    #10, 30, 70, 150, >
+    prof1 = []
+    prof2 = []
+    prof3 = []
+    prof4 = []
+    prof5 = []
+    
+    #Clasificacion por profundidad
+    for evento, prof in zip(folders,prof):
+        if prof<= 10.0: 
+            prof1.append(DayNumer2020(evento))
+        if prof<= 30.0 and prof> 10.0:
+            prof2.append(DayNumer2020(evento))
+        if prof<= 70.0 and prof> 30.0:
+            prof3.append(DayNumer2020(evento))
+        if prof<= 150.0 and prof> 70.0:
+            prof4.append(DayNumer2020(evento))
+        if prof> 150.0:
+            prof5.append(DayNumer2020(evento))
+    ##
+    xvals = ['(0, 10]','(10, 30]','(30, 70]','(70, 150]','(150, 250]']
+    yvals = [len(prof1),len(prof2),len(prof3),len(prof4),len(prof5)]
+    # Create labels
+    label = [f"n = {len(prof1)}",f"n = {len(prof2)}",f"n = {len(prof3)}",f"n = {len(prof4)}",f"n = {len(prof5)}"]
+    ax.bar( xvals, yvals, width = 0.95 , edgecolor = 'black', color = '#1341BA') 
+    #plt.grid(axis='y', color='k', linestyle='-', linewidth=1)
+    plt.xlabel('Profundidad (Km)')
+    plt.ylabel('Cantidad de sismos')
+    plt.title('Actividad sísmica 2020')
+    plt.xticks(rotation=0)
+    #Text
+    for i in range(len(label)):
+        plt.text(xvals[i],yvals[i]+5.0, s = label[i], size = 10, style='oblique')
+    #Styles   
+    sns.set_style("ticks")
+    sns.despine()
+    plt.savefig('Imagenes/2020ActividadxP.png', bbox_inches='tight')
+    plt.show()

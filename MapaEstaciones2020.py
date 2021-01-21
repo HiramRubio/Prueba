@@ -11,17 +11,17 @@ from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
+import numpy as np
 
 wb = load_workbook(filename = 'Data/CoordenadasAcelerómetros.xlsx', data_only =True)
 #Guardamos todos los nombres de hojas
 sheets = wb.sheetnames
-#Variables
-Dep =   ['GUAT','PETEN','IZABA','ZACAP','ESC']
-LatD =  [14.74072, 17.12258, 15.52778, 15.07222, 14.0009]
-LonD =  [-90.51327,-89.89941,-88.7944,-89.53056,-90.88581]
 #Mapa Ciudad
 Ciudad = wb['ETNA2 INSTALADOS CIUDAD']
 Nacional = wb['ETNA2 INSTALADOS DEP']
+#Estaciones Red Metro
+CIUDAD = ['ACRIS''CDBOS','ALUX','CBIL','VILL','SMP','JUAMA','ASEGG','KINAL','NRNJO','SPAYM',
+          'ITC','CEPRO','CAUST','CCONS','SJPIN','BVH' ]
 #Variables 
 Names = []
 Lat = []
@@ -58,8 +58,6 @@ if(True):
             lat_0=15.74, lon_0=-90.15,
             llcrnrlon=x2, llcrnrlat=y2,urcrnrlon=x1, urcrnrlat=y1, epsg=4326)
     
-    
- 
     #Ciclo 2
     for element in Ciudad.iter_rows(min_row=2,max_row = 40,min_col=2,max_col=6,values_only=True):
         if(element[0] != None):
@@ -87,20 +85,27 @@ if(True):
     #Se plotean las estacion
     for lat,lon,name in zip(Lat2,Lon2,Names2):
         x,y = m(lon,lat)
-        plot = ax.plot(x,y,'s',marker='^',color='#458403', markersize=5,markeredgecolor = 'k')
+        plot = ax.plot(x,y,'s',marker='^',color='#458403', markersize=7,markeredgecolor = 'k')
+        #Nombre de estaciones significativas en la ciudad
+        if(False and name in CIUDAD):
+            ax.text(x+0.001,y+0.001,name,fontsize=8,color='#458403',rotation=45,bbox=dict(boxstyle = "square",facecolor = "white"))
         
     #Se plotean las estacion
     for lat,lon,name in zip(Lat,Lon,Names):
         x,y = m(lon,lat)
         plot = ax.plot(x,y,'s',marker='^',color='r', markersize=8,markeredgecolor = 'k')
-        
-    #Nombre de Departamentos
-    """
-    for lat,lon,name in zip(LatD,LonD,Dep):
-        #Plot del nombre de algunas estaciones
-        x,y = m(lon,lat)
-        ax.text(x,y,name,fontsize=8,color='k',rotation=0)
-        """
+        #Nombre de estaciones
+        ax.text(x+0.001,y+0.001,name,fontsize=8,color='r',rotation=45,bbox=dict(boxstyle = "square",facecolor = "white"))
+    
+    if(False):
+        # draw parallels and meridians.
+        parallels = np.arange(-92.,87.,0.2)
+        # Label the meridians and parallels
+        m.drawparallels(parallels,labels=[False,True,True,True])
+        # Draw Meridians and Labels
+        meridians = np.arange(-180.,181.,0.2)
+        m.drawmeridians(meridians,labels=[True,True,False,True])
+
 if(True):
     
     #Zoomed Map

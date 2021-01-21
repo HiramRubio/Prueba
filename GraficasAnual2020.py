@@ -77,7 +77,7 @@ if(False):
     #plt.text(365,50,'2020',rotation=90)
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020Actividad.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020Actividad.png', bbox_inches='tight')
     plt.show()
 
 #Figura 2
@@ -120,7 +120,7 @@ if(False):
     plt.xticks(rotation=60)
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020MagnitudA.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020MagnitudA.png', bbox_inches='tight')
     plt.show()
 
 #Figura 3
@@ -155,7 +155,7 @@ if(False):
     axs[1, 1].set_title("Magnitud >5.0 ("+str(len(mag34))+")")
     sns.set_style("ticks")
     sns.despine()
-    #plt.savefig('Imagenes/2020Magnitud2.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020Magnitud2.png', bbox_inches='tight')
     fig.tight_layout()
 
 #Figura 4
@@ -171,7 +171,7 @@ if(False):
     plt.xlim(xmin=0,xmax = 11)
     plt.locator_params(axis='y', integer=True)
     sns.set_style("ticks")
-    plt.savefig('Imagenes/2020ActividadM.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020ActividadM.png', bbox_inches='tight')
     sns.despine()
     plt.show()
   
@@ -191,7 +191,7 @@ if(False):
     #plt.locator_params(axis='y', integer=True)
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020ActividadPH.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020ActividadPH.png', bbox_inches='tight')
     plt.show()
     
 #Figura 6
@@ -213,7 +213,7 @@ if(False):
     #plt.text(365,50,'2020',rotation=90)
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020ActividadA.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020ActividadA.png', bbox_inches='tight')
     plt.show()
     
 #Figura 7
@@ -260,11 +260,11 @@ if(False):
     #Styles   
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020ActividadxM.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020ActividadxM.png', bbox_inches='tight')
     plt.show()
     
 #Figura 8
-if(False):
+if(True):
     #Histograma con distribución de sismos por magnitud
     fig, ax = plt.subplots(figsize= (8,6))
     
@@ -305,5 +305,5 @@ if(False):
     #Styles   
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/2020ActividadxP.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2020ActividadxP.png', bbox_inches='tight')
     plt.show()

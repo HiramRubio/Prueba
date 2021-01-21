@@ -26,7 +26,7 @@ from matplotlib.collections import PatchCollection
 fig, ax = plt.subplots(figsize=(12,8))
 #Leemos la data de los sismos
 dfs = pd.read_csv('Data/DataAV2.csv')
-Opc = False
+Opc = True
 x1,x2 = max(dfs['lon']),min(dfs['lon'])
 y1,y2 = max(dfs['lat']),min(dfs['lat'])
 y2=y2-0.03
@@ -168,5 +168,5 @@ if(Opc==False): m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207'
 #Titulo
 plt.title("Sismicidad 2020-11-01 a 2020-12-10")
 #Guardar Imagen
-plt.savefig('Imagenes/Enjambre2020-11_AV.png', bbox_inches='tight')
+#plt.savefig('Imagenes/Enjambre2020-11_AV.png', bbox_inches='tight')
 plt.show()

@@ -13,6 +13,8 @@ from datetime import date
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+from mpl_toolkits.basemap import Basemap
+from pointInside import *
 
 #Funcion para generar el número de día del año
 def DayNumer2020(a):
@@ -38,12 +40,14 @@ def GtFormat(a):
     return dia
 
 #Lectura de .csv con la data    
-dfs = pd.read_csv('Data/Data2020.csv')
+dfs = pd.read_csv('Data/Data2019.csv')
 
 #Filtramos folders y magnitud de los eventos
 folders = dfs[' folder']
 mag = dfs[' ml']
 prof = dfs[' prof']
+lat = dfs[' lat']
+lon = dfs[' lon']
 #Plot 1
 NumDias = []
 FechaDias = []
@@ -120,7 +124,7 @@ if(False):
     plt.xticks(rotation=60)
     sns.set_style("ticks")
     sns.despine()
-    plt.savefig('Imagenes/Anual2020/2020MagnitudA.png', bbox_inches='tight')
+    plt.savefig('Imagenes/Anual2020/2019MagnitudA.png', bbox_inches='tight')
     plt.show()
 
 #Figura 3
@@ -167,7 +171,7 @@ if(False):
     plt.xlabel('Mes del año',fontsize=12)
     plt.ylabel('Cantidad de sismos',fontsize=12)
     plt.grid(axis='y', alpha=0.75)
-    plt.title('Actividad sísmica mensual 2020')
+    plt.title('Actividad sísmica mensual 2019')
     plt.xlim(xmin=0,xmax = 11)
     plt.locator_params(axis='y', integer=True)
     sns.set_style("ticks")
@@ -264,7 +268,7 @@ if(False):
     plt.show()
     
 #Figura 8
-if(True):
+if(False):
     #Histograma con distribución de sismos por magnitud
     fig, ax = plt.subplots(figsize= (8,6))
     
@@ -307,3 +311,48 @@ if(True):
     sns.despine()
     plt.savefig('Imagenes/Anual2020/2020ActividadxP.png', bbox_inches='tight')
     plt.show()
+    
+#Imagen 0  
+if(True):
+    #Sismos en Quiche y Alta Verapaz 
+    
+    fig = plt.figure()
+    ax= fig.add_subplot(111)
+    m = Basemap(resolution='c', # c, l, i, h, f or None
+            projection='tmerc', 
+            lat_0=14.6569, lon_0=-90.51,
+            llcrnrlon=-92.5, llcrnrlat=13.6,urcrnrlon=-88.0, urcrnrlat=18.0,epsg=4326)
+    
+    m.drawmapboundary(fill_color='#46bcec')                
+    m.fillcontinents(color='#f2f2f2',lake_color='#46bcec')
+    m.drawmapboundary(zorder = 0)
+    m.drawcoastlines()
+    m.readshapefile('Data/gtm/gtm_admbnda_adm0_ocha_conred_20190207', 'ej0',linewidth=1.0)
+    m.readshapefile('Data/gtm/gtm_admbnda_adm1_ocha_conred_20190207', 'ej1',drawbounds=False)
+    m.readshapefile('Data/gtm/gtm_admbnda_adm2_ocha_conred_20190207', 'ej2',linewidth=1.0)
+    Deps = ['Alta Verapaz','Quiche']
+
+    patches3 = []
+    sismos = 0
+        #Recorremos todas las shapes de ej3, estas son las zonas sismogenicas de GT
+    for info, shape in zip(m.ej1_info, m.ej1):
+        #Hacemos un ciclo para corroborar si un sismo esta en cada zona
+        for j in range(len(Deps)):
+            if info['ADM1_REF'] == Deps[j]:
+                x, y = zip(*shape)
+                ax.plot(x, y, color='k') 
+                for i in range(len(x)):
+                    patches3.append((x[i],y[i]))
+                    #Recorremos todo el listado de sismos
+                for xpo, ypo, name in zip(lon, lat, folders):
+                    if(name >= "2019-11-01" and name <= '2019-12-10'):
+                        testP = (xpo,ypo)
+                        #Si las coordenadas del punto están dentro de la Zona a prueba
+                        #Se entra a este if
+                        if (is_inside_sm(patches3,testP)):
+                            ax.plot(xpo,ypo,'o',color ='k')  
+                            sismos = sismos+1
+    
+    print(f"La cantidad de sismos de la zona en 2020 es: {sismos}")
+      
+            
